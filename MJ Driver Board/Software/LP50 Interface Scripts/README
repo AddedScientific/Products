@@ -5,6 +5,6 @@ Two files need modification.
 LP50\Configuration\config\ParameterConfig.par
 LP50\Configuration\config\preAssembly.cs
 
-Preassembly could likely be replaced but check that there are no excluded inclues.
+Preassembly could likely be replaced but check that there are no excluded includes.
 
 ParameterConfig needs all the X128 subscript parameters moved over.

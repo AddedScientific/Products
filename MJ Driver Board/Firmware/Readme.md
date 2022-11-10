@@ -1,1 +1,0 @@
-This folder contains the supported communication commands of the board.
