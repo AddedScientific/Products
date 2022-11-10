@@ -1,0 +1,98 @@
+
+		<!-- 
+		screen is 1280 x 1024
+		Camera is 640 therefore 640 left
+		
+		
+    <Parameter Name="PrintHead.FiringFrequency[0]" Value="2659" />
+	
+    <Parameter Name="Vision.LedDelay[0]" Value="52" />
+    <Parameter Name="Vision.LedDuration[0]" Value="4.6" />
+    <Parameter Name="Dropview.ContinuousFire[0]" Value="0" />
+		
+    <Parameter Name="Dropview.Sweep.LedDelayStart[0]" Value="10" />
+    <Parameter Name="Dropview.Sweep.LedDelayStep[0]" Value="10" />
+    <Parameter Name="Dropview.Sweep.LedDelayStop[0]" Value="100" />
+    <Parameter Name="Dropview.Sweep.MeasurementInterval[0]" Value="100" />
+	
+    <Parameter Name="PrintHead.State[0]" Value="1" />
+		
+		-->
+
+<UserScreenConfig>
+  <UserItems>	
+  	<UserItem Name='X128.Controls' Type='Tab' Width='480' Height='750' Text='Controls'>
+		<UserItems>	
+			<UserItem Name="-" Type="Parameter" Width="460" Param="PrintHead.FiringFrequency[0]" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Vision.LedDelay[0]" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Vision.LedDuration[0]" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="PrintHead.State[0]" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Recipe.Head" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Recipe.NozzleStart" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Recipe.NozzleEnd" />
+			<UserItem Name="Start/Stop" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\ToggleHead.cs" />
+			<UserItem Name="Update Data" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\UpdateData.cs" />
+			<UserItem Name="Goto Head" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\GotoHead.cs" />		
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Recipe.TuningVoltage" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Recipe.TuningTemperature" />
+			<UserItem Name="-" Type="Parameter" Width="460" Param="Recipe.TuningClock" />
+			</UserItems>	
+	</UserItem>
+  <UserItem Name='X128.Controls' Type='Tab' Width='480' Height='750' Text='Pressure'>
+  
+  </UserItem>
+  <UserItem Name='X128.Controls' Type='Tab' Width='480' Height='750' Text='Head Status 1'>
+		<UserItems>	
+			<UserItem Name="Reset" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Reset.cs" />
+			<UserItem Name="Status" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Status.cs" />		
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.State[0]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.HeadPrintCounts[0]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.Voltage[0]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.SetTemperature[0]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.CurrentTemperature[0]" />
+		</UserItems>
+	
+  </UserItem>
+  <UserItem Name='X128.Controls' Type='Tab' Width='480' Height='750' Text='Head Status 2'>
+		<UserItems>	
+			<UserItem Name="Reset" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Reset.cs" />
+			<UserItem Name="Status" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Status.cs" />		
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.State[1]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.HeadPrintCounts[1]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.Voltage[1]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.SetTemperature[1]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.CurrentTemperature[1]" />
+		</UserItems>
+	
+  </UserItem>
+  <UserItem Name='X128.Controls' Type='Tab' Width='480' Height='750' Text='Head Status 3'>
+		<UserItems>	
+			<UserItem Name="Reset" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Reset.cs" />
+			<UserItem Name="Status" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Status.cs" />		
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.State[2]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.HeadPrintCounts[2]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.Voltage[2]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.SetTemperature[2]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.CurrentTemperature[2]" />
+		</UserItems>
+	
+  </UserItem>
+  <UserItem Name='X128.Controls' Type='Tab' Width='480' Height='750' Text='Head Status 4'>
+		<UserItems>	
+			<UserItem Name="Reset" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Reset.cs" />
+			<UserItem Name="Status" Type="Button" Width="460" Script="C:\LP50\Configuration\scripts\Status.cs" />		
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.State[3]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.HeadPrintCounts[3]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.Voltage[3]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.SetTemperature[3]" />
+			<UserItem Name="-" Type="Parameter" Width="200" Param="Printhead.X128.CurrentTemperature[3]" />
+		</UserItems>
+	
+  </UserItem>
+  
+  <UserItem Name='camera' Type='Camera' CamName='Dropview' Width='640' Height='480' Param='Vision.DVOverlay'/>
+  <UserItem Name="Jog" Type="Jog"/>
+	
+
+  </UserItems>
+</UserScreenConfig>

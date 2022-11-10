@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterDefintion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Parameters>
+	<Parameter Name="Position.HeadAssy.Offset" Type="Position" Unit="" Description="$(ASSY_Offset)" Helpfile="ASSY-Offset.htm" Default="X=0,Y=0,Z=0,P=0" PossibleValues="" Min="" Max="" SmallStep="" LargeStep="" Writable="Operator" Visible="Operator" />
+    <Parameter Name="PrintHead.Type[0]" Type="Number" Default="50"/>
+	<Parameter Name="HeadAssy.Serial"   Type="Text"  Unit="" Default="-"  Description="$(ASSY_serial)"   Writable="Administrator" Visible="Operator"/>
+    <Parameter Name="HeadAssy.Description"   Type="Text"  Unit="" Default="Xaar 128"  Description="$(ASSY_description)"   Writable="Operator" Visible="Operator"/>
+    <Parameter Name="HeadAssy.Picture"   Type="Text"  Unit="" Default="Xaar_128.png"  Description="$(ASSY_headpicture)"  Writable="Internal" Visible="Internal"/>
+    <Parameter Name="Position.Capping" />
+    <Parameter Name="Position.CappingWait" />
+    <Parameter Name="Position.WipingBW" />
+    <Parameter Name="Position.WipingFW" />
+    <Parameter Name="HeadAssy.COMPORT" Description="COMPORT"/>
+    <Parameter Name="HeadAssy.DesiredNPI" Type="Number" Description="NPI Wanted"/>
+	<Parameter Name="PrintHead.ImgMask#4" Type="Text" Default=""   Description="Image # used in slot [1-4]"/>
+ 	<Parameter Name="PrintHead.PHClock" Type="Number" Default="100"   Min="50.0" Max="150.0"  Unit="%"    Description="Printclock scaler set (100%)"/>
+	<Parameter Name="PrintHead.PHVoltage#4" Type="Number" Default="35" Min="10.0" Max="35.0"  Unit="V"  Description="Voltage set 35V"/>
+ 	<Parameter Name="PrintHead.PHTemperature#4" Type="Number" Min="20.0" Max="70.0"  Unit="°C"  Default="20"   Description="Temperature set"/>
+ </Parameters>
+</ParameterDefintion>

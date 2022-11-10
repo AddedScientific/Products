@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RecipeFlow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RecipeScript>shutdown.cs</RecipeScript>
+  <UserScreen>Xaar128Status.screen.xml</UserScreen>
+  <Parameters>
+  </Parameters>
+</RecipeFlow>

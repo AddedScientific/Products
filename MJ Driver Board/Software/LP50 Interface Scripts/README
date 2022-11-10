@@ -1,0 +1,10 @@
+Copy and paste the folders so that they intersect with LP50.
+
+Two files need modification.
+
+LP50\Configuration\config\ParameterConfig.par
+LP50\Configuration\config\preAssembly.cs
+
+Preassembly could likely be replaced but check that there are no excluded inclues.
+
+ParameterConfig needs all the X128 subscript parameters moved over.
