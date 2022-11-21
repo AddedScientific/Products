@@ -95,7 +95,7 @@ def sendImage(headIdx, imageToSend, whiteSpace):
 
 
 #open the image to be sent, must be 128 pixels tall
-im = Image.open('Xaar128 test image.bmp', 'r')
+im = Image.open('Test image.bmp', 'r')
 
 #open comport for driver board
 comport = "COM4"
