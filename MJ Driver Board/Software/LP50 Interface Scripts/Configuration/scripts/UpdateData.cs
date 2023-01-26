@@ -28,7 +28,17 @@ public void Execute()
 	}
 
 	//nSelected Head [1-4], Nozzle [1-128], Span [1-128]
-    port.Open();
+    //port.Open();
+	
+	bool success = false;
+	while(!success){
+                try {
+                    port.Open ();
+                    success = true;
+                } catch (Exception otherProblem) {
+                    Logger.Log ("Other exception: " + otherProblem);
+                }
+	}
     string messageToSend = "N " + selectedHead.ToString() + " " + startNozzle.ToString() + " " + nozzleRange.ToString();
     messageToSend += "\r\n";
     port.Write(messageToSend);

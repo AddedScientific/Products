@@ -211,7 +211,7 @@ public void Execute()
                           + " Z = " + z_printheight.ToString()));
         
         Motion.MoveTo(startpos);
-	    Script.Run(Helper.GetScriptDir() + "\\Status.cs");
+	    Script.Run(Helper.GetScriptDir() + "Status.cs");
 		bool dataSent = false; //to identify if data is sent
 		int maxCounts = 3; // allowed maximum sends
 
@@ -273,8 +273,7 @@ public void Execute()
         }
         //if elements left repeat
         pass_count++;
-	    string root_dir = Parameters.GetValue("Printhead.X128.ScriptFolder");
-	    Script.Run(root_dir + "\\Status.cs");
+	    Script.Run(Helper.GetScriptDir() + "Status.cs");
     }
 
     //Finished printing
@@ -802,7 +801,7 @@ for(int index = 0; index < 4; index ++)
 
 private bool checkTemperature(){
 	string root_dir = Parameters.GetValue("Printhead.X128.ScriptFolder");
-	Script.Run(Helper.GetScriptDir() + "\\Status.cs");
+	Script.Run(Helper.GetScriptDir() + "Status.cs");
 	for(int index = 0; index < 4; index ++){
 		//SetTemperature
 		//CurrentTemperature

@@ -18,8 +18,15 @@ public void Execute()
 
     string serial_port = Parameters.GetValue("HeadAssy.COMPORT");
     SerialPort port = new SerialPort(serial_port, 1000000);
-
-    port.Open();
+	bool success = false;
+	while(!success){
+                try {
+                    port.Open ();
+                    success = true;
+                } catch (Exception otherProblem) {
+                    Logger.Log ("Other exception: " + otherProblem);
+                }
+	}
     string messageToSend = "r";
     messageToSend += "\r\n";
     port.Write(messageToSend);

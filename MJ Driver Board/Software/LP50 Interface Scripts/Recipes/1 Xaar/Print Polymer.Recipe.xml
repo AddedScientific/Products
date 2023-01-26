@@ -6,22 +6,22 @@
     <Parameter Name="Alignment.Activated[0]" Value="0" />
     <Parameter Name="Alignment.SettingsFile[0]" Value="%FilePath%\..\3 Alignment\..\..\Configuration\3 Alignment\" />
     <Parameter Name="General.HeadAssemblyFile[0]" Value="..\HeadAssy\01 Custom Head\Dual Front.HeadAssy.xml" />
-    <Parameter Name="Motion.PrintSpeed[0]" Value="200" />
-    <Parameter Name="Motion.RunInLength[0]" Value="20" />
-    <Parameter Name="Motion.RunOutLength[0]" Value="170" />
-    <Parameter Name="Recipe.Bitmap[0]" Value="%FilePath%\..\..\SampleBitmaps\build_PU1.png" />
-    <Parameter Name="Recipe.Bitmap[1]" Value="%FilePath%\..\..\SampleBitmaps\supp_PU1.png" />
-    <Parameter Name="Recipe.Bitmap[2]" Value="%FilePath%\..\..\SampleBitmaps\c 600.png" />
-    <Parameter Name="Recipe.Bitmap[3]" Value="%FilePath%\..\..\SampleBitmaps\d 600.png" />
+    <Parameter Name="Motion.PrintSpeed[0]" Value="200.000" />
+    <Parameter Name="Motion.RunInLength[0]" Value="15" />
+    <Parameter Name="Motion.RunOutLength[0]" Value="15" />
+    <Parameter Name="Recipe.Bitmap[0]" Value="%FilePath%\..\..\SampleBitmaps\PixDro Creo Target POS.png" />
+    <Parameter Name="Recipe.Bitmap[1]" Value="%FilePath%\..\..\SampleBitmaps\DMC_Signature.bmp" />
+    <Parameter Name="Recipe.Bitmap[2]" Value="%FilePath%\..\..\SampleBitmaps\DMC_Signature.bmp" />
+    <Parameter Name="Recipe.Bitmap[3]" Value="%FilePath%\..\..\SampleBitmaps\DMC_Signature.bmp" />
     <Parameter Name="Recipe.Direction[0]" Value="1" />
     <Parameter Name="Recipe.DoMaintenance[0]" Value="0" />
     <Parameter Name="Recipe.GenerateData[0]" Value="1" />
     <Parameter Name="Recipe.HeadAssy[0]" Value="%FilePath%\..\..\HeadAssy\01 Custom Head\Dual Front.HeadAssy.xml" />
-    <Parameter Name="Recipe.IgnoreRecipeSize[0]" Value="1" />
-    <Parameter Name="Recipe.ImageHeight[0]" Value="46.4" />
-    <Parameter Name="Recipe.ImageWidth[0]" Value="17.574" />
+    <Parameter Name="Recipe.IgnoreRecipeSize[0]" Value="0" />
+    <Parameter Name="Recipe.ImageHeight[0]" Value="100" />
+    <Parameter Name="Recipe.ImageWidth[0]" Value="100" />
     <Parameter Name="Recipe.Layer[0]" Value="0" />
-    <Parameter Name="Recipe.Layers[0]" Value="20" />
+    <Parameter Name="Recipe.Layers[0]" Value="1" />
     <Parameter Name="Recipe.Mask[0]" Value="QF1" />
     <Parameter Name="Recipe.PrintAngle[0]" Value="90" />
     <Parameter Name="Recipe.PrintFrequency[0]" Value="3500" />

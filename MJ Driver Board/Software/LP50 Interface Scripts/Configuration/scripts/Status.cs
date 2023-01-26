@@ -18,22 +18,20 @@ public void Execute()
 
     string serial_port = Parameters.GetValue("HeadAssy.COMPORT");
     SerialPort port = new SerialPort(serial_port, 1000000);
-	bool success = false;
-try
-{
-port.Open();
-success = true;
-}
-catch( Exception otherProblem)
-{
-Logger.Log("Other exception");
-}
 
-if(success){
+    Logger.Log ("Getting status");
+	bool success = false;
+                try {
+                    port.Open ();
+                    success = true;
+                } catch (Exception otherProblem) {
+                    Logger.Log ("Other exception: " + otherProblem);
+                }
+	if(success){
     string messageToSend = "B";
     messageToSend += "\r\n";
     port.Write(messageToSend);
-    Logger.Log(messageToSend);
+    //Logger.Log (messageToSend);
     Thread.Sleep(50);
     //Check for any data on the port
     string s = port.ReadExisting();
@@ -46,7 +44,7 @@ if(success){
         break;
     }
     }
-    Logger.Log("RX " + s);
+    //Logger.Log ("RX " + s);
     port.Close();
 	
 	
@@ -54,7 +52,7 @@ if(success){
     messageToSend = "b";
     messageToSend += "\r\n";
     port.Write(messageToSend);
-    Logger.Log(messageToSend);
+    //Logger.Log (messageToSend);
     Thread.Sleep(50);
     //Check for any data on the port
     s = port.ReadExisting();
@@ -67,7 +65,7 @@ if(success){
         break;
     }
     }
-    Logger.Log("RX " + s);
+    //Logger.Log ("RX " + s);
     port.Close();
 	
 	s = s.Replace("{", "\n");
@@ -104,7 +102,7 @@ if(success){
 	*/
 	
 	foreach( string line in lines){
-		//Logger.Log(line);
+		////Logger.Log (line);
 		for(int headIndex = 1; headIndex < 5; headIndex++){
 			int foundIndex = line.IndexOf("head: " + headIndex.ToString());
 				if(foundIndex == 0){
@@ -114,31 +112,31 @@ if(success){
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.Voltage[" + (headIndex-1).ToString() + "]", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}
 						toFind = " curTemperature:";
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.CurrentTemperature[" + (headIndex-1).ToString() + "]", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}
 						toFind = " setTemperature:";
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.SetTemperature[" + (headIndex-1).ToString() + "]", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}
 						toFind = " printCounts:";
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.HeadPrintCounts[" + (headIndex-1).ToString() + "]", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}
 						toFind = " status:";
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.State[" + (headIndex-1).ToString() + "]", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}
 						
 						
@@ -153,7 +151,7 @@ if(success){
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.ImageData[" + (headIndex-1).ToString() + "]", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}						
 						
 					}
@@ -167,7 +165,7 @@ if(success){
 						if(el.IndexOf(toFind) ==0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.Encoder", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}						
 						
 					}
@@ -181,13 +179,13 @@ if(success){
 						if(el.IndexOf(toFind) >=0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.Power", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}
 						toFind = " timeOn:";
 						if(el.IndexOf(toFind) >=0){
 							double res = double.Parse(el.Substring(toFind.Length));
 							Parameters.SetValue("Printhead.X128.OnTime", res);
-							//Logger.Log(res.ToString());
+							////Logger.Log (res.ToString());
 						}		
 						
 					}
