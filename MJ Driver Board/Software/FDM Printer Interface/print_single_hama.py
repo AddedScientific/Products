@@ -6,6 +6,29 @@ import random
 import time
 import sys
 
+ 
+def command_lamp(cmnd):
+    cmnd = cmnd + "\r"
+    print("Command: " + cmnd)
+    ser_uvlamp.write((cmnd).encode())
+    time.sleep(0.25)
+    retrun="Reply: "
+    while ser_uvlamp.in_waiting:
+        retrun = retrun + ser_uvlamp.read().decode("utf-8")
+    print(retrun)
+
+def lamp_on():
+    command_lamp("CNTQ") #sets to commands
+    command_lamp("ON1")
+
+def lamp_off():
+    command_lamp("CNTQ") #sets to commands
+    command_lamp("OFF1")
+
+def lamp_power(power):
+    commandString = "CURE1," + f"{power:03}" + ",01,001,01,001,01"
+    command_lamp(commandString)
+
 
 def sendImage(headIdx, imageToSend, whiteSpace):
     #this function sends image to a already connected board and has the option to pad white space (useful for ph alignment)
@@ -167,8 +190,16 @@ def setStartPoint(loc):
     
 
 
-ser_printer = serial.Serial("COM13", 115200)
-ser_board = serial.Serial("COM12", 1000000)
+ser_printer = serial.Serial("COM7", 115200)
+ser_board = serial.Serial("COM5", 1000000)
+ser_uvlamp = serial.Serial( port     = "COM6",
+                            baudrate = 9600,
+                            parity   = serial.PARITY_NONE,
+                            stopbits = serial.STOPBITS_ONE,
+                            bytesize = serial.EIGHTBITS)
+
+
+
 print("Serials connected")
 
 printer_command("G28 0") #homes all untrusted axis
@@ -180,6 +211,10 @@ print("Machine homed and ready")
 board_command("O") #turn board on
 board_command("C")
 print("Board on")
+
+#power of lamp to 50
+lamp_power(50)
+lamp_off()
 
 PrintSpeed = 100 ##100mm/s is 3khz
 pSpacing = 722 #dpi
@@ -193,7 +228,7 @@ Ystart = 80
 Yend = 250
 Zindex = 0.018
 Zcurr = 3.5
-total_layers = 0
+total_layers = 5
 PrintSpeed = PrintSpeed * 60 #set to mm/min
 
 root = "\\Python Ender S1"
@@ -223,9 +258,12 @@ for layers in range(total_layers):
     setStartPoint(8*30/0.1)
     #board_sendData(layers)
 
+
+    lamp_on()
     printer_command("G1 X %f Y %f Z %f F%d"%(Xlocation,Yend,Zcurr,PrintSpeed))
     printer_clear_buffer() #clear serial buffer
     printer_command("M400") #wait for "OK"
+    lamp_off()
 
     Zcurr += Zindex
     printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Ystart,Zcurr))
