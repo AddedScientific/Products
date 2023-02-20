@@ -186,10 +186,10 @@ pSpacing = 25.4/722 #to mm
 pFrequency = PrintSpeed / pSpacing #300 mm/s divide by drop spacing is Hz
 secondHeadOffset = int(30 / pSpacing) #mount designed with 30 mm space
 board_command("p %d"%pFrequency) #set printing frequency, internal clock used
-
+#board_command("D 0")
 Xlocation = 125
-Ystart = 20
-Yend = 220
+Ystart = 80
+Yend = 250
 Zindex = 0.018
 Zcurr = 3.5
 total_layers = 1
@@ -199,14 +199,12 @@ root = "\\Python Ender S1"
 
 #images were generated from an stl file, then the support material was inverted using irfanview
 fname1 = "mono_logo.bmp"
-fname2 = "mono_logo.bmp"
 
-printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Yend,Zcurr))
+printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Ystart,Zcurr))
 printer_command("M400") #wait for move complete
 time.sleep(2)
 
 board_command("T 1 50") #set temps - this doesnt wait so head heating time should be allowed
-board_command("T 2 60")
     
 for layers in range(total_layers):
     
@@ -214,24 +212,25 @@ for layers in range(total_layers):
     print("Layer %d of %d"%(layers+1, total_layers))
     print("Height %f"%(Zcurr))
     check_board()
-    im1 = Image.open(fname1%layers, 'r')
-    im2 = Image.open(fname2%layers, 'r')
+    im1 = Image.open(fname1, 'r')
     sendImage(1, im1, 0)
-    sendImage(2, im2, secondHeadOffset)
-    setStartPoint(3600)
-    board_sendData(layers)
+    setStartPoint(8*30/0.1)
+    #board_sendData(layers)
 
-    printer_command("G1 X %f Y %f Z %f F%d"%(Xlocation,Ystart,Zcurr,PrintSpeed))
+    printer_command("G1 X %f Y %f Z %f F%d"%(Xlocation,Yend,Zcurr,PrintSpeed))
     printer_clear_buffer() #clear serial buffer
     printer_command("M400") #wait for "OK"
 
     Zcurr += Zindex
-    printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Yend,Zcurr))
+    printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Ystart,Zcurr))
     printer_clear_buffer()
     printer_command("M400")
 
 
-printer_command("G1 X 2 Y 222 F18000") #move to park
-
-board_command("F") #turn off board
+printer_command("G1 X 2 Y 20 F18000") #move to park
+board_command("b")
+board_command("B")
+ser_printer.close()
+ser_board.close()
+#board_command("F") #turn off board
 
