@@ -725,20 +725,30 @@ namespace DriverBoardDropwatcher
             }
         }
 
-        private void FillHeadsButton_Click(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                driver_board.Write($"I {(activeSingleHead + 1).ToString()}");
-            }
-        }
-
         private void ClearHeadsButton_Click(object sender, EventArgs e)
         {
             if (isConnected.Checked)
             {
                 driver_board.Write("C");
             }
+        }
+
+        private void FillCycleA_Click(object sender, EventArgs e)
+        {
+            //if (isConnected.Checked)
+            //{
+            //    driver_board.Write($"I {(activeSingleHead + 1).ToString()}");
+            //}
+        }
+
+        private void FillCycleB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FillCycleC_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
