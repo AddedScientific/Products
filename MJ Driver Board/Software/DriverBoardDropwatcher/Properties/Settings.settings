@@ -23,5 +23,17 @@
     <Setting Name="Gap" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="ImageMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">--Select Mode--</Value>
+    </Setting>
+    <Setting Name="pdPolarity" Type="System.String" Scope="User">
+      <Value Profile="(Default)">--Select Position--</Value>
+    </Setting>
+    <Setting Name="Encoder_TrackedPosition" Type="System.String" Scope="User">
+      <Value Profile="(Default)">--Select Position--</Value>
+    </Setting>
+    <Setting Name="pd_direction" Type="System.String" Scope="User">
+      <Value Profile="(Default)">--Select Position--</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

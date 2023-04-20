@@ -52,6 +52,9 @@ namespace DriverBoardDropwatcher
         int currentTemperatureHead2;
         int currentTemperatureHead3;
         int currentTemperatureHead4;
+        int activePD_Polarity;
+        int activeEncoderPosition;
+        int activePDdirection;
         bool goLeft;
         bool goRight;
         byte[] A_Bits = { 0b10010010, 0b01001001, 0b00100100 };
@@ -824,19 +827,37 @@ namespace DriverBoardDropwatcher
             if ((activeImageMode == 0) && (isConnected.Checked))
             {
                 driver_board.Write("M3");
-                Console.WriteLine("Steper Motor Mode");
+                Console.WriteLine("Stepper Motor Mode");
+                polarityLabel.Visible = false;
+                PD_Polarity.Visible = false;
+                EncoderTrackedPositionSelection.Visible = true;
+                EncoderPositionLabel.Visible = true;
+                pdDirection.Visible = false;
+                pdDirectionLabel.Visible = false;
             }
 
             else if ((activeImageMode == 1) && (isConnected.Checked))
             {
                 driver_board.Write("M4");
                 Console.WriteLine("Quadrature Encoder Mode");
+                polarityLabel.Visible = false;
+                PD_Polarity.Visible = false;
+                EncoderTrackedPositionSelection.Visible = false;
+                EncoderPositionLabel.Visible = false;
+                pdDirection.Visible = false;
+                pdDirectionLabel.Visible = false;
             }
 
             else if ((activeImageMode == 2) && (isConnected.Checked))
             {
                 driver_board.Write("M5");
                 Console.WriteLine("HW PD Mode");
+                polarityLabel.Visible = true;
+                PD_Polarity.Visible = true;
+                EncoderTrackedPositionSelection.Visible = false;
+                EncoderPositionLabel.Visible = false;
+                pdDirection.Visible = true;
+                pdDirectionLabel.Visible = true;
             }
         }
 
@@ -921,6 +942,10 @@ namespace DriverBoardDropwatcher
             NozzleValue.Value = Properties.Settings.Default.Index;
             SpanValue.Value = Properties.Settings.Default.Span;
             GapValue.Value = Properties.Settings.Default.Gap;
+            ImageModeSelection.SelectedItem = Properties.Settings.Default.ImageMode;
+            PD_Polarity.SelectedItem = Properties.Settings.Default.pdPolarity;
+            EncoderTrackedPositionSelection.SelectedItem = Properties.Settings.Default.Encoder_TrackedPosition;
+            pdDirection.SelectedItem = Properties.Settings.Default.pd_direction;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -933,9 +958,12 @@ namespace DriverBoardDropwatcher
             Properties.Settings.Default.Index = (int)NozzleValue.Value;
             Properties.Settings.Default.Span = (int)SpanValue.Value;
             Properties.Settings.Default.Gap = (int)GapValue.Value;
+            Properties.Settings.Default.ImageMode = ImageModeSelection.SelectedItem.ToString();
+            Properties.Settings.Default.pdPolarity = PD_Polarity.SelectedItem.ToString();
+            Properties.Settings.Default.Encoder_TrackedPosition = EncoderTrackedPositionSelection.SelectedItem.ToString();
+            Properties.Settings.Default.pd_direction = pdDirection.SelectedItem.ToString();
             Properties.Settings.Default.Save();
         }
-
 
         private void tabPage6_DoubleClick(object sender, EventArgs e)
         {
@@ -957,6 +985,71 @@ namespace DriverBoardDropwatcher
                 goRight = true;
                 goLeft = false;
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (isConnected.Checked)
+            {
+                Console.WriteLine("Write Print Head Data");
+                driver_board.Write("W");
+            }
+        }
+
+        private void PD_Polarity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            activePD_Polarity = PD_Polarity.SelectedIndex; 
+            if ((activePD_Polarity == 0) && (isConnected.Checked))
+            {
+                driver_board.Write("q1");
+                Console.WriteLine("Product Detect Polarity Changed to Active HIGH!");
+            }
+
+            else if ((activePD_Polarity == 1) && (isConnected.Checked))
+            {
+                driver_board.Write("q2");
+                Console.WriteLine("Product Detect Polarity Changed to Active LOW!");
+            }
+        }
+
+        private void EncoderTrackedPositionSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            activeEncoderPosition = EncoderTrackedPositionSelection.SelectedIndex; 
+            if ((activeEncoderPosition == 0) && (isConnected.Checked))
+            {
+                driver_board.Write("D1");
+                Console.WriteLine("Stepper Normal");
+            }
+
+            else if ((activeEncoderPosition == 1) && (isConnected.Checked))
+            {
+                driver_board.Write("D0");
+                Console.WriteLine("Stepper Reverse");
+            }
+        }
+
+        private void pdDirection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            activePDdirection = pdDirection.SelectedIndex; 
+            if ((activePDdirection == 0) && (isConnected.Checked))
+            {
+                driver_board.Write("K1");
+                Console.WriteLine("Continuous Mode");
+            }
+
+            else if ((activePDdirection == 1) && (isConnected.Checked))
+            {
+                driver_board.Write("K0");
+                Console.WriteLine("Single Mode");
+            }
+        }
+
+        private void CurrentDataReportButton_Click(object sender, EventArgs e)
+        {
+            driver_board.Write($"A {(0 + 1).ToString()}");
+            driver_board.Write($"A {(1 + 1).ToString()}");
+            driver_board.Write($"A {(2 + 1).ToString()}");
+            driver_board.Write($"A {(3 + 1).ToString()}");
         }
     }
 }

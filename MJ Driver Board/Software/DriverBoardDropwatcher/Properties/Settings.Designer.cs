@@ -106,5 +106,53 @@ namespace DriverBoardDropwatcher.Properties {
                 this["Gap"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("--Select Mode--")]
+        public string ImageMode {
+            get {
+                return ((string)(this["ImageMode"]));
+            }
+            set {
+                this["ImageMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("--Select Position--")]
+        public string pdPolarity {
+            get {
+                return ((string)(this["pdPolarity"]));
+            }
+            set {
+                this["pdPolarity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("--Select Position--")]
+        public string Encoder_TrackedPosition {
+            get {
+                return ((string)(this["Encoder_TrackedPosition"]));
+            }
+            set {
+                this["Encoder_TrackedPosition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("--Select Position--")]
+        public string pd_direction {
+            get {
+                return ((string)(this["pd_direction"]));
+            }
+            set {
+                this["pd_direction"] = value;
+            }
+        }
     }
 }
