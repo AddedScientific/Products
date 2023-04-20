@@ -12,11 +12,15 @@ using System.IO.Ports;
 using System.Threading;
 using Newtonsoft.Json.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.InteropServices;
+using System.Collections;
+using System.Drawing.Imaging;
 
 namespace DriverBoardDropwatcher
 {
     public partial class Form1 : Form
     {
+        private PictureBox GrayScaleImage1;
         private OpenFileDialog ofd;
         bool valid_port_selected = false;
         string port_name;
@@ -25,13 +29,14 @@ namespace DriverBoardDropwatcher
         private Thread trd;
         int activeDropWatch = 0;
         int activeSingleHead;
-        int activeNozzleValue;
-        int activeSpanValue;
+        int activeNozzleValue = 1;
+        int activeSpanValue = 1;
         int activeImageMode;
         int headStatus1;
         int headStatus2;
         int headStatus3;
         int headStatus4;
+        int Gap_Value = 0;
         int printCount1 = 0;
         int printCount2 = 0;
         int printCount3 = 0;
@@ -42,12 +47,18 @@ namespace DriverBoardDropwatcher
         int previousPrintCount4 = 0;
         int actFreq;
         int timeBoardOn = -1;
-        bool printing;
+        byte[] A_Bits = { 0b10010010, 0b01001001, 0b00100100 };
+        byte B_Bits1 = 0b01001001;
+        byte B_Bits2 = 0b00100100;
+        byte B_Bits3 = 0b10010010;
+        byte C_Bits1 = 0b00100100;
+        byte C_Bits2 = 0b10010010;
+        byte C_Bits3 = 0b01001001;
+        byte[] A_BitsArray;
 
         public Form1()
         {
             InitializeComponent();
-            InitializeUI("UIMode"); 
             dropWatchSelect.Text = "--Select Mode--"; // Placeholder Text
             serialPort.Text = "Select COM Port"; // Placeholder Text
             singleHead.Text = "--Select Head--"; // Placeholder Text
@@ -59,6 +70,7 @@ namespace DriverBoardDropwatcher
             Control.CheckForIllegalCrossThreadCalls = false;
             textBox2.Text = "Disconnected"; //Displays Disconnected in Status Box
             ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.jpg; *.jpeg; *.bmp); *.png|*.jpg; *.jpeg; *.bmp; *.png";
         }
         private void ThreadTask()
         {
@@ -74,9 +86,40 @@ namespace DriverBoardDropwatcher
             }
         }
 
-        private void InitializeUI(string v)
+        public static Bitmap MakeGrayscale3(Bitmap original)
         {
-           
+            //create a blank bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            //get a graphics object from the new image
+            using (Graphics g = Graphics.FromImage(newBitmap))
+            {
+
+                //create the grayscale ColorMatrix
+                ColorMatrix colorMatrix = new ColorMatrix(
+                   new float[][]
+                   {
+             new float[] {.299f, .299f, .299f, 0, 0},
+             new float[] {.587f, .587f, .587f, 0, 0},
+             new float[] {.114f, .114f, .114f, 0, 0},
+             new float[] {0, 0, 0, 1, 0},
+             new float[] {0, 0, 0, 0, 1}
+                   });
+
+                //create some image attributes
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+
+                    //set the color matrix attribute
+                    attributes.SetColorMatrix(colorMatrix);
+
+                    //draw the original image on the new image
+                    //using the grayscale color matrix
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+            return newBitmap;
         }
 
         private void serialPort_DropDown(object sender, EventArgs e)
@@ -147,7 +190,6 @@ namespace DriverBoardDropwatcher
             while (driver_board.BytesToRead > 0)
             {
                 string input = driver_board.ReadExisting();
-                //Console.WriteLine(input);
                 if (input.Substring(0, 1) == "{")
                 {
                     parseJsonData(input);
@@ -318,7 +360,6 @@ namespace DriverBoardDropwatcher
                         Head1TextStatus.BackColor = Color.Green;
                         break;
                 }
-
             }
 
             // If Board is Powered Off, then all heads displays Powered Off and Hides all Settings
@@ -617,11 +658,14 @@ namespace DriverBoardDropwatcher
             // Opens File Dialog and Replaces Current Image with New Image
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                this.pictureBox1.Image = Image.FromFile(ofd.FileName);
+                Bitmap Picture1 = (Bitmap) new Bitmap(ofd.FileName);
+                //GrayScaleImage1.Image = new Bitmap(ofd.FileName);
+                pictureBox1.Image = MakeGrayscale3(Picture1);
                 FileName1.Text = ofd.SafeFileName;
                 ImageSizeText1.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
-
-                // If File Size has a width of more tha
+                //pictureBox1.Size.Height = (Image.FromFile(ofd.FileName).Height);
+                
+                // If File Size has a width of more that
                 if ((Image.FromFile(ofd.FileName).Width) > 128)
                 {
                     MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
@@ -634,7 +678,7 @@ namespace DriverBoardDropwatcher
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                this.pictureBox2.Image = Image.FromFile(ofd.FileName);
+                pictureBox2.Image = new Bitmap(ofd.FileName);
                 FileName2.Text = ofd.SafeFileName;
                 ImageSizeText2.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
@@ -650,7 +694,7 @@ namespace DriverBoardDropwatcher
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                this.pictureBox3.Image = Image.FromFile(ofd.FileName);
+                pictureBox3.Image = new Bitmap(ofd.FileName);
                 FileName3.Text = ofd.SafeFileName;
                 ImageSizeText3.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
@@ -667,7 +711,7 @@ namespace DriverBoardDropwatcher
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                this.pictureBox4.Image = Image.FromFile(ofd.FileName);
+                pictureBox4.Image = new Bitmap(ofd.FileName);
                 FileName4.Text = ofd.SafeFileName;
                 ImageSizeText4.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
@@ -681,11 +725,25 @@ namespace DriverBoardDropwatcher
         private void NozzleValue_ValueChanged(object sender, EventArgs e)
         {
             activeNozzleValue = (int)NozzleValue.Value;
+            if ((activeSpanValue + activeNozzleValue) > 128)
+            {
+                activeNozzleValue = 128 - activeSpanValue;
+                MessageBox.Show("Maximum value of 128 Exceeded!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                NozzleValue.Value = activeNozzleValue;
+            }
         }
 
         private void SpanValue_ValueChanged(object sender, EventArgs e)
         {
             activeSpanValue = (int)SpanValue.Value;
+            if ((activeSpanValue + activeNozzleValue) > 128)
+            {
+                activeSpanValue = 128 - activeNozzleValue;
+                MessageBox.Show("Maximum value of 128 Exceeded!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SpanValue.Value = activeSpanValue;
+            }
         }
 
         private void FillSingleNozzleButton_Click(object sender, EventArgs e)
@@ -735,10 +793,22 @@ namespace DriverBoardDropwatcher
 
         private void FillCycleA_Click(object sender, EventArgs e)
         {
-            //if (isConnected.Checked)
-            //{
-            //    driver_board.Write($"I {(activeSingleHead + 1).ToString()}");
-            //}
+            if (isConnected.Checked)
+            {
+                A_BitsArray = new byte[18];
+
+                A_BitsArray[0] = (byte)('s');
+                A_BitsArray[1] = (byte)(activeSingleHead);
+
+                for (int index = 2; index < 18; index++)
+                {
+                    A_BitsArray[index] = A_Bits[(index + 1) % 3];
+                }
+
+
+                driver_board.Write(A_BitsArray, 0, 18);
+
+            }
         }
 
         private void FillCycleB_Click(object sender, EventArgs e)
@@ -747,6 +817,16 @@ namespace DriverBoardDropwatcher
         }
 
         private void FillCycleC_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GapValue_ValueChanged(object sender, EventArgs e)
+        {
+            Gap_Value = (int)GapValue.Value;
+        }
+
+        private void FillGapButton_Click(object sender, EventArgs e)
         {
 
         }
