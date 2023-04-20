@@ -30,7 +30,6 @@ namespace DriverBoardDropwatcher
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.serialPort = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.isConnected = new System.Windows.Forms.CheckBox();
             this.powerOnOff = new System.Windows.Forms.Button();
@@ -56,6 +55,7 @@ namespace DriverBoardDropwatcher
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.fillHead = new System.Windows.Forms.Button();
             this.GapValue = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.FillGapButton = new System.Windows.Forms.Button();
@@ -108,7 +108,6 @@ namespace DriverBoardDropwatcher
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.frequency = new System.Windows.Forms.NumericUpDown();
             this.reset = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Head4TextStatus = new System.Windows.Forms.TextBox();
@@ -129,6 +128,8 @@ namespace DriverBoardDropwatcher
             this.frequencyLabel = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.frequency = new System.Windows.Forms.NumericUpDown();
+            this.serialPort = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.temperature1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voltage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.temperature2)).BeginInit();
@@ -148,20 +149,9 @@ namespace DriverBoardDropwatcher
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.frequency)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.frequency)).BeginInit();
             this.SuspendLayout();
-            // 
-            // serialPort
-            // 
-            this.serialPort.FormattingEnabled = true;
-            this.serialPort.Location = new System.Drawing.Point(20, 12);
-            this.serialPort.Margin = new System.Windows.Forms.Padding(2);
-            this.serialPort.Name = "serialPort";
-            this.serialPort.Size = new System.Drawing.Size(198, 28);
-            this.serialPort.TabIndex = 0;
-            this.serialPort.DropDown += new System.EventHandler(this.serialPort_DropDown);
-            this.serialPort.SelectedIndexChanged += new System.EventHandler(this.serialPort_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -221,17 +211,17 @@ namespace DriverBoardDropwatcher
             // Head1TextStatus
             // 
             this.Head1TextStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Head1TextStatus.Location = new System.Drawing.Point(70, 71);
+            this.Head1TextStatus.Location = new System.Drawing.Point(82, 71);
             this.Head1TextStatus.Margin = new System.Windows.Forms.Padding(2);
             this.Head1TextStatus.Name = "Head1TextStatus";
             this.Head1TextStatus.ReadOnly = true;
-            this.Head1TextStatus.Size = new System.Drawing.Size(136, 26);
+            this.Head1TextStatus.Size = new System.Drawing.Size(87, 26);
             this.Head1TextStatus.TabIndex = 22;
             // 
             // temperatureOutput1
             // 
             this.temperatureOutput1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperatureOutput1.Location = new System.Drawing.Point(496, 71);
+            this.temperatureOutput1.Location = new System.Drawing.Point(464, 71);
             this.temperatureOutput1.Margin = new System.Windows.Forms.Padding(2);
             this.temperatureOutput1.Name = "temperatureOutput1";
             this.temperatureOutput1.ReadOnly = true;
@@ -241,7 +231,7 @@ namespace DriverBoardDropwatcher
             // temperature1
             // 
             this.temperature1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature1.Location = new System.Drawing.Point(372, 71);
+            this.temperature1.Location = new System.Drawing.Point(331, 71);
             this.temperature1.Margin = new System.Windows.Forms.Padding(2);
             this.temperature1.Maximum = new decimal(new int[] {
             120,
@@ -254,7 +244,7 @@ namespace DriverBoardDropwatcher
             0,
             0});
             this.temperature1.Name = "temperature1";
-            this.temperature1.Size = new System.Drawing.Size(50, 26);
+            this.temperature1.Size = new System.Drawing.Size(65, 26);
             this.temperature1.TabIndex = 11;
             this.temperature1.Value = new decimal(new int[] {
             20,
@@ -271,7 +261,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.voltage1.Location = new System.Drawing.Point(236, 71);
+            this.voltage1.Location = new System.Drawing.Point(205, 71);
             this.voltage1.Margin = new System.Windows.Forms.Padding(2);
             this.voltage1.Maximum = new decimal(new int[] {
             36,
@@ -295,17 +285,17 @@ namespace DriverBoardDropwatcher
             // Head2TextStatus
             // 
             this.Head2TextStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Head2TextStatus.Location = new System.Drawing.Point(70, 122);
+            this.Head2TextStatus.Location = new System.Drawing.Point(82, 123);
             this.Head2TextStatus.Margin = new System.Windows.Forms.Padding(2);
             this.Head2TextStatus.Name = "Head2TextStatus";
             this.Head2TextStatus.ReadOnly = true;
-            this.Head2TextStatus.Size = new System.Drawing.Size(136, 26);
+            this.Head2TextStatus.Size = new System.Drawing.Size(87, 26);
             this.Head2TextStatus.TabIndex = 20;
             // 
             // temperatureOutput2
             // 
             this.temperatureOutput2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperatureOutput2.Location = new System.Drawing.Point(496, 122);
+            this.temperatureOutput2.Location = new System.Drawing.Point(464, 123);
             this.temperatureOutput2.Margin = new System.Windows.Forms.Padding(2);
             this.temperatureOutput2.Name = "temperatureOutput2";
             this.temperatureOutput2.ReadOnly = true;
@@ -315,7 +305,7 @@ namespace DriverBoardDropwatcher
             // temperature2
             // 
             this.temperature2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature2.Location = new System.Drawing.Point(372, 122);
+            this.temperature2.Location = new System.Drawing.Point(331, 123);
             this.temperature2.Margin = new System.Windows.Forms.Padding(2);
             this.temperature2.Maximum = new decimal(new int[] {
             120,
@@ -328,7 +318,7 @@ namespace DriverBoardDropwatcher
             0,
             0});
             this.temperature2.Name = "temperature2";
-            this.temperature2.Size = new System.Drawing.Size(50, 26);
+            this.temperature2.Size = new System.Drawing.Size(65, 26);
             this.temperature2.TabIndex = 11;
             this.temperature2.Value = new decimal(new int[] {
             20,
@@ -345,7 +335,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.voltage2.Location = new System.Drawing.Point(236, 122);
+            this.voltage2.Location = new System.Drawing.Point(205, 123);
             this.voltage2.Margin = new System.Windows.Forms.Padding(2);
             this.voltage2.Maximum = new decimal(new int[] {
             36,
@@ -369,17 +359,17 @@ namespace DriverBoardDropwatcher
             // Head3TextStatus
             // 
             this.Head3TextStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Head3TextStatus.Location = new System.Drawing.Point(70, 175);
+            this.Head3TextStatus.Location = new System.Drawing.Point(82, 176);
             this.Head3TextStatus.Margin = new System.Windows.Forms.Padding(2);
             this.Head3TextStatus.Name = "Head3TextStatus";
             this.Head3TextStatus.ReadOnly = true;
-            this.Head3TextStatus.Size = new System.Drawing.Size(136, 26);
+            this.Head3TextStatus.Size = new System.Drawing.Size(87, 26);
             this.Head3TextStatus.TabIndex = 22;
             // 
             // temperatureOutput3
             // 
             this.temperatureOutput3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperatureOutput3.Location = new System.Drawing.Point(496, 175);
+            this.temperatureOutput3.Location = new System.Drawing.Point(464, 176);
             this.temperatureOutput3.Margin = new System.Windows.Forms.Padding(2);
             this.temperatureOutput3.Name = "temperatureOutput3";
             this.temperatureOutput3.ReadOnly = true;
@@ -389,7 +379,7 @@ namespace DriverBoardDropwatcher
             // temperature3
             // 
             this.temperature3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature3.Location = new System.Drawing.Point(372, 175);
+            this.temperature3.Location = new System.Drawing.Point(331, 176);
             this.temperature3.Margin = new System.Windows.Forms.Padding(2);
             this.temperature3.Maximum = new decimal(new int[] {
             120,
@@ -402,7 +392,7 @@ namespace DriverBoardDropwatcher
             0,
             0});
             this.temperature3.Name = "temperature3";
-            this.temperature3.Size = new System.Drawing.Size(50, 26);
+            this.temperature3.Size = new System.Drawing.Size(65, 26);
             this.temperature3.TabIndex = 11;
             this.temperature3.Value = new decimal(new int[] {
             20,
@@ -419,7 +409,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.voltage3.Location = new System.Drawing.Point(236, 175);
+            this.voltage3.Location = new System.Drawing.Point(205, 176);
             this.voltage3.Margin = new System.Windows.Forms.Padding(2);
             this.voltage3.Maximum = new decimal(new int[] {
             36,
@@ -443,7 +433,7 @@ namespace DriverBoardDropwatcher
             // temperatureOutput4
             // 
             this.temperatureOutput4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperatureOutput4.Location = new System.Drawing.Point(496, 231);
+            this.temperatureOutput4.Location = new System.Drawing.Point(464, 231);
             this.temperatureOutput4.Margin = new System.Windows.Forms.Padding(2);
             this.temperatureOutput4.Name = "temperatureOutput4";
             this.temperatureOutput4.ReadOnly = true;
@@ -453,7 +443,7 @@ namespace DriverBoardDropwatcher
             // temperature4
             // 
             this.temperature4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature4.Location = new System.Drawing.Point(372, 231);
+            this.temperature4.Location = new System.Drawing.Point(331, 231);
             this.temperature4.Margin = new System.Windows.Forms.Padding(2);
             this.temperature4.Maximum = new decimal(new int[] {
             120,
@@ -466,7 +456,7 @@ namespace DriverBoardDropwatcher
             0,
             0});
             this.temperature4.Name = "temperature4";
-            this.temperature4.Size = new System.Drawing.Size(50, 26);
+            this.temperature4.Size = new System.Drawing.Size(65, 26);
             this.temperature4.TabIndex = 11;
             this.temperature4.Value = new decimal(new int[] {
             20,
@@ -483,7 +473,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.voltage4.Location = new System.Drawing.Point(236, 231);
+            this.voltage4.Location = new System.Drawing.Point(205, 231);
             this.voltage4.Margin = new System.Windows.Forms.Padding(2);
             this.voltage4.Maximum = new decimal(new int[] {
             36,
@@ -531,12 +521,13 @@ namespace DriverBoardDropwatcher
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(124, 26);
             this.textBox3.TabIndex = 18;
+            this.textBox3.Text = "N/A";
             // 
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(28, 296);
+            this.tabControl2.Location = new System.Drawing.Point(28, 295);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1194, 555);
@@ -544,6 +535,7 @@ namespace DriverBoardDropwatcher
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.fillHead);
             this.tabPage6.Controls.Add(this.GapValue);
             this.tabPage6.Controls.Add(this.label17);
             this.tabPage6.Controls.Add(this.FillGapButton);
@@ -570,9 +562,23 @@ namespace DriverBoardDropwatcher
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "Drop Watching";
             this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabPage6.DoubleClick += new System.EventHandler(this.tabPage6_DoubleClick);
+            // 
+            // fillHead
+            // 
+            this.fillHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fillHead.Location = new System.Drawing.Point(1044, 244);
+            this.fillHead.Margin = new System.Windows.Forms.Padding(2);
+            this.fillHead.Name = "fillHead";
+            this.fillHead.Size = new System.Drawing.Size(120, 35);
+            this.fillHead.TabIndex = 56;
+            this.fillHead.Text = "Fill Head";
+            this.fillHead.UseVisualStyleBackColor = true;
+            this.fillHead.Click += new System.EventHandler(this.fillHead_Click);
             // 
             // GapValue
             // 
+            this.GapValue.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::DriverBoardDropwatcher.Properties.Settings.Default, "Gap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.GapValue.Location = new System.Drawing.Point(74, 232);
             this.GapValue.Margin = new System.Windows.Forms.Padding(2);
             this.GapValue.Maximum = new decimal(new int[] {
@@ -588,11 +594,7 @@ namespace DriverBoardDropwatcher
             this.GapValue.Name = "GapValue";
             this.GapValue.Size = new System.Drawing.Size(128, 26);
             this.GapValue.TabIndex = 55;
-            this.GapValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.GapValue.Value = global::DriverBoardDropwatcher.Properties.Settings.Default.Gap;
             this.GapValue.ValueChanged += new System.EventHandler(this.GapValue_ValueChanged);
             // 
             // label17
@@ -607,7 +609,7 @@ namespace DriverBoardDropwatcher
             // 
             // FillGapButton
             // 
-            this.FillGapButton.Location = new System.Drawing.Point(784, 324);
+            this.FillGapButton.Location = new System.Drawing.Point(902, 244);
             this.FillGapButton.Margin = new System.Windows.Forms.Padding(2);
             this.FillGapButton.Name = "FillGapButton";
             this.FillGapButton.Size = new System.Drawing.Size(120, 35);
@@ -622,21 +624,22 @@ namespace DriverBoardDropwatcher
             this.FillCycleBox.Controls.Add(this.label16);
             this.FillCycleBox.Controls.Add(this.FillCycleB);
             this.FillCycleBox.Controls.Add(this.FillCycleC);
-            this.FillCycleBox.Location = new System.Drawing.Point(768, 68);
+            this.FillCycleBox.Location = new System.Drawing.Point(890, 82);
             this.FillCycleBox.Name = "FillCycleBox";
-            this.FillCycleBox.Size = new System.Drawing.Size(303, 160);
+            this.FillCycleBox.Size = new System.Drawing.Size(274, 92);
             this.FillCycleBox.TabIndex = 52;
             this.FillCycleBox.TabStop = false;
             this.toolTip1.SetToolTip(this.FillCycleBox, "Hover Message\r\n");
             // 
             // FillCycleA
             // 
-            this.FillCycleA.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FillCycleA.Location = new System.Drawing.Point(16, 77);
+            this.FillCycleA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FillCycleA.Location = new System.Drawing.Point(16, 52);
             this.FillCycleA.Margin = new System.Windows.Forms.Padding(2);
             this.FillCycleA.Name = "FillCycleA";
-            this.FillCycleA.Size = new System.Drawing.Size(70, 63);
+            this.FillCycleA.Size = new System.Drawing.Size(65, 35);
             this.FillCycleA.TabIndex = 27;
+            this.FillCycleA.Tag = "fillACycle";
             this.FillCycleA.Text = "A";
             this.FillCycleA.UseVisualStyleBackColor = true;
             this.FillCycleA.Click += new System.EventHandler(this.FillCycleA_Click);
@@ -644,49 +647,52 @@ namespace DriverBoardDropwatcher
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(89, 22);
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(93, 22);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(144, 36);
+            this.label16.Size = new System.Drawing.Size(97, 25);
             this.label16.TabIndex = 51;
             this.label16.Text = "Fill Cycle:";
             // 
             // FillCycleB
             // 
-            this.FillCycleB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FillCycleB.Location = new System.Drawing.Point(112, 77);
+            this.FillCycleB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FillCycleB.Location = new System.Drawing.Point(108, 52);
             this.FillCycleB.Margin = new System.Windows.Forms.Padding(2);
             this.FillCycleB.Name = "FillCycleB";
-            this.FillCycleB.Size = new System.Drawing.Size(70, 63);
+            this.FillCycleB.Size = new System.Drawing.Size(65, 35);
             this.FillCycleB.TabIndex = 49;
+            this.FillCycleB.Tag = "fillBCycle";
             this.FillCycleB.Text = "B";
             this.FillCycleB.UseVisualStyleBackColor = true;
             this.FillCycleB.Click += new System.EventHandler(this.FillCycleB_Click);
             // 
             // FillCycleC
             // 
-            this.FillCycleC.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FillCycleC.Location = new System.Drawing.Point(216, 77);
+            this.FillCycleC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FillCycleC.Location = new System.Drawing.Point(196, 52);
             this.FillCycleC.Margin = new System.Windows.Forms.Padding(2);
             this.FillCycleC.Name = "FillCycleC";
-            this.FillCycleC.Size = new System.Drawing.Size(70, 63);
+            this.FillCycleC.Size = new System.Drawing.Size(65, 35);
             this.FillCycleC.TabIndex = 50;
+            this.FillCycleC.Tag = "fillCCycle";
             this.FillCycleC.Text = "C";
             this.FillCycleC.UseVisualStyleBackColor = true;
             this.FillCycleC.Click += new System.EventHandler(this.FillCycleC_Click);
             // 
             // DropWatchingStatus
             // 
-            this.DropWatchingStatus.Location = new System.Drawing.Point(902, 15);
+            this.DropWatchingStatus.Location = new System.Drawing.Point(993, 55);
             this.DropWatchingStatus.Name = "DropWatchingStatus";
             this.DropWatchingStatus.ReadOnly = true;
             this.DropWatchingStatus.Size = new System.Drawing.Size(169, 26);
             this.DropWatchingStatus.TabIndex = 47;
+            this.DropWatchingStatus.Text = "--Head Status--";
             // 
             // FillSpanNozzleButton
             // 
-            this.FillSpanNozzleButton.Location = new System.Drawing.Point(934, 266);
+            this.FillSpanNozzleButton.Location = new System.Drawing.Point(1044, 193);
             this.FillSpanNozzleButton.Margin = new System.Windows.Forms.Padding(2);
             this.FillSpanNozzleButton.Name = "FillSpanNozzleButton";
             this.FillSpanNozzleButton.Size = new System.Drawing.Size(120, 35);
@@ -697,7 +703,7 @@ namespace DriverBoardDropwatcher
             // 
             // FillSingleNozzleButton
             // 
-            this.FillSingleNozzleButton.Location = new System.Drawing.Point(784, 266);
+            this.FillSingleNozzleButton.Location = new System.Drawing.Point(902, 193);
             this.FillSingleNozzleButton.Margin = new System.Windows.Forms.Padding(2);
             this.FillSingleNozzleButton.Name = "FillSingleNozzleButton";
             this.FillSingleNozzleButton.Size = new System.Drawing.Size(120, 35);
@@ -709,7 +715,7 @@ namespace DriverBoardDropwatcher
             // ClearHeadsButton
             // 
             this.ClearHeadsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearHeadsButton.Location = new System.Drawing.Point(934, 324);
+            this.ClearHeadsButton.Location = new System.Drawing.Point(1044, 15);
             this.ClearHeadsButton.Margin = new System.Windows.Forms.Padding(2);
             this.ClearHeadsButton.Name = "ClearHeadsButton";
             this.ClearHeadsButton.Size = new System.Drawing.Size(120, 35);
@@ -758,6 +764,7 @@ namespace DriverBoardDropwatcher
             // 
             // SpanValue
             // 
+            this.SpanValue.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::DriverBoardDropwatcher.Properties.Settings.Default, "Span", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.SpanValue.Location = new System.Drawing.Point(74, 175);
             this.SpanValue.Margin = new System.Windows.Forms.Padding(2);
             this.SpanValue.Maximum = new decimal(new int[] {
@@ -773,11 +780,7 @@ namespace DriverBoardDropwatcher
             this.SpanValue.Name = "SpanValue";
             this.SpanValue.Size = new System.Drawing.Size(128, 26);
             this.SpanValue.TabIndex = 37;
-            this.SpanValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.SpanValue.Value = global::DriverBoardDropwatcher.Properties.Settings.Default.Span;
             this.SpanValue.ValueChanged += new System.EventHandler(this.SpanValue_ValueChanged);
             // 
             // label26
@@ -786,9 +789,9 @@ namespace DriverBoardDropwatcher
             this.label26.Location = new System.Drawing.Point(16, 71);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(213, 20);
+            this.label26.Size = new System.Drawing.Size(146, 20);
             this.label26.TabIndex = 31;
-            this.label26.Text = "Fill Selected Head with Data:";
+            this.label26.Text = "Fill Head with Data:";
             // 
             // label25
             // 
@@ -802,6 +805,7 @@ namespace DriverBoardDropwatcher
             // 
             // NozzleValue
             // 
+            this.NozzleValue.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::DriverBoardDropwatcher.Properties.Settings.Default, "Index", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.NozzleValue.Location = new System.Drawing.Point(74, 123);
             this.NozzleValue.Margin = new System.Windows.Forms.Padding(2);
             this.NozzleValue.Maximum = new decimal(new int[] {
@@ -817,26 +821,24 @@ namespace DriverBoardDropwatcher
             this.NozzleValue.Name = "NozzleValue";
             this.NozzleValue.Size = new System.Drawing.Size(128, 26);
             this.NozzleValue.TabIndex = 27;
-            this.NozzleValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.NozzleValue.Value = global::DriverBoardDropwatcher.Properties.Settings.Default.Index;
             this.NozzleValue.ValueChanged += new System.EventHandler(this.NozzleValue_ValueChanged);
             // 
             // singleHead
             // 
+            this.singleHead.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::DriverBoardDropwatcher.Properties.Settings.Default, "DropWatchHead", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.singleHead.FormattingEnabled = true;
             this.singleHead.Items.AddRange(new object[] {
             "Head 1",
             "Head 2",
             "Head 3",
             "Head 4"});
-            this.singleHead.Location = new System.Drawing.Point(236, 68);
+            this.singleHead.Location = new System.Drawing.Point(168, 68);
             this.singleHead.Margin = new System.Windows.Forms.Padding(2);
             this.singleHead.Name = "singleHead";
             this.singleHead.Size = new System.Drawing.Size(182, 28);
             this.singleHead.TabIndex = 21;
+            this.singleHead.Text = global::DriverBoardDropwatcher.Properties.Settings.Default.DropWatchHead;
             this.singleHead.SelectedIndexChanged += new System.EventHandler(this.singleHead_SelectedIndexChanged);
             // 
             // label24
@@ -850,6 +852,7 @@ namespace DriverBoardDropwatcher
             // 
             // dropWatchSelect
             // 
+            this.dropWatchSelect.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::DriverBoardDropwatcher.Properties.Settings.Default, "DropWatchMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dropWatchSelect.FormattingEnabled = true;
             this.dropWatchSelect.Items.AddRange(new object[] {
             "Internal Mode",
@@ -859,6 +862,7 @@ namespace DriverBoardDropwatcher
             this.dropWatchSelect.Name = "dropWatchSelect";
             this.dropWatchSelect.Size = new System.Drawing.Size(182, 28);
             this.dropWatchSelect.TabIndex = 1;
+            this.dropWatchSelect.Text = global::DriverBoardDropwatcher.Properties.Settings.Default.DropWatchMode;
             this.dropWatchSelect.SelectedIndexChanged += new System.EventHandler(this.dropWatchSelect_SelectedIndexChanged);
             // 
             // tabPage5
@@ -1070,7 +1074,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(667, 395);
+            this.label10.Location = new System.Drawing.Point(668, 395);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(84, 20);
             this.label10.TabIndex = 10;
@@ -1090,7 +1094,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(131, 395);
+            this.label8.Location = new System.Drawing.Point(130, 395);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 20);
             this.label8.TabIndex = 8;
@@ -1138,7 +1142,7 @@ namespace DriverBoardDropwatcher
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(115, 52);
+            this.label3.Location = new System.Drawing.Point(116, 52);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 29);
             this.label3.TabIndex = 4;
@@ -1150,7 +1154,7 @@ namespace DriverBoardDropwatcher
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox4.Location = new System.Drawing.Point(918, 99);
+            this.pictureBox4.Location = new System.Drawing.Point(918, 98);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(128, 270);
             this.pictureBox4.TabIndex = 3;
@@ -1163,7 +1167,7 @@ namespace DriverBoardDropwatcher
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Location = new System.Drawing.Point(634, 99);
+            this.pictureBox3.Location = new System.Drawing.Point(634, 98);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(128, 270);
             this.pictureBox3.TabIndex = 2;
@@ -1176,7 +1180,7 @@ namespace DriverBoardDropwatcher
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox2.Location = new System.Drawing.Point(381, 99);
+            this.pictureBox2.Location = new System.Drawing.Point(381, 98);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(128, 270);
             this.pictureBox2.TabIndex = 1;
@@ -1188,37 +1192,12 @@ namespace DriverBoardDropwatcher
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Location = new System.Drawing.Point(106, 99);
+            this.pictureBox1.Location = new System.Drawing.Point(106, 98);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 270);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // frequency
-            // 
-            this.frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.frequency.Location = new System.Drawing.Point(278, 225);
-            this.frequency.Margin = new System.Windows.Forms.Padding(2);
-            this.frequency.Maximum = new decimal(new int[] {
-            8000,
-            0,
-            0,
-            0});
-            this.frequency.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.frequency.Name = "frequency";
-            this.frequency.Size = new System.Drawing.Size(117, 30);
-            this.frequency.TabIndex = 28;
-            this.frequency.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.frequency.ValueChanged += new System.EventHandler(this.frequency_ValueChanged);
             // 
             // reset
             // 
@@ -1236,12 +1215,12 @@ namespace DriverBoardDropwatcher
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.05181F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.94819F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.81592F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.18408F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 143F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 147F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
             this.tableLayoutPanel1.Controls.Add(this.Head4TextStatus, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.printCounter4, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.label40, 0, 4);
@@ -1279,7 +1258,7 @@ namespace DriverBoardDropwatcher
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.17391F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.82609F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(735, 278);
@@ -1288,17 +1267,17 @@ namespace DriverBoardDropwatcher
             // Head4TextStatus
             // 
             this.Head4TextStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Head4TextStatus.Location = new System.Drawing.Point(70, 231);
+            this.Head4TextStatus.Location = new System.Drawing.Point(82, 231);
             this.Head4TextStatus.Margin = new System.Windows.Forms.Padding(2);
             this.Head4TextStatus.Name = "Head4TextStatus";
             this.Head4TextStatus.ReadOnly = true;
-            this.Head4TextStatus.Size = new System.Drawing.Size(136, 26);
+            this.Head4TextStatus.Size = new System.Drawing.Size(87, 26);
             this.Head4TextStatus.TabIndex = 39;
             // 
             // printCounter4
             // 
             this.printCounter4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.printCounter4.Location = new System.Drawing.Point(628, 231);
+            this.printCounter4.Location = new System.Drawing.Point(613, 231);
             this.printCounter4.Margin = new System.Windows.Forms.Padding(2);
             this.printCounter4.Name = "printCounter4";
             this.printCounter4.ReadOnly = true;
@@ -1309,7 +1288,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label40.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(26, 234);
+            this.label40.Location = new System.Drawing.Point(28, 234);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(18, 20);
@@ -1321,7 +1300,7 @@ namespace DriverBoardDropwatcher
             this.label33.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(11, 22);
+            this.label33.Location = new System.Drawing.Point(13, 22);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(48, 20);
@@ -1333,7 +1312,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label37.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(26, 74);
+            this.label37.Location = new System.Drawing.Point(28, 74);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(18, 20);
@@ -1344,7 +1323,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label39.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(26, 125);
+            this.label39.Location = new System.Drawing.Point(28, 126);
             this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(18, 20);
@@ -1355,7 +1334,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label38.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(26, 178);
+            this.label38.Location = new System.Drawing.Point(28, 179);
             this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(18, 20);
@@ -1366,7 +1345,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label36.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(473, 12);
+            this.label36.Location = new System.Drawing.Point(441, 12);
             this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(130, 40);
@@ -1378,7 +1357,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label35.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(333, 12);
+            this.label35.Location = new System.Drawing.Point(299, 12);
             this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(129, 40);
@@ -1390,7 +1369,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label34.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(224, 22);
+            this.label34.Location = new System.Drawing.Point(193, 22);
             this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(89, 20);
@@ -1402,7 +1381,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label41.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(110, 22);
+            this.label41.Location = new System.Drawing.Point(97, 22);
             this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(56, 20);
@@ -1414,7 +1393,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(626, 22);
+            this.label2.Location = new System.Drawing.Point(611, 22);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 20);
@@ -1425,7 +1404,7 @@ namespace DriverBoardDropwatcher
             // printCounter1
             // 
             this.printCounter1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.printCounter1.Location = new System.Drawing.Point(628, 71);
+            this.printCounter1.Location = new System.Drawing.Point(613, 71);
             this.printCounter1.Margin = new System.Windows.Forms.Padding(2);
             this.printCounter1.Name = "printCounter1";
             this.printCounter1.ReadOnly = true;
@@ -1435,7 +1414,7 @@ namespace DriverBoardDropwatcher
             // printCounter2
             // 
             this.printCounter2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.printCounter2.Location = new System.Drawing.Point(628, 122);
+            this.printCounter2.Location = new System.Drawing.Point(613, 123);
             this.printCounter2.Margin = new System.Windows.Forms.Padding(2);
             this.printCounter2.Name = "printCounter2";
             this.printCounter2.ReadOnly = true;
@@ -1445,7 +1424,7 @@ namespace DriverBoardDropwatcher
             // printCounter3
             // 
             this.printCounter3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.printCounter3.Location = new System.Drawing.Point(628, 175);
+            this.printCounter3.Location = new System.Drawing.Point(613, 176);
             this.printCounter3.Margin = new System.Windows.Forms.Padding(2);
             this.printCounter3.Name = "printCounter3";
             this.printCounter3.ReadOnly = true;
@@ -1465,6 +1444,41 @@ namespace DriverBoardDropwatcher
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // frequency
+            // 
+            this.frequency.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::DriverBoardDropwatcher.Properties.Settings.Default, "Frequency", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.frequency.Location = new System.Drawing.Point(211, 226);
+            this.frequency.Margin = new System.Windows.Forms.Padding(2);
+            this.frequency.Maximum = new decimal(new int[] {
+            8000,
+            0,
+            0,
+            0});
+            this.frequency.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.frequency.Name = "frequency";
+            this.frequency.Size = new System.Drawing.Size(117, 30);
+            this.frequency.TabIndex = 28;
+            this.frequency.Value = global::DriverBoardDropwatcher.Properties.Settings.Default.Frequency;
+            this.frequency.ValueChanged += new System.EventHandler(this.frequency_ValueChanged);
+            // 
+            // serialPort
+            // 
+            this.serialPort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::DriverBoardDropwatcher.Properties.Settings.Default, "Serial_Port", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.serialPort.FormattingEnabled = true;
+            this.serialPort.Location = new System.Drawing.Point(20, 12);
+            this.serialPort.Margin = new System.Windows.Forms.Padding(2);
+            this.serialPort.Name = "serialPort";
+            this.serialPort.Size = new System.Drawing.Size(198, 28);
+            this.serialPort.TabIndex = 0;
+            this.serialPort.Text = global::DriverBoardDropwatcher.Properties.Settings.Default.Serial_Port;
+            this.serialPort.DropDown += new System.EventHandler(this.serialPort_DropDown);
+            this.serialPort.SelectedIndexChanged += new System.EventHandler(this.serialPort_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -1491,6 +1505,8 @@ namespace DriverBoardDropwatcher
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Driver Board";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.temperature1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voltage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.temperature2)).EndInit();
@@ -1513,9 +1529,9 @@ namespace DriverBoardDropwatcher
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.frequency)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.frequency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1622,6 +1638,7 @@ namespace DriverBoardDropwatcher
         private System.Windows.Forms.NumericUpDown GapValue;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button fillHead;
     }
 }
 

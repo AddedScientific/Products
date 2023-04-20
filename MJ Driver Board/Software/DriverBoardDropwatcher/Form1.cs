@@ -15,6 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.Drawing.Imaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace DriverBoardDropwatcher
 {
@@ -47,23 +48,26 @@ namespace DriverBoardDropwatcher
         int previousPrintCount4 = 0;
         int actFreq;
         int timeBoardOn = -1;
+        int currentTemperatureHead1;
+        int currentTemperatureHead2;
+        int currentTemperatureHead3;
+        int currentTemperatureHead4;
+        bool goLeft;
+        bool goRight;
         byte[] A_Bits = { 0b10010010, 0b01001001, 0b00100100 };
-        byte B_Bits1 = 0b01001001;
-        byte B_Bits2 = 0b00100100;
-        byte B_Bits3 = 0b10010010;
-        byte C_Bits1 = 0b00100100;
-        byte C_Bits2 = 0b10010010;
-        byte C_Bits3 = 0b01001001;
-        byte[] A_BitsArray;
+        byte[] B_Bits = { 0b01001001, 0b00100100, 0b10010010 };
+        byte[] C_Bits = { 0b00100100, 0b10010010, 0b01001001 };
+        byte[] BitsArray;
 
         public Form1()
         {
             InitializeComponent();
-            dropWatchSelect.Text = "--Select Mode--"; // Placeholder Text
-            serialPort.Text = "Select COM Port"; // Placeholder Text
-            singleHead.Text = "--Select Head--"; // Placeholder Text
-            ImageModeSelection.Text = "--Select Mode--"; //Placeholder Text
-            DropWatchingStatus.Text = "Head Status"; // Placeholder Text;
+            this.FormClosing += Form1_FormClosing;
+            //dropWatchSelect.Text = "--Select Mode--"; // Placeholder Text
+            //serialPort.Text = "Select COM Port"; // Placeholder Text
+            //singleHead.Text = "--Select Head--"; // Placeholder Text
+            //ImageModeSelection.Text = "--Select Mode--"; //Placeholder Text
+            //DropWatchingStatus.Text = "Head Status"; // Placeholder Text;
             Thread trd = new Thread(new ThreadStart(this.ThreadTask));
             trd.IsBackground = true;
             trd.Start();
@@ -79,8 +83,24 @@ namespace DriverBoardDropwatcher
             {
                 if (isConnected.Checked)
                 {
-                    driver_board.Write("b\n");
+                    try
+                    {
+                        driver_board.Write("b\n");
+                    }
+
+                    catch
+                    {
+                        MessageBoxButtons BoxButtons = MessageBoxButtons.RetryCancel;
+                        DialogResult results = MessageBox.Show("Error opening port", "Port Error", BoxButtons, MessageBoxIcon.Error);
+                        if (results == DialogResult.Retry)
+                        {
+                            Application.Restart();
+                            Environment.Exit(0);
+                        }
+
+                    }
                 }
+
 
                 Thread.Sleep(500);
             }
@@ -167,6 +187,7 @@ namespace DriverBoardDropwatcher
                 try
                 {
                     driver_board.Open();
+                    driver_board.ReadExisting();
                     driver_board.DataReceived += new SerialDataReceivedEventHandler(DataRecievedHandler);
                     isConnected.Checked = true;
                     Console.WriteLine("Connected");
@@ -176,6 +197,13 @@ namespace DriverBoardDropwatcher
                 {
                     Console.WriteLine("Error opening port");
                     textBox2.Text = "Error opening port";
+                    MessageBoxButtons BoxButtons = MessageBoxButtons.RetryCancel;
+                    DialogResult results = MessageBox.Show("Error opening port", "Port Error", BoxButtons, MessageBoxIcon.Error);
+                    if (results == DialogResult.Retry)
+                    {
+                        Application.Restart();
+                        Environment.Exit(0);
+                    }                    
                 }
             }
             else if (isConnected.Checked)
@@ -185,14 +213,37 @@ namespace DriverBoardDropwatcher
                 Console.WriteLine("Disconnected");
             }
         }
+
+        int failCounter = 0;
         private void DataRecievedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             while (driver_board.BytesToRead > 0)
             {
                 string input = driver_board.ReadExisting();
+                //Console.WriteLine(input);
                 if (input.Substring(0, 1) == "{")
                 {
-                    parseJsonData(input);
+                    if (!input.Substring(10).Contains("board"))
+                    {
+                        try
+                        {
+                            parseJsonData(input);
+                            failCounter = 0;
+                        }
+                        catch
+                        {
+                            failCounter++;
+                            Console.WriteLine("Parse JSON Failed for the {0} time.", failCounter);
+
+                            MessageBoxButtons BoxButtons = MessageBoxButtons.RetryCancel;
+                            DialogResult results = MessageBox.Show("Parse JSON Failed", "Parse JSON Error", BoxButtons, MessageBoxIcon.Error);
+                            if (results == DialogResult.Retry)
+                            {
+                                Application.Restart();
+                                Environment.Exit(0);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -395,7 +446,6 @@ namespace DriverBoardDropwatcher
 
         private void parseJsonData(string input_string)
         {
-
             dynamic d = JObject.Parse(input_string);
             //--------------------------------------------------
             headStatus1 = d.heads[0].status; //Check status of head 1
@@ -438,10 +488,16 @@ namespace DriverBoardDropwatcher
 
             //--------------------------------------------------
             //Check Currrent Temeperatures for Heads
-            temperatureOutput1.Text = d.heads[0].curTemperature.ToString();
-            temperatureOutput2.Text = d.heads[1].curTemperature.ToString();
-            temperatureOutput3.Text = d.heads[2].curTemperature.ToString();
-            temperatureOutput4.Text = d.heads[3].curTemperature.ToString();
+            currentTemperatureHead1 = d.heads[0].curTemperature;
+            temperatureOutput1.Text = currentTemperatureHead1.ToString();
+            currentTemperatureHead2 = d.heads[1].curTemperature;
+            temperatureOutput2.Text = currentTemperatureHead2.ToString();
+            currentTemperatureHead3 = d.heads[2].curTemperature;
+            temperatureOutput3.Text = currentTemperatureHead3.ToString();
+            currentTemperatureHead4 = d.heads[3].curTemperature;
+            temperatureOutput4.Text = currentTemperatureHead4.ToString();
+
+
             //--------------------------------------------------
             //--------------------------------------------------
             // Check Current Voltage for Heads
@@ -449,6 +505,7 @@ namespace DriverBoardDropwatcher
             voltage2.Text = d.heads[1].voltage.ToString();
             voltage3.Text = d.heads[2].voltage.ToString();
             voltage4.Text = d.heads[3].voltage.ToString();
+            Thread.Sleep(1500);
             //--------------------------------------------------
             actFreq = d.printingParameters[0].internalPrintPeriod;
 
@@ -457,6 +514,7 @@ namespace DriverBoardDropwatcher
                 //Check Frequency for each Head
                 frequency.Text = (1000000 / actFreq).ToString();
                 frequencyDuplicate.Text = frequency.Text;
+                Thread.Sleep(1500);
             }
             power.Checked = d.board[0].power == 1 ? true : false;
             int newTime = d.board[0].timeOn;
@@ -663,7 +721,6 @@ namespace DriverBoardDropwatcher
                 pictureBox1.Image = MakeGrayscale3(Picture1);
                 FileName1.Text = ofd.SafeFileName;
                 ImageSizeText1.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
-                //pictureBox1.Size.Height = (Image.FromFile(ofd.FileName).Height);
                 
                 // If File Size has a width of more that
                 if ((Image.FromFile(ofd.FileName).Width) > 128)
@@ -793,34 +850,53 @@ namespace DriverBoardDropwatcher
 
         private void FillCycleA_Click(object sender, EventArgs e)
         {
-            if (isConnected.Checked)
-            {
-                A_BitsArray = new byte[18];
-
-                A_BitsArray[0] = (byte)('s');
-                A_BitsArray[1] = (byte)(activeSingleHead);
-
-                for (int index = 2; index < 18; index++)
-                {
-                    A_BitsArray[index] = A_Bits[(index + 1) % 3];
-                }
-
-
-                driver_board.Write(A_BitsArray, 0, 18);
-
-            }
+            FillCycle(sender, e);
         }
 
         private void FillCycleB_Click(object sender, EventArgs e)
         {
-
+            FillCycle(sender, e);
         }
 
         private void FillCycleC_Click(object sender, EventArgs e)
         {
-
+            FillCycle(sender, e);
         }
 
+        private void FillCycle(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Button b = (System.Windows.Forms.Button)sender;
+            if (isConnected.Checked)
+            {
+                BitsArray = new byte[18];
+
+                BitsArray[0] = (byte)('s');
+                BitsArray[1] = (byte)(activeSingleHead + 1);
+
+                for (int index = 2; index < 18; index++)
+                {
+                    if (b.Tag == "fillACycle")
+                    {
+                        BitsArray[index] = A_Bits[(index + 1) % 3];
+   
+                    }
+                    else if (b.Tag == "fillBCycle")
+                    {
+                        BitsArray[index] = B_Bits[(index + 1) % 3];
+                      
+                    }
+                    else if (b.Tag == "fillCCycle")
+                    {
+                        BitsArray[index] = C_Bits[(index + 1) % 3];
+                  
+                    }
+                }
+
+                driver_board.Write(BitsArray, 0, 18);
+
+            }
+
+        }
         private void GapValue_ValueChanged(object sender, EventArgs e)
         {
             Gap_Value = (int)GapValue.Value;
@@ -829,6 +905,58 @@ namespace DriverBoardDropwatcher
         private void FillGapButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void fillHead_Click(object sender, EventArgs e)
+        {
+            driver_board.Write($"I {(activeSingleHead + 1).ToString()}");
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            serialPort_DropDown(sender, e);
+            serialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
+            frequency.Value = Properties.Settings.Default.Frequency;
+            dropWatchSelect.SelectedItem = Properties.Settings.Default.DropWatchMode;
+            singleHead.SelectedItem = Properties.Settings.Default.DropWatchHead;
+            NozzleValue.Value = Properties.Settings.Default.Index;
+            SpanValue.Value = Properties.Settings.Default.Span;
+            GapValue.Value = Properties.Settings.Default.Gap;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Save data to user settings
+            Properties.Settings.Default.Serial_Port = serialPort.SelectedItem.ToString();
+            Properties.Settings.Default.Frequency = (int)frequency.Value;
+            Properties.Settings.Default.DropWatchMode = dropWatchSelect.SelectedItem.ToString();
+            Properties.Settings.Default.DropWatchHead = singleHead.SelectedItem.ToString();
+            Properties.Settings.Default.Index = (int)NozzleValue.Value;
+            Properties.Settings.Default.Span = (int)SpanValue.Value;
+            Properties.Settings.Default.Gap = (int)GapValue.Value;
+            Properties.Settings.Default.Save();
+        }
+
+
+        private void tabPage6_DoubleClick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Double Clicked");
+            NozzleValue.Update();
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left)
+            {
+                NozzleValue.Value = NozzleValue.Value - 1;
+                goLeft = true;
+                goRight = false;
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                NozzleValue.Value = NozzleValue.Value + 1;
+                goRight = true;
+                goLeft = false;
+            }
         }
     }
 }
