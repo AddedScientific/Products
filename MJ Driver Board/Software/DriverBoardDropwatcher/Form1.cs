@@ -53,7 +53,9 @@ namespace DriverBoardDropwatcher
         int activePDdirection;
         bool goLeft;
         bool goRight;
-        int[] HeadStatus;
+        int[] HeadPrintCountersStoredAsInt = new int[4];
+        int[] PreviousHeadPrintCounters = new int[4];
+        int[] HeadStatus = new int[4];
         byte[] A_Bits = { 0b10010010, 0b01001001, 0b00100100 };
         byte[] B_Bits = { 0b01001001, 0b00100100, 0b10010010 };
         byte[] C_Bits = { 0b00100100, 0b10010010, 0b01001001 };
@@ -62,6 +64,10 @@ namespace DriverBoardDropwatcher
         public Form1()
         {
             InitializeComponent();
+            pictureBox1.Image = Properties.Resources.upload;
+            pictureBox2.Image = Properties.Resources.upload;
+            pictureBox3.Image = Properties.Resources.upload;
+            pictureBox4.Image = Properties.Resources.upload;
             this.FormClosing += Form1_FormClosing;
             Thread trd = new Thread(new ThreadStart(this.ThreadTask));
             trd.IsBackground = true;
@@ -237,6 +243,7 @@ namespace DriverBoardDropwatcher
                         }
                     }
                 }
+
                 else
                 {
                     Console.WriteLine(input);
@@ -247,185 +254,89 @@ namespace DriverBoardDropwatcher
 
         private void determineStatus()
         {
+            System.Windows.Forms.TextBox[] HeadTextStatus = { Head1TextStatus, Head2TextStatus, Head3TextStatus, Head4TextStatus };
+            NumericUpDown[] nudHeadVoltages = { nudVoltageHead1, nudVoltageHead2, nudVoltageHead3, nudVoltageHead4 };
+            NumericUpDown[] nudHeadTemperatures = { nudTemperatureHead1, nudTemperatureHead2, nudTemperatureHead3, nudTemperatureHead4 };
+            System.Windows.Forms.TextBox[] HeadTemperaturesOutputText = { temperatureOutput1, temperatureOutput2, temperatureOutput3, temperatureOutput4 };
+            System.Windows.Forms.TextBox[] HeadPrintCounters = { printCounter1, printCounter2, printCounter3, printCounter4 };
+
             if (power.Checked)
             {
-                switch (headStatus1)
+                for (int i = 0; i <= 3; i++)
                 {
-                    case -2: // -2 means head is not connected to board
-                        Head1TextStatus.Text = "Not Connected"; // Displays Message
-                        nudVoltageHead1.Visible = false; // Hides Voltage Box
-                        temperature1.Visible = false; // Hides Set Temperature Box 
-                        temperatureOutput1.Visible = false; //Hides Current Temperature Box
-                        printCounter1.Visible = false; // Hides Print Counter Box
-                        Head1TextStatus.BackColor = Color.Red; //Sets Status Box to Red indicating head is not connected
-                        break;
-                    case -3: // -3 means error with head
-                        Head1TextStatus.Text = "Ready Error"; // Displays Message
-                        nudVoltageHead1.Visible = false; // Hides Voltage Box
-                        temperature1.Visible = false; // Hides Set Temperature Box 
-                        temperatureOutput1.Visible = false; //Hides Current Temperature Box
-                        printCounter1.Visible = false; // Hides Print Counter Box
-                        Head1TextStatus.BackColor = Color.Red; //Sets Status Box to Red indicating head error
-                        break;
-                    case 10: // Head is connected but idle
-                        nudVoltageHead1.Visible = true; // Displays Voltage Box
-                        temperature1.Visible = true; // Dislays Set Temperature Box 
-                        temperatureOutput1.Visible = true; //Displays Current Temperature Box
-                        printCounter1.Visible = true; // Displays Print Counter Box
-
-                        if (printCount1 > previousPrintCount1)
-                        {
-                            Head1TextStatus.Text = "Printing";
-                            Head1TextStatus.BackColor = Color.Green;
+                    switch (HeadStatus[i])
+                    {
+                        case -2:
+                            HeadTextStatus[i].Text = "Not Connected";
+                            HeadTextStatus[i].BackColor = Color.Red;
+                            nudHeadVoltages[i].Visible = false;
+                            nudHeadTemperatures[i].Visible = false;
+                            HeadTemperaturesOutputText[i].Visible = false;
+                            HeadPrintCounters[i].Visible = false;
                             break;
-                        }
-                        else
-                        {
-                            Head1TextStatus.Text = "Idle"; // Displays Message
-                            Head1TextStatus.BackColor = Color.Orange; //Sets Status Box to Orange indicating all is fine but not printing
+                        case -3:
+                            HeadTextStatus[i].Text = "Ready Error";
+                            HeadTextStatus[i].BackColor = Color.Red;
+                            nudHeadVoltages[i].Visible = false;
+                            nudHeadTemperatures[i].Visible = false;
+                            HeadTemperaturesOutputText[i].Visible = false;
+                            HeadPrintCounters[i].Visible = false;
                             break;
-                        }
-                    default: 
-                        Head1TextStatus.Text = "Printing"; // Displays Message
-                        nudVoltageHead1.Visible = true; // Displays Voltage Box
-                        temperature1.Visible = true; // Dislays Set Temperature Box 
-                        temperatureOutput1.Visible = true; //Displays Current Temperature Box
-                        printCounter1.Visible = true; // Displays Print Counter Box
-                        Head1TextStatus.BackColor = Color.Green;//Sets Status Box to Orange indicating all is fine and printing
-                        break;
-                }
-
-                // Repeats above steps for each Head
-                switch (headStatus2)
-                {
-                    case -2:
-                        Head2TextStatus.Text = "Not Connected";
-                        nudVoltageHead2.Visible = false;
-                        temperature2.Visible = false;
-                        temperatureOutput2.Visible = false;
-                        printCounter2.Visible = false;
-                        Head2TextStatus.BackColor = Color.Red;
-                        break;
-                    case -3:
-                        Head2TextStatus.Text = "Ready Error";
-                        nudVoltageHead2.Visible = false;
-                        temperature2.Visible = false;
-                        temperatureOutput2.Visible = false;
-                        printCounter2.Visible = false;
-                        Head2TextStatus.BackColor = Color.Red;
-                        break;
-                    case 10:
-                        Head2TextStatus.Text = "Idle";
-                        nudVoltageHead2.Visible = true;
-                        temperature2.Visible = true;
-                        temperatureOutput2.Visible = true;
-                        printCounter2.Visible = true;
-                        Head2TextStatus.BackColor = Color.Orange;
-                        break;
-                    default:
-                        Head2TextStatus.Text = "Printing";
-                        nudVoltageHead2.Visible = true;
-                        temperature2.Visible = true;
-                        temperatureOutput2.Visible = true;
-                        printCounter2.Visible = true;
-                        Head2TextStatus.BackColor = Color.Green;
-                        break;
-                }
-
-                switch (headStatus3)
-                {
-                    case -2:
-                        Head3TextStatus.Text = "Not Connected";
-                        nudVoltageHead3.Visible = false;
-                        temperature3.Visible = false;
-                        temperatureOutput3.Visible = false;
-                        printCounter3.Visible = false;
-                        Head3TextStatus.BackColor = Color.Red;
-                        break;
-                    case -3:
-                        Head3TextStatus.Text = "Ready Error";
-                        nudVoltageHead3.Visible = false;
-                        temperature3.Visible = false;
-                        temperatureOutput3.Visible = false;
-                        printCounter3.Visible = false;
-                        Head3TextStatus.BackColor = Color.Red;
-                        break;
-                    case 10:
-                        Head3TextStatus.Text = "Idle";
-                        nudVoltageHead3.Visible = true;
-                        temperature3.Visible = true;
-                        temperatureOutput3.Visible = true;
-                        printCounter3.Visible = true;
-                        Head3TextStatus.BackColor = Color.Orange;
-                        break;
-                    default:
-                        Head3TextStatus.Text = "Printing";
-                        nudVoltageHead3.Visible = true;
-                        temperature3.Visible = true;
-                        temperatureOutput3.Visible = true;
-                        printCounter3.Visible = true;
-                        Head3TextStatus.BackColor = Color.Green;
-                        break;
-                }
-
-                switch (headStatus4)
-                {
-                    case -2:
-                        Head4TextStatus.Text = "Not Connected";
-                        nudVoltageHead4.Visible = false;
-                        temperature4.Visible = false;
-                        temperatureOutput4.Visible = false;
-                        printCounter4.Visible = false;
-                        Head4TextStatus.BackColor = Color.Red;
-                        break;
-                    case -3:
-                        Head4TextStatus.Text = "Ready Error";
-                        nudVoltageHead4.Visible = false;
-                        temperature4.Visible = false;
-                        temperatureOutput4.Visible = false;
-                        printCounter4.Visible = false;
-                        Head4TextStatus.BackColor = Color.Red;
-                        break;
-                    case 10:
-                        Head4TextStatus.Text = "Idle";
-                        nudVoltageHead4.Visible = true;
-                        temperature4.Visible = true;
-                        temperatureOutput4.Visible = true;
-                        printCounter4.Visible = true;
-                        Head1TextStatus.BackColor = Color.Orange;
-                        break;
-                    default:
-                        Head4TextStatus.Text = "Printing";
-                        nudVoltageHead4.Visible = true;
-                        temperature4.Visible = true;
-                        temperatureOutput4.Visible = true;
-                        printCounter4.Visible = true;
-                        Head1TextStatus.BackColor = Color.Green;
-                        break;
+                        case 10:
+                            HeadTextStatus[i].Text = "Idle";
+                            HeadTextStatus[i].BackColor = Color.Orange;
+                            nudHeadVoltages[i].Visible = true;
+                            nudHeadTemperatures[i].Visible = true;
+                            HeadTemperaturesOutputText[i].Visible = true;
+                            HeadPrintCounters[i].Visible = true;
+                            if (HeadPrintCountersStoredAsInt[i] > PreviousHeadPrintCounters[i])
+                            {
+                                HeadTextStatus[i].Text = "Printing";
+                                HeadTextStatus[i].BackColor = Color.Green;
+                                DropWatchingStatus.Text = "Printing";
+                                DropWatchingStatus.BackColor = Color.Green;
+                                break;
+                            }
+                            else
+                            {
+                                HeadTextStatus[i].Text = "Idle"; // Displays Message
+                                HeadTextStatus[i].BackColor = Color.Orange; //Sets Status Box to Orange indicating all is fine but not printing
+                                DropWatchingStatus.Text = "Head Idle";
+                                DropWatchingStatus.BackColor = Color.Orange;
+                                break;
+                            }
+                        default:
+                            HeadTextStatus[i].Text = "Printing";
+                            HeadTextStatus[i].BackColor = Color.Green;
+                            nudHeadVoltages[i].Visible = true;
+                            nudHeadTemperatures[i].Visible = true;
+                            HeadTemperaturesOutputText[i].Visible = true;
+                            HeadPrintCounters[i].Visible = true;
+                            break;
+                    }
                 }
             }
 
-            // If Board is Powered Off, then all heads displays Powered Off and Hides all Settings
             else
             {
                 Head1TextStatus.Text = "Powered off.";
                 nudVoltageHead1.Visible = false;
-                temperature1.Visible = false;
+                nudTemperatureHead1.Visible = false;
                 temperatureOutput1.Visible = false;
                 printCounter1.Visible = false;
                 Head2TextStatus.Text = "Powered off.";
                 nudVoltageHead2.Visible = false;
-                temperature2.Visible = false;
+                nudTemperatureHead2.Visible = false;
                 temperatureOutput2.Visible = false;
                 printCounter2.Visible = false;
                 Head3TextStatus.Text = "Powered off.";
                 nudVoltageHead3.Visible = false;
-                temperature3.Visible = false;
+                nudTemperatureHead3.Visible = false;
                 temperatureOutput3.Visible = false;
                 printCounter3.Visible = false;
                 Head4TextStatus.Text = "Powered off.";
                 nudVoltageHead4.Visible = false;
-                temperature4.Visible = false;
+                nudTemperatureHead4.Visible = false;
                 temperatureOutput4.Visible = false;
                 printCounter4.Visible = false;
                 Head1TextStatus.BackColor = Color.Red;
@@ -433,8 +344,195 @@ namespace DriverBoardDropwatcher
                 Head3TextStatus.BackColor = Color.Red;
                 Head4TextStatus.BackColor = Color.Red;
             }
-
         }
+
+
+
+        //    switch (headStatus1)
+        //    {
+        //        case -2: // -2 means head is not connected to board
+        //            Head1TextStatus.Text = "Not Connected"; // Displays Message
+        //            nudVoltageHead1.Visible = false; // Hides Voltage Box
+        //            temperature1.Visible = false; // Hides Set Temperature Box 
+        //            temperatureOutput1.Visible = false; //Hides Current Temperature Box
+        //            printCounter1.Visible = false; // Hides Print Counter Box
+        //            Head1TextStatus.BackColor = Color.Red; //Sets Status Box to Red indicating head is not connected
+        //            break;
+        //        case -3: // -3 means error with head
+        //            Head1TextStatus.Text = "Ready Error"; // Displays Message
+        //            nudVoltageHead1.Visible = false; // Hides Voltage Box
+        //            temperature1.Visible = false; // Hides Set Temperature Box 
+        //            temperatureOutput1.Visible = false; //Hides Current Temperature Box
+        //            printCounter1.Visible = false; // Hides Print Counter Box
+        //            Head1TextStatus.BackColor = Color.Red; //Sets Status Box to Red indicating head error
+        //            break;
+        //        case 10: // Head is connected but idle
+        //            nudVoltageHead1.Visible = true; // Displays Voltage Box
+        //            temperature1.Visible = true; // Dislays Set Temperature Box 
+        //            temperatureOutput1.Visible = true; //Displays Current Temperature Box
+        //            printCounter1.Visible = true; // Displays Print Counter Box
+
+        //            if (printCount1 > previousPrintCount1)
+        //            {
+        //                Head1TextStatus.Text = "Printing";
+        //                Head1TextStatus.BackColor = Color.Green;
+        //                break;
+        //            }
+        //            else
+        //            {
+        //                Head1TextStatus.Text = "Idle"; // Displays Message
+        //                Head1TextStatus.BackColor = Color.Orange; //Sets Status Box to Orange indicating all is fine but not printing
+        //                break;
+        //            }
+        //        default: 
+        //            Head1TextStatus.Text = "Printing"; // Displays Message
+        //            nudVoltageHead1.Visible = true; // Displays Voltage Box
+        //            temperature1.Visible = true; // Dislays Set Temperature Box 
+        //            temperatureOutput1.Visible = true; //Displays Current Temperature Box
+        //            printCounter1.Visible = true; // Displays Print Counter Box
+        //            Head1TextStatus.BackColor = Color.Green;//Sets Status Box to Orange indicating all is fine and printing
+        //            break;
+        //    }
+
+        //    // Repeats above steps for each Head
+        //    switch (headStatus2)
+        //    {
+        //        case -2:
+        //            Head2TextStatus.Text = "Not Connected";
+        //            nudVoltageHead2.Visible = false;
+        //            temperature2.Visible = false;
+        //            temperatureOutput2.Visible = false;
+        //            printCounter2.Visible = false;
+        //            Head2TextStatus.BackColor = Color.Red;
+        //            break;
+        //        case -3:
+        //            Head2TextStatus.Text = "Ready Error";
+        //            nudVoltageHead2.Visible = false;
+        //            temperature2.Visible = false;
+        //            temperatureOutput2.Visible = false;
+        //            printCounter2.Visible = false;
+        //            Head2TextStatus.BackColor = Color.Red;
+        //            break;
+        //        case 10:
+        //            Head2TextStatus.Text = "Idle";
+        //            nudVoltageHead2.Visible = true;
+        //            temperature2.Visible = true;
+        //            temperatureOutput2.Visible = true;
+        //            printCounter2.Visible = true;
+        //            Head2TextStatus.BackColor = Color.Orange;
+        //            break;
+        //        default:
+        //            Head2TextStatus.Text = "Printing";
+        //            nudVoltageHead2.Visible = true;
+        //            temperature2.Visible = true;
+        //            temperatureOutput2.Visible = true;
+        //            printCounter2.Visible = true;
+        //            Head2TextStatus.BackColor = Color.Green;
+        //            break;
+        //    }
+
+        //    switch (headStatus3)
+        //    {
+        //        case -2:
+        //            Head3TextStatus.Text = "Not Connected";
+        //            nudVoltageHead3.Visible = false;
+        //            temperature3.Visible = false;
+        //            temperatureOutput3.Visible = false;
+        //            printCounter3.Visible = false;
+        //            Head3TextStatus.BackColor = Color.Red;
+        //            break;
+        //        case -3:
+        //            Head3TextStatus.Text = "Ready Error";
+        //            nudVoltageHead3.Visible = false;
+        //            temperature3.Visible = false;
+        //            temperatureOutput3.Visible = false;
+        //            printCounter3.Visible = false;
+        //            Head3TextStatus.BackColor = Color.Red;
+        //            break;
+        //        case 10:
+        //            Head3TextStatus.Text = "Idle";
+        //            nudVoltageHead3.Visible = true;
+        //            temperature3.Visible = true;
+        //            temperatureOutput3.Visible = true;
+        //            printCounter3.Visible = true;
+        //            Head3TextStatus.BackColor = Color.Orange;
+        //            break;
+        //        default:
+        //            Head3TextStatus.Text = "Printing";
+        //            nudVoltageHead3.Visible = true;
+        //            temperature3.Visible = true;
+        //            temperatureOutput3.Visible = true;
+        //            printCounter3.Visible = true;
+        //            Head3TextStatus.BackColor = Color.Green;
+        //            break;
+        //    }
+
+        //    switch (headStatus4)
+        //    {
+        //        case -2:
+        //            Head4TextStatus.Text = "Not Connected";
+        //            nudVoltageHead4.Visible = false;
+        //            temperature4.Visible = false;
+        //            temperatureOutput4.Visible = false;
+        //            printCounter4.Visible = false;
+        //            Head4TextStatus.BackColor = Color.Red;
+        //            break;
+        //        case -3:
+        //            Head4TextStatus.Text = "Ready Error";
+        //            nudVoltageHead4.Visible = false;
+        //            temperature4.Visible = false;
+        //            temperatureOutput4.Visible = false;
+        //            printCounter4.Visible = false;
+        //            Head4TextStatus.BackColor = Color.Red;
+        //            break;
+        //        case 10:
+        //            Head4TextStatus.Text = "Idle";
+        //            nudVoltageHead4.Visible = true;
+        //            temperature4.Visible = true;
+        //            temperatureOutput4.Visible = true;
+        //            printCounter4.Visible = true;
+        //            Head1TextStatus.BackColor = Color.Orange;
+        //            break;
+        //        default:
+        //            Head4TextStatus.Text = "Printing";
+        //            nudVoltageHead4.Visible = true;
+        //            temperature4.Visible = true;
+        //            temperatureOutput4.Visible = true;
+        //            printCounter4.Visible = true;
+        //            Head1TextStatus.BackColor = Color.Green;
+        //            break;
+        //    }
+        //}
+
+        //If Board is Powered Off, then all heads displays Powered Off and Hides all Settings
+        //else
+        //{
+        //    Head1TextStatus.Text = "Powered off.";
+        //    nudVoltageHead1.Visible = false;
+        //    temperature1.Visible = false;
+        //    temperatureOutput1.Visible = false;
+        //    printCounter1.Visible = false;
+        //    Head2TextStatus.Text = "Powered off.";
+        //    nudVoltageHead2.Visible = false;
+        //    temperature2.Visible = false;
+        //    temperatureOutput2.Visible = false;
+        //    printCounter2.Visible = false;
+        //    Head3TextStatus.Text = "Powered off.";
+        //    nudVoltageHead3.Visible = false;
+        //    temperature3.Visible = false;
+        //    temperatureOutput3.Visible = false;
+        //    printCounter3.Visible = false;
+        //    Head4TextStatus.Text = "Powered off.";
+        //    nudVoltageHead4.Visible = false;
+        //    temperature4.Visible = false;
+        //    temperatureOutput4.Visible = false;
+        //    printCounter4.Visible = false;
+        //    Head1TextStatus.BackColor = Color.Red;
+        //    Head2TextStatus.BackColor = Color.Red;
+        //    Head3TextStatus.BackColor = Color.Red;
+        //    Head4TextStatus.BackColor = Color.Red;
+        //}
+
 
         private void parseJsonData(string input_string)
         {
@@ -444,88 +542,65 @@ namespace DriverBoardDropwatcher
             {
                 HeadStatus[i] = d.heads[i].status;
             }
-            //headStatus1 = d.heads[0].status; //Check status of head 1
-            //headStatus2 = d.heads[1].status; //Check status of head 2
-            //headStatus3 = d.heads[2].status; //Check status of head 3
-            //headStatus4 = d.heads[3].status; //Check status of head 4
-                                             //--------------------------------------------------
+            //--------------------------------------------------
 
             //Check Print Counts for Heads
-            //System.Windows.Forms.TextBox[] HeadPrintCounters = { printCounter1, printCounter2, printCounter3, printCounter4 };
-            //int[] HeadPrintCountersStoredAsInt = { 0, 0, 0, 0 };
+            System.Windows.Forms.TextBox[] HeadPrintCounters = { printCounter1, printCounter2, printCounter3, printCounter4 };
 
-            //for (int i=0; i<=3; i++)
-            //{
-            //    HeadPrintCounters[i].Text = d.heads[i].printCounts.ToString();
-            //    HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts;
-            //}
-
-            //determineStatus();
-
-            //int[] PreviousHeadPrintCounters = { 0, 0, 0, 0 };
-
-            //for (int i = 0; i <= 3; i++)
-            //{
-            //    if (isConnected.Checked)
-            //    {
-            //        if (HeadPrintCountersStoredAsInt[i] > PreviousHeadPrintCounters[i])
-            //        {
-            //            DropWatchingStatus.Text = "Head Printing";
-            //            DropWatchingStatus.BackColor = Color.Green;
-            //        }
-            //        else if (HeadPrintCountersStoredAsInt[i] == PreviousHeadPrintCounters[i])
-            //        {
-            //            DropWatchingStatus.Text = "Head Idle";
-            //            DropWatchingStatus.BackColor = Color.Orange;
-            //        }
-            //        else if (!power.Checked)
-            //        {
-            //            DropWatchingStatus.Text = "Powered Off";
-            //            DropWatchingStatus.BackColor = Color.Red;
-            //        }
-            //    }
-            //}
-
-            //for (int i = 0; i <= 3; i++)
-            //{
-            //    PreviousHeadPrintCounters[i] = HeadPrintCountersStoredAsInt[i];
-            //}    
-
-            printCount1 = d.heads[0].printCounts; // Counts number of prints for head 1
-            printCounter1.Text = (printCount1.ToString()); // Displays Number of Print Count on GUI
-            printCount2 = d.heads[1].printCounts; // Counts number of prints for head 2
-            printCounter2.Text = (printCount2.ToString()); // Displays Number of Print Count on GUI
-            printCount3 = d.heads[2].printCounts; // Counts number of prints for head 3
-            printCounter3.Text = (printCount3.ToString()); // Displays Number of Print Count on GUI
-            printCount4 = d.heads[3].printCounts; // Counts number of prints for head 4
-            printCounter4.Text = (printCount4.ToString()); // Displays Number of Print Count on GUI 
+            for (int i = 0; i <= 3; i++)
+            {
+                HeadPrintCounters[i].Text = d.heads[i].printCounts.ToString();
+                HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts;
+            }
 
             determineStatus();
 
-            // IF print count is increasing for any head, "Head Printing" will be displayed in Status Box
-            if ((power.Checked) && ((printCount1) > (previousPrintCount1) || (printCount2) > (previousPrintCount2) || (printCount3) > (previousPrintCount3) || (printCount4) > (previousPrintCount4)))
+            if (!power.Checked)
             {
-                DropWatchingStatus.Text = ("Head Printing");
-                DropWatchingStatus.BackColor = Color.Green;
-            }
-
-            // IF print count is stationary for all heads, "Head Idle" will be displayed in Status Box
-            else if ((power.Checked) && (((printCount1) == (previousPrintCount1)) && ((printCount2) == (previousPrintCount2)) && ((printCount3) == (previousPrintCount3)) && ((printCount4) == (previousPrintCount4))))
-            {
-                DropWatchingStatus.Text = ("Head Idle");
-                DropWatchingStatus.BackColor = Color.Orange;
-            }
-            else if (!power.Checked)
-            {
-                DropWatchingStatus.Text = ("Powered Off");
+                DropWatchingStatus.Text = "Powered Off";
                 DropWatchingStatus.BackColor = Color.Red;
             }
 
-            //Sets Previous Count to current count to detect if value is going up or staying the same
-            previousPrintCount1 = printCount1;
-            previousPrintCount2 = printCount2;
-            previousPrintCount3 = printCount3;
-            previousPrintCount4 = printCount4;
+            for (int i = 0; i <= 3; i++)
+            {
+                PreviousHeadPrintCounters[i] = HeadPrintCountersStoredAsInt[i];
+            }
+
+            //printCount1 = d.heads[0].printCounts; // Counts number of prints for head 1
+            //printCounter1.Text = (printCount1.ToString()); // Displays Number of Print Count on GUI
+            //printCount2 = d.heads[1].printCounts; // Counts number of prints for head 2
+            //printCounter2.Text = (printCount2.ToString()); // Displays Number of Print Count on GUI
+            //printCount3 = d.heads[2].printCounts; // Counts number of prints for head 3
+            //printCounter3.Text = (printCount3.ToString()); // Displays Number of Print Count on GUI
+            //printCount4 = d.heads[3].printCounts; // Counts number of prints for head 4
+            //printCounter4.Text = (printCount4.ToString()); // Displays Number of Print Count on GUI 
+
+            //determineStatus();
+
+            //// IF print count is increasing for any head, "Head Printing" will be displayed in Status Box
+            //if ((power.Checked) && ((printCount1) > (previousPrintCount1) || (printCount2) > (previousPrintCount2) || (printCount3) > (previousPrintCount3) || (printCount4) > (previousPrintCount4)))
+            //{
+            //    DropWatchingStatus.Text = ("Head Printing");
+            //    DropWatchingStatus.BackColor = Color.Green;
+            //}
+
+            //// IF print count is stationary for all heads, "Head Idle" will be displayed in Status Box
+            //else if ((power.Checked) && (((printCount1) == (previousPrintCount1)) && ((printCount2) == (previousPrintCount2)) && ((printCount3) == (previousPrintCount3)) && ((printCount4) == (previousPrintCount4))))
+            //{
+            //    DropWatchingStatus.Text = ("Head Idle");
+            //    DropWatchingStatus.BackColor = Color.Orange;
+            //}
+            //else if (!power.Checked)
+            //{
+            //    DropWatchingStatus.Text = ("Powered Off");
+            //    DropWatchingStatus.BackColor = Color.Red;
+            //}
+
+            ////Sets Previous Count to current count to detect if value is going up or staying the same
+            //previousPrintCount1 = printCount1;
+            //previousPrintCount2 = printCount2;
+            //previousPrintCount3 = printCount3;
+            //previousPrintCount4 = printCount4;
 
             //--------------------------------------------------
             //Check Currrent Temeperatures for Heads
@@ -534,6 +609,16 @@ namespace DriverBoardDropwatcher
             for (int i = 0; i <= 3; i++)
             {
                 HeadTemperatures[i].Text = d.heads[i].curTemperature.ToString();
+
+                if ((d.heads[i].isHeating) == 1)
+                {
+                    HeadTemperatures[i].ForeColor = Color.Red;
+                }
+                else
+                {
+                    HeadTemperatures[i].BackColor = Color.WhiteSmoke;
+                }
+
             }
 
             //--------------------------------------------------
@@ -587,6 +672,7 @@ namespace DriverBoardDropwatcher
                 {
                     powerOn();
                     statusTextBox.Text = "Power On"; //Displays Connected in Status Box
+                    tcDropWatchingAndImageModes_SelectedIndexChanged(sender, e);
                 }
             }
         }
@@ -643,23 +729,23 @@ namespace DriverBoardDropwatcher
             {
                 if (temperatureChanged.Tag == "temperatureHead1")
                 {
-                    driver_board.Write($"T {(1).ToString()} {temperature1.Value.ToString()}");
-                    Console.WriteLine("Head 1 Temperature Changed to: {0}", temperature1.Value);
+                    driver_board.Write($"T {(1).ToString()} {nudTemperatureHead1.Value.ToString()}");
+                    Console.WriteLine("Head 1 Temperature Changed to: {0}", nudTemperatureHead1.Value);
                 }
                 else if (temperatureChanged.Tag == "temperatureHead2")
                 {
-                    driver_board.Write($"T {(2).ToString()} {temperature2.Value.ToString()}");
-                    Console.WriteLine("Head 2 Temperature Changed to: {0}", temperature2.Value);
+                    driver_board.Write($"T {(2).ToString()} {nudTemperatureHead2.Value.ToString()}");
+                    Console.WriteLine("Head 2 Temperature Changed to: {0}", nudTemperatureHead2.Value);
                 }
                 else if (temperatureChanged.Tag == "temperatureHead3")
                 {
-                    driver_board.Write($"T {(3).ToString()} {temperature3.Value.ToString()}");
-                    Console.WriteLine("Head 3 Temperature Changed to: {0}", temperature3.Value);
+                    driver_board.Write($"T {(3).ToString()} {nudTemperatureHead3.Value.ToString()}");
+                    Console.WriteLine("Head 3 Temperature Changed to: {0}", nudTemperatureHead3.Value);
                 }
                 else if (temperatureChanged.Tag == "temperatureHead4")
                 {
-                    driver_board.Write($"T {(4).ToString()} {temperature4.Value.ToString()}");
-                    Console.WriteLine("Head 4 Temperature Changed to: {0}", temperature4.Value);
+                    driver_board.Write($"T {(4).ToString()} {nudTemperatureHead4.Value.ToString()}");
+                    Console.WriteLine("Head 4 Temperature Changed to: {0}", nudTemperatureHead4.Value);
                 }
             }
         }
@@ -847,12 +933,12 @@ namespace DriverBoardDropwatcher
             {
                 driver_board.Write("M4");
                 Console.WriteLine("Quadrature Encoder Mode");
-                polarityLabel.Visible = false;
+                polarityLabel.ForeColor = Color.Gray;
                 PD_Polarity.Visible = false;
                 EncoderTrackedPositionSelection.Visible = false;
-                EncoderPositionLabel.Visible = false;
+                EncoderPositionLabel.ForeColor = Color.Gray;
                 pdDirection.Visible = false;
-                pdDirectionLabel.Visible = false;
+                pdDirectionLabel.ForeColor = Color.Gray;
             }
 
             else if ((activeImageMode == 2) && (isConnected.Checked))
@@ -860,11 +946,14 @@ namespace DriverBoardDropwatcher
                 driver_board.Write("M5");
                 Console.WriteLine("HW PD Mode");
                 polarityLabel.Visible = true;
+                polarityLabel.ForeColor = Color.Black;
                 PD_Polarity.Visible = true;
                 EncoderTrackedPositionSelection.Visible = false;
-                EncoderPositionLabel.Visible = false;
+                EncoderPositionLabel.Visible = true;
+                EncoderPositionLabel.ForeColor = Color.Gray;
                 pdDirection.Visible = true;
                 pdDirectionLabel.Visible = true;
+                pdDirectionLabel.ForeColor = Color.Black;
             }
         }
 
@@ -1056,14 +1145,6 @@ namespace DriverBoardDropwatcher
                 driver_board.Write("K0");
                 Console.WriteLine("Single Mode");
             }
-        }
-
-        private void CurrentDataReportButton_Click(object sender, EventArgs e)
-        {
-            driver_board.Write($"A {(0 + 1).ToString()}");
-            driver_board.Write($"A {(1 + 1).ToString()}");
-            driver_board.Write($"A {(2 + 1).ToString()}");
-            driver_board.Write($"A {(3 + 1).ToString()}");
         }
 
         private void tcDropWatchingAndImageModes_SelectedIndexChanged(object sender, EventArgs e)
