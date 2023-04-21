@@ -25,8 +25,8 @@ namespace DriverBoardDropwatcher
         private OpenFileDialog ofd;
         bool valid_port_selected = false;
         string port_name;
+        int failCounter = 0;
         static SerialPort driver_board;
-        //isConnected.Checked;
         private Thread trd;
         int activeDropWatch = 0;
         int activeSingleHead;
@@ -48,15 +48,12 @@ namespace DriverBoardDropwatcher
         int previousPrintCount4 = 0;
         int actFreq;
         int timeBoardOn = -1;
-        int currentTemperatureHead1;
-        int currentTemperatureHead2;
-        int currentTemperatureHead3;
-        int currentTemperatureHead4;
         int activePD_Polarity;
         int activeEncoderPosition;
         int activePDdirection;
         bool goLeft;
         bool goRight;
+        int[] HeadStatus;
         byte[] A_Bits = { 0b10010010, 0b01001001, 0b00100100 };
         byte[] B_Bits = { 0b01001001, 0b00100100, 0b10010010 };
         byte[] C_Bits = { 0b00100100, 0b10010010, 0b01001001 };
@@ -66,16 +63,11 @@ namespace DriverBoardDropwatcher
         {
             InitializeComponent();
             this.FormClosing += Form1_FormClosing;
-            //dropWatchSelect.Text = "--Select Mode--"; // Placeholder Text
-            //serialPort.Text = "Select COM Port"; // Placeholder Text
-            //singleHead.Text = "--Select Head--"; // Placeholder Text
-            //ImageModeSelection.Text = "--Select Mode--"; //Placeholder Text
-            //DropWatchingStatus.Text = "Head Status"; // Placeholder Text;
             Thread trd = new Thread(new ThreadStart(this.ThreadTask));
             trd.IsBackground = true;
             trd.Start();
             Control.CheckForIllegalCrossThreadCalls = false;
-            textBox2.Text = "Disconnected"; //Displays Disconnected in Status Box
+            statusTextBox.Text = "Disconnected"; //Displays Disconnected in Status Box
             ofd = new OpenFileDialog();
             ofd.Filter = "Image Files(*.jpg; *.jpeg; *.bmp); *.png|*.jpg; *.jpeg; *.bmp; *.png";
         }
@@ -103,8 +95,6 @@ namespace DriverBoardDropwatcher
 
                     }
                 }
-
-
                 Thread.Sleep(500);
             }
         }
@@ -194,12 +184,12 @@ namespace DriverBoardDropwatcher
                     driver_board.DataReceived += new SerialDataReceivedEventHandler(DataRecievedHandler);
                     isConnected.Checked = true;
                     Console.WriteLine("Connected");
-                    textBox2.Text = "Connected";
+                    statusTextBox.Text = "Connected";
                 }
                 catch
                 {
                     Console.WriteLine("Error opening port");
-                    textBox2.Text = "Error opening port";
+                    statusTextBox.Text = "Error opening port";
                     MessageBoxButtons BoxButtons = MessageBoxButtons.RetryCancel;
                     DialogResult results = MessageBox.Show("Error opening port", "Port Error", BoxButtons, MessageBoxIcon.Error);
                     if (results == DialogResult.Retry)
@@ -212,12 +202,11 @@ namespace DriverBoardDropwatcher
             else if (isConnected.Checked)
             {
                 disconnect_board();
-                textBox2.Text = "Disconnected";
+                statusTextBox.Text = "Disconnected";
                 Console.WriteLine("Disconnected");
             }
         }
 
-        int failCounter = 0;
         private void DataRecievedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             while (driver_board.BytesToRead > 0)
@@ -238,13 +227,13 @@ namespace DriverBoardDropwatcher
                             failCounter++;
                             Console.WriteLine("Parse JSON Failed for the {0} time.", failCounter);
 
-                            MessageBoxButtons BoxButtons = MessageBoxButtons.RetryCancel;
-                            DialogResult results = MessageBox.Show("Parse JSON Failed", "Parse JSON Error", BoxButtons, MessageBoxIcon.Error);
-                            if (results == DialogResult.Retry)
-                            {
-                                Application.Restart();
-                                Environment.Exit(0);
-                            }
+                            //MessageBoxButtons BoxButtons = MessageBoxButtons.RetryCancel;
+                            //DialogResult results = MessageBox.Show("Parse JSON Failed", "Parse JSON Error", BoxButtons, MessageBoxIcon.Error);
+                            //if (results == DialogResult.Retry)
+                            //{
+                            //    Application.Restart();
+                            //    Environment.Exit(0);
+                            //}
                         }
                     }
                 }
@@ -264,7 +253,7 @@ namespace DriverBoardDropwatcher
                 {
                     case -2: // -2 means head is not connected to board
                         Head1TextStatus.Text = "Not Connected"; // Displays Message
-                        voltage1.Visible = false; // Hides Voltage Box
+                        nudVoltageHead1.Visible = false; // Hides Voltage Box
                         temperature1.Visible = false; // Hides Set Temperature Box 
                         temperatureOutput1.Visible = false; //Hides Current Temperature Box
                         printCounter1.Visible = false; // Hides Print Counter Box
@@ -272,14 +261,14 @@ namespace DriverBoardDropwatcher
                         break;
                     case -3: // -3 means error with head
                         Head1TextStatus.Text = "Ready Error"; // Displays Message
-                        voltage1.Visible = false; // Hides Voltage Box
+                        nudVoltageHead1.Visible = false; // Hides Voltage Box
                         temperature1.Visible = false; // Hides Set Temperature Box 
                         temperatureOutput1.Visible = false; //Hides Current Temperature Box
                         printCounter1.Visible = false; // Hides Print Counter Box
                         Head1TextStatus.BackColor = Color.Red; //Sets Status Box to Red indicating head error
                         break;
                     case 10: // Head is connected but idle
-                        voltage1.Visible = true; // Displays Voltage Box
+                        nudVoltageHead1.Visible = true; // Displays Voltage Box
                         temperature1.Visible = true; // Dislays Set Temperature Box 
                         temperatureOutput1.Visible = true; //Displays Current Temperature Box
                         printCounter1.Visible = true; // Displays Print Counter Box
@@ -298,7 +287,7 @@ namespace DriverBoardDropwatcher
                         }
                     default: 
                         Head1TextStatus.Text = "Printing"; // Displays Message
-                        voltage1.Visible = true; // Displays Voltage Box
+                        nudVoltageHead1.Visible = true; // Displays Voltage Box
                         temperature1.Visible = true; // Dislays Set Temperature Box 
                         temperatureOutput1.Visible = true; //Displays Current Temperature Box
                         printCounter1.Visible = true; // Displays Print Counter Box
@@ -311,7 +300,7 @@ namespace DriverBoardDropwatcher
                 {
                     case -2:
                         Head2TextStatus.Text = "Not Connected";
-                        voltage2.Visible = false;
+                        nudVoltageHead2.Visible = false;
                         temperature2.Visible = false;
                         temperatureOutput2.Visible = false;
                         printCounter2.Visible = false;
@@ -319,7 +308,7 @@ namespace DriverBoardDropwatcher
                         break;
                     case -3:
                         Head2TextStatus.Text = "Ready Error";
-                        voltage2.Visible = false;
+                        nudVoltageHead2.Visible = false;
                         temperature2.Visible = false;
                         temperatureOutput2.Visible = false;
                         printCounter2.Visible = false;
@@ -327,7 +316,7 @@ namespace DriverBoardDropwatcher
                         break;
                     case 10:
                         Head2TextStatus.Text = "Idle";
-                        voltage2.Visible = true;
+                        nudVoltageHead2.Visible = true;
                         temperature2.Visible = true;
                         temperatureOutput2.Visible = true;
                         printCounter2.Visible = true;
@@ -335,7 +324,7 @@ namespace DriverBoardDropwatcher
                         break;
                     default:
                         Head2TextStatus.Text = "Printing";
-                        voltage2.Visible = true;
+                        nudVoltageHead2.Visible = true;
                         temperature2.Visible = true;
                         temperatureOutput2.Visible = true;
                         printCounter2.Visible = true;
@@ -347,7 +336,7 @@ namespace DriverBoardDropwatcher
                 {
                     case -2:
                         Head3TextStatus.Text = "Not Connected";
-                        voltage3.Visible = false;
+                        nudVoltageHead3.Visible = false;
                         temperature3.Visible = false;
                         temperatureOutput3.Visible = false;
                         printCounter3.Visible = false;
@@ -355,7 +344,7 @@ namespace DriverBoardDropwatcher
                         break;
                     case -3:
                         Head3TextStatus.Text = "Ready Error";
-                        voltage3.Visible = false;
+                        nudVoltageHead3.Visible = false;
                         temperature3.Visible = false;
                         temperatureOutput3.Visible = false;
                         printCounter3.Visible = false;
@@ -363,7 +352,7 @@ namespace DriverBoardDropwatcher
                         break;
                     case 10:
                         Head3TextStatus.Text = "Idle";
-                        voltage3.Visible = true;
+                        nudVoltageHead3.Visible = true;
                         temperature3.Visible = true;
                         temperatureOutput3.Visible = true;
                         printCounter3.Visible = true;
@@ -371,7 +360,7 @@ namespace DriverBoardDropwatcher
                         break;
                     default:
                         Head3TextStatus.Text = "Printing";
-                        voltage3.Visible = true;
+                        nudVoltageHead3.Visible = true;
                         temperature3.Visible = true;
                         temperatureOutput3.Visible = true;
                         printCounter3.Visible = true;
@@ -383,7 +372,7 @@ namespace DriverBoardDropwatcher
                 {
                     case -2:
                         Head4TextStatus.Text = "Not Connected";
-                        voltage4.Visible = false;
+                        nudVoltageHead4.Visible = false;
                         temperature4.Visible = false;
                         temperatureOutput4.Visible = false;
                         printCounter4.Visible = false;
@@ -391,7 +380,7 @@ namespace DriverBoardDropwatcher
                         break;
                     case -3:
                         Head4TextStatus.Text = "Ready Error";
-                        voltage4.Visible = false;
+                        nudVoltageHead4.Visible = false;
                         temperature4.Visible = false;
                         temperatureOutput4.Visible = false;
                         printCounter4.Visible = false;
@@ -399,7 +388,7 @@ namespace DriverBoardDropwatcher
                         break;
                     case 10:
                         Head4TextStatus.Text = "Idle";
-                        voltage4.Visible = true;
+                        nudVoltageHead4.Visible = true;
                         temperature4.Visible = true;
                         temperatureOutput4.Visible = true;
                         printCounter4.Visible = true;
@@ -407,7 +396,7 @@ namespace DriverBoardDropwatcher
                         break;
                     default:
                         Head4TextStatus.Text = "Printing";
-                        voltage4.Visible = true;
+                        nudVoltageHead4.Visible = true;
                         temperature4.Visible = true;
                         temperatureOutput4.Visible = true;
                         printCounter4.Visible = true;
@@ -420,22 +409,22 @@ namespace DriverBoardDropwatcher
             else
             {
                 Head1TextStatus.Text = "Powered off.";
-                voltage1.Visible = false;
+                nudVoltageHead1.Visible = false;
                 temperature1.Visible = false;
                 temperatureOutput1.Visible = false;
                 printCounter1.Visible = false;
                 Head2TextStatus.Text = "Powered off.";
-                voltage2.Visible = false;
+                nudVoltageHead2.Visible = false;
                 temperature2.Visible = false;
                 temperatureOutput2.Visible = false;
                 printCounter2.Visible = false;
                 Head3TextStatus.Text = "Powered off.";
-                voltage3.Visible = false;
+                nudVoltageHead3.Visible = false;
                 temperature3.Visible = false;
                 temperatureOutput3.Visible = false;
                 printCounter3.Visible = false;
                 Head4TextStatus.Text = "Powered off.";
-                voltage4.Visible = false;
+                nudVoltageHead4.Visible = false;
                 temperature4.Visible = false;
                 temperatureOutput4.Visible = false;
                 printCounter4.Visible = false;
@@ -451,13 +440,57 @@ namespace DriverBoardDropwatcher
         {
             dynamic d = JObject.Parse(input_string);
             //--------------------------------------------------
-            headStatus1 = d.heads[0].status; //Check status of head 1
-            headStatus2 = d.heads[1].status; //Check status of head 2
-            headStatus3 = d.heads[2].status; //Check status of head 3
-            headStatus4 = d.heads[3].status; //Check status of head 4
-            //--------------------------------------------------
+            for (int i = 0; i <= 3; i++)
+            {
+                HeadStatus[i] = d.heads[i].status;
+            }
+            //headStatus1 = d.heads[0].status; //Check status of head 1
+            //headStatus2 = d.heads[1].status; //Check status of head 2
+            //headStatus3 = d.heads[2].status; //Check status of head 3
+            //headStatus4 = d.heads[3].status; //Check status of head 4
+                                             //--------------------------------------------------
 
             //Check Print Counts for Heads
+            //System.Windows.Forms.TextBox[] HeadPrintCounters = { printCounter1, printCounter2, printCounter3, printCounter4 };
+            //int[] HeadPrintCountersStoredAsInt = { 0, 0, 0, 0 };
+
+            //for (int i=0; i<=3; i++)
+            //{
+            //    HeadPrintCounters[i].Text = d.heads[i].printCounts.ToString();
+            //    HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts;
+            //}
+
+            //determineStatus();
+
+            //int[] PreviousHeadPrintCounters = { 0, 0, 0, 0 };
+
+            //for (int i = 0; i <= 3; i++)
+            //{
+            //    if (isConnected.Checked)
+            //    {
+            //        if (HeadPrintCountersStoredAsInt[i] > PreviousHeadPrintCounters[i])
+            //        {
+            //            DropWatchingStatus.Text = "Head Printing";
+            //            DropWatchingStatus.BackColor = Color.Green;
+            //        }
+            //        else if (HeadPrintCountersStoredAsInt[i] == PreviousHeadPrintCounters[i])
+            //        {
+            //            DropWatchingStatus.Text = "Head Idle";
+            //            DropWatchingStatus.BackColor = Color.Orange;
+            //        }
+            //        else if (!power.Checked)
+            //        {
+            //            DropWatchingStatus.Text = "Powered Off";
+            //            DropWatchingStatus.BackColor = Color.Red;
+            //        }
+            //    }
+            //}
+
+            //for (int i = 0; i <= 3; i++)
+            //{
+            //    PreviousHeadPrintCounters[i] = HeadPrintCountersStoredAsInt[i];
+            //}    
+
             printCount1 = d.heads[0].printCounts; // Counts number of prints for head 1
             printCounter1.Text = (printCount1.ToString()); // Displays Number of Print Count on GUI
             printCount2 = d.heads[1].printCounts; // Counts number of prints for head 2
@@ -470,17 +503,22 @@ namespace DriverBoardDropwatcher
             determineStatus();
 
             // IF print count is increasing for any head, "Head Printing" will be displayed in Status Box
-            if ((printCount1) > (previousPrintCount1) || (printCount2) > (previousPrintCount2) || (printCount3) > (previousPrintCount3) ||  (printCount4) > (previousPrintCount4))
+            if ((power.Checked) && ((printCount1) > (previousPrintCount1) || (printCount2) > (previousPrintCount2) || (printCount3) > (previousPrintCount3) || (printCount4) > (previousPrintCount4)))
             {
-                DropWatchingStatus.Text = ("Head Printing"); 
+                DropWatchingStatus.Text = ("Head Printing");
                 DropWatchingStatus.BackColor = Color.Green;
             }
 
             // IF print count is stationary for all heads, "Head Idle" will be displayed in Status Box
-            else if (((printCount1) == (previousPrintCount1)) && ((printCount2) == (previousPrintCount2)) && ((printCount3) == (previousPrintCount3)) && ((printCount4) == (previousPrintCount4)))
+            else if ((power.Checked) && (((printCount1) == (previousPrintCount1)) && ((printCount2) == (previousPrintCount2)) && ((printCount3) == (previousPrintCount3)) && ((printCount4) == (previousPrintCount4))))
             {
                 DropWatchingStatus.Text = ("Head Idle");
                 DropWatchingStatus.BackColor = Color.Orange;
+            }
+            else if (!power.Checked)
+            {
+                DropWatchingStatus.Text = ("Powered Off");
+                DropWatchingStatus.BackColor = Color.Red;
             }
 
             //Sets Previous Count to current count to detect if value is going up or staying the same
@@ -491,33 +529,27 @@ namespace DriverBoardDropwatcher
 
             //--------------------------------------------------
             //Check Currrent Temeperatures for Heads
-            currentTemperatureHead1 = d.heads[0].curTemperature;
-            temperatureOutput1.Text = currentTemperatureHead1.ToString();
-            currentTemperatureHead2 = d.heads[1].curTemperature;
-            temperatureOutput2.Text = currentTemperatureHead2.ToString();
-            currentTemperatureHead3 = d.heads[2].curTemperature;
-            temperatureOutput3.Text = currentTemperatureHead3.ToString();
-            currentTemperatureHead4 = d.heads[3].curTemperature;
-            temperatureOutput4.Text = currentTemperatureHead4.ToString();
+            System.Windows.Forms.TextBox[] HeadTemperatures = { temperatureOutput1, temperatureOutput2, temperatureOutput3, temperatureOutput4 };
 
+            for (int i = 0; i <= 3; i++)
+            {
+                HeadTemperatures[i].Text = d.heads[i].curTemperature.ToString();
+            }
 
             //--------------------------------------------------
-            //--------------------------------------------------
-            // Check Current Voltage for Heads
-            voltage1.Text = d.heads[0].voltage.ToString();
-            voltage2.Text = d.heads[1].voltage.ToString();
-            voltage3.Text = d.heads[2].voltage.ToString();
-            voltage4.Text = d.heads[3].voltage.ToString();
-            Thread.Sleep(1500);
+            NumericUpDown[] nudHeadVoltages = { nudVoltageHead1, nudVoltageHead2, nudVoltageHead3, nudVoltageHead4 };
+            for (int i = 0; i <= 3; i++)
+            {
+                nudHeadVoltages[i].Value = d.heads[i].voltage;
+            }
             //--------------------------------------------------
             actFreq = d.printingParameters[0].internalPrintPeriod;
 
             if (actFreq > 0)
             {
                 //Check Frequency for each Head
-                frequency.Text = (1000000 / actFreq).ToString();
-                frequencyDuplicate.Text = frequency.Text;
-                Thread.Sleep(1500);
+                nudFrequency.Value = (1000000 / actFreq);
+                frequencyDuplicate.Text = nudFrequency.Value.ToString();
             }
             power.Checked = d.board[0].power == 1 ? true : false;
             int newTime = d.board[0].timeOn;
@@ -536,9 +568,10 @@ namespace DriverBoardDropwatcher
             timeBoardOn = newTime;
             textBox3.Text = timeBoardOn.ToString(); // Displays Clock Time in GUI
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void btnConnectDisconnect_Click(object sender, EventArgs e)
         {
             connect_board();
+            tcDropWatchingAndImageModes_SelectedIndexChanged(sender, e);
         }
 
         private void powerOnOff_Click(object sender, EventArgs e)
@@ -548,12 +581,12 @@ namespace DriverBoardDropwatcher
                 if (power.Checked)
                 {
                     powerOff();
-                    textBox2.Text = "Power Off"; //Displays Disconnected in Status Box
+                    statusTextBox.Text = "Power Off"; //Displays Disconnected in Status Box
                 }
                 else
                 {
                     powerOn();
-                    textBox2.Text = "Power On"; //Displays Connected in Status Box
+                    statusTextBox.Text = "Power On"; //Displays Connected in Status Box
                 }
             }
         }
@@ -572,104 +605,77 @@ namespace DriverBoardDropwatcher
             }
         }
 
-        private void voltage1_ValueChanged(object sender, EventArgs e)
+        private void voltage_ValueChanged(object sender, EventArgs e)
         {
+            // This Function Checks for Tag Names to determine which Head Voltage is being changed.
+            System.Windows.Forms.NumericUpDown voltageChanged = (System.Windows.Forms.NumericUpDown)sender;
+
             if (isConnected.Checked)
             {
-                // Sets Head Voltage
-                driver_board.Write($"v {(0 + 1).ToString()} {voltage1.Value.ToString()}");
-                Console.WriteLine(voltage1.Value);
+                if (voltageChanged.Tag == "voltageHead1")
+                {
+                    driver_board.Write($"v {(1).ToString()} {nudVoltageHead1.Value.ToString()}");
+                    Console.WriteLine("Head 1 Voltage Changed to: {0}", nudVoltageHead1.Value);
+                }
+                else if (voltageChanged.Tag == "voltageHead2")
+                {
+                    driver_board.Write($"v {(2).ToString()} {nudVoltageHead2.Value.ToString()}");
+                    Console.WriteLine("Head 2 Voltage Changed to: {0}", nudVoltageHead1.Value);
+
+                }
+                else if (voltageChanged.Tag == "voltageHead3")
+                {
+                    driver_board.Write($"v {(3).ToString()} {nudVoltageHead3.Value.ToString()}");
+                    Console.WriteLine("Head 3 Voltage Changed to: {0}", nudVoltageHead1.Value);
+                }
+                else if (voltageChanged.Tag == "voltageHead4")
+                {
+                    driver_board.Write($"v {(4).ToString()} {nudVoltageHead4.Value.ToString()}");
+                    Console.WriteLine("Head 4 Voltage Changed to: {0}", nudVoltageHead1.Value);
+                }
             }
         }
 
-        private void voltage2_ValueChanged(object sender, EventArgs e)
+        private void temperature_ValueChanged(object sender, EventArgs e)
         {
+            System.Windows.Forms.NumericUpDown temperatureChanged = (System.Windows.Forms.NumericUpDown)sender;
             if (isConnected.Checked)
             {
-                // Sets Head Voltage
-                driver_board.Write($"v {(1 + 1).ToString()} {voltage2.Value.ToString()}");
+                if (temperatureChanged.Tag == "temperatureHead1")
+                {
+                    driver_board.Write($"T {(1).ToString()} {temperature1.Value.ToString()}");
+                    Console.WriteLine("Head 1 Temperature Changed to: {0}", temperature1.Value);
+                }
+                else if (temperatureChanged.Tag == "temperatureHead2")
+                {
+                    driver_board.Write($"T {(2).ToString()} {temperature2.Value.ToString()}");
+                    Console.WriteLine("Head 2 Temperature Changed to: {0}", temperature2.Value);
+                }
+                else if (temperatureChanged.Tag == "temperatureHead3")
+                {
+                    driver_board.Write($"T {(3).ToString()} {temperature3.Value.ToString()}");
+                    Console.WriteLine("Head 3 Temperature Changed to: {0}", temperature3.Value);
+                }
+                else if (temperatureChanged.Tag == "temperatureHead4")
+                {
+                    driver_board.Write($"T {(4).ToString()} {temperature4.Value.ToString()}");
+                    Console.WriteLine("Head 4 Temperature Changed to: {0}", temperature4.Value);
+                }
             }
         }
 
-        private void voltage3_ValueChanged(object sender, EventArgs e)
+        private void frequencyValue_ValueChanged(object sender, EventArgs e)
         {
+            System.Windows.Forms.NumericUpDown nudFrequencyChanged = (System.Windows.Forms.NumericUpDown)sender;
             if (isConnected.Checked)
             {
-                // Sets Head Voltage
-                driver_board.Write($"v {(2 + 1).ToString()} {voltage3.Value.ToString()}");
+                if (nudFrequencyChanged.Tag == "nudFrequency")
+                {
+                    //Sets Head Frequency
+                    driver_board.Write($"p {nudFrequency.Value.ToString()}");
+                }
             }
         }
-
-        private void voltage4_ValueChanged(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                // Sets Head Voltage
-                driver_board.Write($"v {(3 + 1).ToString()} {voltage4.Value.ToString()}");
-            }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void temperature1_ValueChanged(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                // Sets Head Temperature
-                driver_board.Write($"T {(0 + 1).ToString()} {temperature1.Value.ToString()}");
-            }
-
-        }
-
-        private void temperature2_ValueChanged(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                // Sets Head Temperature
-                driver_board.Write($"T {(1 + 1).ToString()} {temperature2.Value.ToString()}");
-            }
-
-        }
-
-        private void temperature3_ValueChanged(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                // Sets Head Temperature
-                driver_board.Write($"T {(2 + 1).ToString()} {temperature3.Value.ToString()}");
-            }
-
-        }
-
-        private void temperature4_ValueChanged(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                // Sets Head Temperature
-                driver_board.Write($"T {(3 + 1).ToString()} {temperature4.Value.ToString()}");
-            }
-
-        }
-
-        private void frequency_ValueChanged(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                //Sets Head Frequency
-                driver_board.Write($"p {frequency.Value.ToString()}");
-                Console.WriteLine(frequency.Value);
-            }
-        }
-
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void dropWatchSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -678,9 +684,9 @@ namespace DriverBoardDropwatcher
             //Checks if External Mode is Selected AND Board is Connected
             if ((activeDropWatch == 1) && (isConnected.Checked))
             {
-                frequency.ReadOnly = true;
+                nudFrequency.ReadOnly = true;
                 frequencyLabel.ForeColor = Color.Gray;
-                frequency.ForeColor = Color.Gray;
+                nudFrequency.ForeColor = Color.Gray;
                 frequencyDuplicate.Visible = false;
                 frequencyDuplicateLabel.Visible = false;
                 driver_board.Write("M2");
@@ -690,9 +696,9 @@ namespace DriverBoardDropwatcher
             //Checks IF internal Mode is Selected AND Board is Connected
             else if ((activeDropWatch == 0) && (isConnected.Checked))
                 {
-                frequency.ReadOnly = false;
+                nudFrequency.ReadOnly = false;
                 frequencyLabel.ForeColor = Color.Black;
-                frequency.ForeColor = Color.Black;
+                nudFrequency.ForeColor = Color.Black;
                 frequencyDuplicate.Visible = true;
                 frequencyDuplicateLabel.Visible = true;
                 driver_board.Write("M1");
@@ -705,6 +711,7 @@ namespace DriverBoardDropwatcher
             if (isConnected.Checked)
             {
                 driver_board.Write("r"); //Resets Board
+                tcDropWatchingAndImageModes_SelectedIndexChanged(sender, e);
             }
         }
 
@@ -828,12 +835,12 @@ namespace DriverBoardDropwatcher
             {
                 driver_board.Write("M3");
                 Console.WriteLine("Stepper Motor Mode");
-                polarityLabel.Visible = false;
+                polarityLabel.ForeColor = Color.Gray;
                 PD_Polarity.Visible = false;
                 EncoderTrackedPositionSelection.Visible = true;
-                EncoderPositionLabel.Visible = true;
+                EncoderPositionLabel.ForeColor = Color.Black;
                 pdDirection.Visible = false;
-                pdDirectionLabel.Visible = false;
+                pdDirectionLabel.ForeColor = Color.Gray;
             }
 
             else if ((activeImageMode == 1) && (isConnected.Checked))
@@ -936,32 +943,39 @@ namespace DriverBoardDropwatcher
         {
             serialPort_DropDown(sender, e);
             serialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
-            frequency.Value = Properties.Settings.Default.Frequency;
+            nudFrequency.Value = Properties.Settings.Default.Frequency;
+            dropWatchSelect_SelectedIndexChanged(sender, e);
             dropWatchSelect.SelectedItem = Properties.Settings.Default.DropWatchMode;
+            singleHead_SelectedIndexChanged(sender, e);
             singleHead.SelectedItem = Properties.Settings.Default.DropWatchHead;
             NozzleValue.Value = Properties.Settings.Default.Index;
             SpanValue.Value = Properties.Settings.Default.Span;
             GapValue.Value = Properties.Settings.Default.Gap;
+            ImageModeSelection_SelectedIndexChanged(sender, e);
             ImageModeSelection.SelectedItem = Properties.Settings.Default.ImageMode;
+            PD_Polarity_SelectedIndexChanged(sender, e);
             PD_Polarity.SelectedItem = Properties.Settings.Default.pdPolarity;
+            EncoderTrackedPositionSelection_SelectedIndexChanged(sender, e);
             EncoderTrackedPositionSelection.SelectedItem = Properties.Settings.Default.Encoder_TrackedPosition;
             pdDirection.SelectedItem = Properties.Settings.Default.pd_direction;
+            tcDropWatchingAndImageModes.SelectedIndex = Properties.Settings.Default.TabNumber;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Save data to user settings
             Properties.Settings.Default.Serial_Port = serialPort.SelectedItem.ToString();
-            Properties.Settings.Default.Frequency = (int)frequency.Value;
+            Properties.Settings.Default.Frequency = (int)nudFrequency.Value;
             Properties.Settings.Default.DropWatchMode = dropWatchSelect.SelectedItem.ToString();
             Properties.Settings.Default.DropWatchHead = singleHead.SelectedItem.ToString();
             Properties.Settings.Default.Index = (int)NozzleValue.Value;
             Properties.Settings.Default.Span = (int)SpanValue.Value;
             Properties.Settings.Default.Gap = (int)GapValue.Value;
-            Properties.Settings.Default.ImageMode = ImageModeSelection.SelectedItem.ToString();
-            Properties.Settings.Default.pdPolarity = PD_Polarity.SelectedItem.ToString();
-            Properties.Settings.Default.Encoder_TrackedPosition = EncoderTrackedPositionSelection.SelectedItem.ToString();
-            Properties.Settings.Default.pd_direction = pdDirection.SelectedItem.ToString();
+            Properties.Settings.Default.TabNumber = tcDropWatchingAndImageModes.SelectedIndex;
+            //Properties.Settings.Default.ImageMode = ImageModeSelection.SelectedItem.ToString();
+            //Properties.Settings.Default.pdPolarity = PD_Polarity.SelectedItem.ToString();
+            //Properties.Settings.Default.Encoder_TrackedPosition = EncoderTrackedPositionSelection.SelectedItem.ToString();
+            //Properties.Settings.Default.pd_direction = pdDirection.SelectedItem.ToString();
             Properties.Settings.Default.Save();
         }
 
@@ -1050,6 +1064,20 @@ namespace DriverBoardDropwatcher
             driver_board.Write($"A {(1 + 1).ToString()}");
             driver_board.Write($"A {(2 + 1).ToString()}");
             driver_board.Write($"A {(3 + 1).ToString()}");
+        }
+
+        private void tcDropWatchingAndImageModes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tcDropWatchingAndImageModes.SelectedIndex == 0)
+            {
+                dropWatchSelect_SelectedIndexChanged(sender, e);
+                singleHead_SelectedIndexChanged(sender, e);
+            }
+
+            else if (tcDropWatchingAndImageModes.SelectedIndex == 1)
+            {
+                ImageModeSelection_SelectedIndexChanged(sender, e);
+            }
         }
     }
 }

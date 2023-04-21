@@ -35,5 +35,14 @@
     <Setting Name="pd_direction" Type="System.String" Scope="User">
       <Value Profile="(Default)">--Select Position--</Value>
     </Setting>
+    <Setting Name="TabName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TabIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TabNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

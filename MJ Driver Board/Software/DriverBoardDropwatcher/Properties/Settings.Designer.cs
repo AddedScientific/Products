@@ -154,5 +154,41 @@ namespace DriverBoardDropwatcher.Properties {
                 this["pd_direction"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TabName {
+            get {
+                return ((string)(this["TabName"]));
+            }
+            set {
+                this["TabName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TabIndex {
+            get {
+                return ((int)(this["TabIndex"]));
+            }
+            set {
+                this["TabIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TabNumber {
+            get {
+                return ((int)(this["TabNumber"]));
+            }
+            set {
+                this["TabNumber"] = value;
+            }
+        }
     }
 }
