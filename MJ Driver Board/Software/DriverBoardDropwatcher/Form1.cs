@@ -16,6 +16,8 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Drawing.Imaging;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
 
 namespace DriverBoardDropwatcher
 {
@@ -38,6 +40,11 @@ namespace DriverBoardDropwatcher
         int activePD_Polarity;
         int activeEncoderPosition;
         int activePDdirection;
+        int activeImageHeadIndex;
+        bool ImageHead1 = false, ImageHead2 = false, ImageHead3 = false, ImageHead4 = false;
+        String CurrentFileName;
+        String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
+        String dataFolderPath = Application.StartupPath.Replace("bin\\Debug", "Output Images");
         int[] HeadPrintCountersStoredAsInt = new int[4];
         int[] PreviousHeadPrintCounters = new int[4];
         int[] HeadStatus = new int[4];
@@ -65,6 +72,7 @@ namespace DriverBoardDropwatcher
             //Filter Image Files only when opening File Dialog
             ofd.Filter = "Image Files(*.jpg; *.jpeg; *.bmp); *.png|*.jpg; *.jpeg; *.bmp; *.png";
         }
+        
         private void ThreadTask()
         {
             // Repeatedly checks if board is connected
@@ -289,6 +297,8 @@ namespace DriverBoardDropwatcher
                                 HeadTextStatus[i].BackColor = Color.Green;
                                 txtbHeadStatus.Text = "Printing";
                                 txtbHeadStatus.BackColor = Color.Green;
+                                txtbImageHeadStatus.Text = "Printing";
+                                txtbImageHeadStatus.BackColor = Color.Green;
                                 break;
                             }
                             else
@@ -297,6 +307,8 @@ namespace DriverBoardDropwatcher
                                 HeadTextStatus[i].BackColor = Color.Orange; //Sets Status Box to Orange indicating all is fine but not printing
                                 txtbHeadStatus.Text = "Head Idle";
                                 txtbHeadStatus.BackColor = Color.Orange;
+                                txtbImageHeadStatus.Text = "Head Idle";
+                                txtbImageHeadStatus.BackColor = Color.Orange;
                                 break;
                             }
                         default:
@@ -368,6 +380,8 @@ namespace DriverBoardDropwatcher
             {
                 txtbHeadStatus.Text = "Powered Off";
                 txtbHeadStatus.BackColor = Color.Red;
+                txtbImageHeadStatus.Text = "Powered Off";
+                txtbImageHeadStatus.BackColor = Color.Red;
             }
 
             // Replaces previous count with current count to determine if value is increasing or stationary
@@ -585,12 +599,15 @@ namespace DriverBoardDropwatcher
             switch (ImageBox.Tag)
             {
                 case ("ImageHead1"):
+                    activeImageHeadIndex = 1;
                     // Opens File Dialog and Replaces Current Image with New Image
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         Bitmap Picture1 = (Bitmap)new Bitmap(ofd.FileName);
+                        Picture1.Save(datafolder + 1 + ".png");
                         pictureBox1.Image = MakeGrayscale3(Picture1);
                         FileName1.Text = ofd.SafeFileName;
+                        CurrentFileName =  (datafolder + 1 + ".png");
                         ImageSizeText1.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         // If File Size has a width of more that
@@ -599,14 +616,22 @@ namespace DriverBoardDropwatcher
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+                        convertImageToData(CurrentFileName);
+                        ImageHead1 = true;
+
                     }
                     break;
+
                 case ("ImageHead2"):
+                    activeImageHeadIndex = 2;
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         Bitmap Picture2 = (Bitmap)new Bitmap(ofd.FileName);
+                        Picture2.Save(datafolder + 2 + ".png");
                         pictureBox2.Image = MakeGrayscale3(Picture2);
                         FileName2.Text = ofd.SafeFileName;
+                        CurrentFileName = (datafolder + 2 + ".png");
                         ImageSizeText2.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128)
@@ -614,14 +639,21 @@ namespace DriverBoardDropwatcher
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+                        convertImageToData(CurrentFileName);
+                        ImageHead2 = true;
                     }
                     break;
+
                 case ("ImageHead3"):
+                    activeImageHeadIndex = 3;
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         Bitmap Picture3 = (Bitmap)new Bitmap(ofd.FileName);
+                        Picture3.Save(datafolder + 3 + ".png");
                         pictureBox3.Image = MakeGrayscale3(Picture3);
                         FileName3.Text = ofd.SafeFileName;
+                        CurrentFileName = (datafolder + 3 + ".png");
                         ImageSizeText3.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128)
@@ -629,14 +661,21 @@ namespace DriverBoardDropwatcher
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+                        convertImageToData(CurrentFileName);
+                        ImageHead3 = true;
                     }
                     break;
+
                 case ("ImageHead4"):
+                    activeImageHeadIndex = 4;
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         Bitmap Picture4 = (Bitmap)new Bitmap(ofd.FileName);
+                        Picture4.Save(datafolder + 4 + ".png");
                         pictureBox4.Image = MakeGrayscale3(Picture4); //Grey Scales Image in GUI
                         FileName4.Text = ofd.SafeFileName;
+                        CurrentFileName = (datafolder + 4 + ".png");
                         ImageSizeText4.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128)
@@ -644,6 +683,9 @@ namespace DriverBoardDropwatcher
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+                        convertImageToData(CurrentFileName);
+                        ImageHead4 = true;
                     }
                     break;
             }
@@ -668,6 +710,68 @@ namespace DriverBoardDropwatcher
         {
             ImageBoxClicked(sender, e);
         }
+
+        private void convertImageToData(string file_name)
+        {
+            using (Bitmap inputImage = new Bitmap(file_name))
+            {
+                Color pixel;
+                List <byte> imageData = new List <byte>();
+
+                for (int y = (inputImage.Height - 1); y > -1; y--)
+                {
+                    for (int byteWide = 0; byteWide < 16; byteWide++)
+                    {
+                        byte curByte = 0;
+                        for (int bitIdx = 0; bitIdx < 8; bitIdx++)
+                        {
+                            int x = 8 * byteWide + bitIdx;
+
+                            if (x >= inputImage.Width)
+                            {
+                                pixel = Color.FromName("White");
+                            }
+                            else
+                            {
+                                pixel = inputImage.GetPixel(x, y);
+                            }
+                            uint val = (uint)(pixel.ToArgb());
+
+                            if (val == 4278190080)
+                            {
+                                curByte = (byte)(curByte + Math.Pow(2, (7 - bitIdx)));
+                            }
+                        }
+
+                        imageData.Add(curByte);
+                    }
+                }
+                byte[] imageDataByteArray = imageData.ToArray();
+                File.WriteAllBytes(file_name + ".printDat", imageDataByteArray);
+            }
+        }
+
+        private void btnPrintImage_Click(object sender, EventArgs e)
+        {
+            if (isConnected.Checked)
+            {
+                for (int i = 1; i < 5; i++)
+                {
+                    String CurrentFile = datafolder + i + ".png.printDat";
+                    byte[] readText = File.ReadAllBytes(CurrentFile);
+                    byte[] dataToSend = new byte[readText.Length + 2];
+
+                    readText.CopyTo(dataToSend, 2);
+                    dataToSend[0] = (byte)'W';
+                    dataToSend[1] = (byte)(100 + i);
+
+                    driver_board.Write(dataToSend, 0, dataToSend.Length);
+
+                    Console.WriteLine("Write Print Head Data {0}", i);
+                }
+            }
+        }
+
         private void NozzleValue_ValueChanged(object sender, EventArgs e)
         {
             activeNozzleValue = (int)nudNozzle.Value;
@@ -890,15 +994,6 @@ namespace DriverBoardDropwatcher
             Properties.Settings.Default.Save();
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if (isConnected.Checked)
-            {
-                Console.WriteLine("Write Print Head Data");
-                driver_board.Write("W"); //Sends command to print images
-            }
-        }
-
         private void PD_Polarity_SelectedIndexChanged(object sender, EventArgs e)
         {
             activePD_Polarity = PD_Polarity.SelectedIndex; 
@@ -1000,6 +1095,20 @@ namespace DriverBoardDropwatcher
         private void DropWatchingTab_Click(object sender, EventArgs e)
         {
             DropWatchingTab.Focus();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if ((isConnected.Checked) && (power.Checked))
+            {
+                driver_board.Write("C");
+                //Console.Write(datafolder);
+            }
+        }
+
+        private void DeleteAllFilesInFolder(object sender, EventArgs e)
+        {
+            System.IO.DirectoryInfo dir = new DirectoryInfo(dataFolderPath);
         }
     }
 }
