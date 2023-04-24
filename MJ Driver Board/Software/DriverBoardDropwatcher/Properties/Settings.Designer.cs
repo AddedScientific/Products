@@ -190,5 +190,53 @@ namespace DriverBoardDropwatcher.Properties {
                 this["TabNumber"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FillNozzleCheckedStatus {
+            get {
+                return ((bool)(this["FillNozzleCheckedStatus"]));
+            }
+            set {
+                this["FillNozzleCheckedStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FillGapCheckedStatus {
+            get {
+                return ((bool)(this["FillGapCheckedStatus"]));
+            }
+            set {
+                this["FillGapCheckedStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FillSpanCheckedStatus {
+            get {
+                return ((bool)(this["FillSpanCheckedStatus"]));
+            }
+            set {
+                this["FillSpanCheckedStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FillHeadCheckedStatus {
+            get {
+                return ((bool)(this["FillHeadCheckedStatus"]));
+            }
+            set {
+                this["FillHeadCheckedStatus"] = value;
+            }
+        }
     }
 }
