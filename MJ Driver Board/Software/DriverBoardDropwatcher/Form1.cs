@@ -1,4 +1,9 @@
-﻿using System;
+﻿/**
+ * @file
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +24,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using System.Linq.Expressions;
+using System.IO.Compression;
 
 namespace DriverBoardDropwatcher
 {
@@ -41,10 +47,19 @@ namespace DriverBoardDropwatcher
         int activeEncoderPosition;
         int activePDdirection;
         int activeImageHeadIndex;
-        bool ImageHead1 = false, ImageHead2 = false, ImageHead3 = false, ImageHead4 = false;
+        bool ImageHead1 = false;
+        bool ImageHead2 = false;
+        bool ImageHead3 = false;
+        bool ImageHead4 = false;
+        bool Head1ImageSend = false;
+        bool Head2ImageSend = false;
+        bool Head3ImageSend = false;
+        bool Head4ImageSend = false;
+        bool isRunning = true;
         String CurrentFileName;
         String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
         String dataFolderPath = Application.StartupPath.Replace("bin\\Debug", "Output Images");
+        MemoryStream outputStream;
         int[] HeadPrintCountersStoredAsInt = new int[4];
         int[] PreviousHeadPrintCounters = new int[4];
         int[] HeadStatus = new int[4];
@@ -72,13 +87,21 @@ namespace DriverBoardDropwatcher
             //Filter Image Files only when opening File Dialog
             ofd.Filter = "Image Files(*.jpg; *.jpeg; *.bmp); *.png|*.jpg; *.jpeg; *.bmp; *.png";
         }
+
+        /**
+         * @brief A Thread Task Function
+         * 
+         * This function constantly runs in the background to ensure the board is connected at all times.
+         * It sends the command 'b' to receive relevent information such as voltage, temperature etc 
+         * If this fails to run, then Error Message Box pops up signalling an error.
+         */
         
         private void ThreadTask()
         {
             // Repeatedly checks if board is connected
             while (true)
             {
-                if (isConnected.Checked)
+                if (isConnected.Checked && isRunning)
                 {
                     try
                     {
@@ -247,14 +270,34 @@ namespace DriverBoardDropwatcher
 
                 else if (input.Substring(0,3).Contains("LV:"))
                 {
-                    if (ImageHead1 == true)
+                    if (Head1ImageSend == true)
+                    {
                         VerifyImageData(1, input);
-                    if (ImageHead2 == true)
+                        Head1ImageSend = false;
+                        ImageHead1 = false;
+                        btnPrintImage_Click(sender, e);
+                    }
+                    else if (Head2ImageSend == true)
+                    {
                         VerifyImageData(2, input);
-                    if (ImageHead3 == true)
+                        Head2ImageSend = false;
+                        ImageHead2 = false;
+                        btnPrintImage_Click(sender, e);
+                    }
+                    else if (Head3ImageSend == true)
+                    {
                         VerifyImageData(3, input);
-                    if (ImageHead4 == true)
+                        Head3ImageSend = false;
+                        ImageHead3 = false;
+                        btnPrintImage_Click(sender, e);
+
+                    }
+                    else if (Head4ImageSend == true)
+                    {
                         VerifyImageData(4, input);
+                        Head4ImageSend = false;
+                        ImageHead4 = false;
+                    }
                 }
 
 
@@ -768,54 +811,51 @@ namespace DriverBoardDropwatcher
         {
             if ((isConnected.Checked) && (power.Checked))
             {
+                isRunning = false;
+                //If Images are uploaded to any of the print heads, send the relevent image to the board to print
                 if (ImageHead1 == true)
                 {
+                    Head1ImageSend = true;
                     PrintingImage(1);
-                    Thread.Sleep(50);
                 }
                 if (ImageHead2 == true)
                 {
+                    Head2ImageSend = true;
                     PrintingImage(2);
-                    Thread.Sleep(50);
                 }
                 if (ImageHead3 == true)
                 {
+                    Head3ImageSend = true;
                     PrintingImage(3);
-                    Thread.Sleep(50);
                 }
                 if (ImageHead4 == true)
                 {
+                    Head4ImageSend = true;
                     PrintingImage(4);
-                    Thread.Sleep(50);
                 }
+ 
+                isRunning = true;
             }
         }
 
         private void PrintingImage(int head)
         {
-            try
-            {
-                String CurrentFile = datafolder + head + ".png.printDat";
-                byte[] readText = File.ReadAllBytes(CurrentFile);
+            String CurrentFile = datafolder + head + ".png.printDat";
+            byte[] readText = File.ReadAllBytes(CurrentFile);
 
-                byte[] dataToSend = new byte[readText.Length + 2];
-                readText.CopyTo(dataToSend, 2);
-                
-                //Set to write array
-                dataToSend[0] = (byte)'W';
+            byte[] dataToSend = new byte[readText.Length + 2];
+            readText.CopyTo(dataToSend, 2);
 
-                //set the head index
-                dataToSend[1] = (byte)(100 + head);
+            //Set to write array
+            dataToSend[0] = (byte)'W';
 
-                //Send to driver board
-                driver_board.Write(dataToSend, 0, dataToSend.Length);
-                Thread.Sleep(100);
-            }
+            //set the head index
+            dataToSend[1] = (byte)(100 + head);
 
-            catch
-            {
-                MessageBox.Show("Error uploading file(s)");
-            }
+            //Send to driver board
+            Thread.Sleep(50);
+            driver_board.Write(dataToSend, 0, dataToSend.Length);
+
         }
 
         private void VerifyImageData(int head, string existing_lines)
@@ -826,7 +866,7 @@ namespace DriverBoardDropwatcher
             long lastValue = 0;
             long runningCount = 0;
             long dataLength = 0;
-            int LV, RC, DL;
+            int LV = 0, RC = 0, DL = 0;
 
             //Splits each new line from the output from board into a new item in an array
             string[] s_ = existing_lines.Split('\n');
@@ -855,24 +895,16 @@ namespace DriverBoardDropwatcher
                         else
                         {
                             Console.WriteLine("DL incorrect");
-                            MessageBox.Show(("Data Length Incorrect for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
                         Console.WriteLine("RC incorrect");
-                        MessageBox.Show(("Running Count Incorrect for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine("RC Value Expected: " + runningCount);
-                        Console.WriteLine("RC Value Received from Board: " + RC);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("LV incorrect");
-                    MessageBox.Show(("Last Value Incorrect for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine("LV Value Expected: " + lastValue);
-                    Console.WriteLine("LV Value Received from Board: " + LV);
-                }
+                    Console.WriteLine("LV incorrect");                }
             }
             else
             {
