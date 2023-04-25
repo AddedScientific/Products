@@ -58,6 +58,7 @@ namespace DriverBoardDropwatcher
         bool isRunning = true;
         String CurrentFileName;
         String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
+        String newpath = Application.StartupPath.Replace("bin\\Debug", "Output Images");
         String dataFolderPath = Application.StartupPath.Replace("bin\\Debug", "Output Images");
         MemoryStream outputStream;
         int[] HeadPrintCountersStoredAsInt = new int[4];
@@ -76,6 +77,11 @@ namespace DriverBoardDropwatcher
             pictureBox2.Image = Properties.Resources.upload;
             pictureBox3.Image = Properties.Resources.upload;
             pictureBox4.Image = Properties.Resources.upload;
+
+            if (!Directory.Exists(newpath))
+            {
+                Directory.CreateDirectory(newpath);
+            }
             this.FormClosing += Form1_FormClosing;
             Thread trd = new Thread(new ThreadStart(this.ThreadTask));
             trd.IsBackground = true;
