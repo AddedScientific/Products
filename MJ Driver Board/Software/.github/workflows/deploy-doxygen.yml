@@ -6,7 +6,6 @@ on:
 
 
 jobs:
-  # The job that will build worksheet 7
   deploy-DriverBoardDropwatcher:
     
     # Defines the operating system for the virtual computer
@@ -22,7 +21,7 @@ jobs:
     - name: Install doxygen
       run: sudo apt-get install -y doxygen
 
-    # Run Doxygen on Worksheet7 folder
+    # Run Doxygen on DriverBoard folder
     - name: Run Doxygen
       working-directory: ${{github.workspace}}/DriverBoardDropwatcher
       run: doxygen
