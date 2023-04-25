@@ -125,6 +125,15 @@ namespace DriverBoardDropwatcher
             }
         }
 
+        /**
+         * @brief Grey Scale Image Function
+         * 
+         * This function grey scales any image passed to it
+         * 
+         * @param original Original Image (Coloured) 
+         * @return Grey-Scaled Image in Bitmap format
+         */
+
         public static Bitmap MakeGrayscale3(Bitmap original)
         {
             //create a blank bitmap the same size as original
