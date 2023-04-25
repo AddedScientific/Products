@@ -18,6 +18,7 @@ using System.Drawing.Imaging;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
+using System.Linq.Expressions;
 
 namespace DriverBoardDropwatcher
 {
@@ -28,7 +29,6 @@ namespace DriverBoardDropwatcher
         string port_name;
         int failCounter = 0;
         static SerialPort driver_board;
-        private Thread trd;
         int activeDropWatch;
         int activeDropModeHead;
         int activeNozzleValue;
@@ -244,6 +244,19 @@ namespace DriverBoardDropwatcher
                         }
                     }
                 }
+
+                else if (input.Substring(0,3).Contains("LV:"))
+                {
+                    if (ImageHead1 == true)
+                        VerifyImageData(1, input);
+                    if (ImageHead2 == true)
+                        VerifyImageData(2, input);
+                    if (ImageHead3 == true)
+                        VerifyImageData(3, input);
+                    if (ImageHead4 == true)
+                        VerifyImageData(4, input);
+                }
+
 
                 else
                 {
@@ -603,21 +616,21 @@ namespace DriverBoardDropwatcher
                     // Opens File Dialog and Replaces Current Image with New Image
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
-                        Bitmap Picture1 = (Bitmap)new Bitmap(ofd.FileName);
-                        Picture1.Save(datafolder + 1 + ".png");
-                        pictureBox1.Image = MakeGrayscale3(Picture1);
-                        FileName1.Text = ofd.SafeFileName;
+                        Bitmap Picture1 = (Bitmap)new Bitmap(ofd.FileName); // Clones uploaded image
+                        Picture1.Save(datafolder + 1 + ".png");  //Saves uploaded folder to project folder 
+                        pictureBox1.Image = MakeGrayscale3(Picture1); //Grey Scales Image in GUI
+                        FileName1.Text = ofd.SafeFileName; //Stores File Name removing Path of File
                         CurrentFileName =  (datafolder + 1 + ".png");
                         ImageSizeText1.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         // If File Size has a width of more that
-                        if ((Image.FromFile(ofd.FileName).Width) > 128)
+                        if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        convertImageToData(CurrentFileName);
+                        convertImageToData(CurrentFileName); //Calls function to convert image to data
                         ImageHead1 = true;
 
                     }
@@ -625,66 +638,66 @@ namespace DriverBoardDropwatcher
 
                 case ("ImageHead2"):
                     activeImageHeadIndex = 2;
-                    if (ofd.ShowDialog() == DialogResult.OK)
+                    if (ofd.ShowDialog() == DialogResult.OK) //Opens File Dialog
                     {
-                        Bitmap Picture2 = (Bitmap)new Bitmap(ofd.FileName);
-                        Picture2.Save(datafolder + 2 + ".png");
-                        pictureBox2.Image = MakeGrayscale3(Picture2);
-                        FileName2.Text = ofd.SafeFileName;
+                        Bitmap Picture2 = (Bitmap)new Bitmap(ofd.FileName);  // Clones uploaded image
+                        Picture2.Save(datafolder + 2 + ".png"); //Saves uploaded folder to project folder 
+                        pictureBox2.Image = MakeGrayscale3(Picture2); //Grey Scales Image in GUI
+                        FileName2.Text = ofd.SafeFileName; //Stores File Name removing Path of File
                         CurrentFileName = (datafolder + 2 + ".png");
                         ImageSizeText2.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
-                        if ((Image.FromFile(ofd.FileName).Width) > 128)
+                        if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        convertImageToData(CurrentFileName);
+                        convertImageToData(CurrentFileName); //Calls function to convert image to data
                         ImageHead2 = true;
                     }
                     break;
 
                 case ("ImageHead3"):
                     activeImageHeadIndex = 3;
-                    if (ofd.ShowDialog() == DialogResult.OK)
+                    if (ofd.ShowDialog() == DialogResult.OK) //Opens File Dialog
                     {
-                        Bitmap Picture3 = (Bitmap)new Bitmap(ofd.FileName);
-                        Picture3.Save(datafolder + 3 + ".png");
-                        pictureBox3.Image = MakeGrayscale3(Picture3);
-                        FileName3.Text = ofd.SafeFileName;
-                        CurrentFileName = (datafolder + 3 + ".png");
+                        Bitmap Picture3 = (Bitmap)new Bitmap(ofd.FileName); // Clones uploaded image
+                        Picture3.Save(datafolder + 3 + ".png");  //Saves uploaded folder to project folder 
+                        pictureBox3.Image = MakeGrayscale3(Picture3); //Grey Scales Image in GUI
+                        FileName3.Text = ofd.SafeFileName; //Stores File Name removing Path of File
+                        CurrentFileName = (datafolder + 3 + ".png"); 
                         ImageSizeText3.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
-                        if ((Image.FromFile(ofd.FileName).Width) > 128)
+                        if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        convertImageToData(CurrentFileName);
+                        convertImageToData(CurrentFileName); //Calls function to convert image to data
                         ImageHead3 = true;
                     }
                     break;
 
                 case ("ImageHead4"):
                     activeImageHeadIndex = 4;
-                    if (ofd.ShowDialog() == DialogResult.OK)
+                    if (ofd.ShowDialog() == DialogResult.OK) //Opens File Dialog
                     {
-                        Bitmap Picture4 = (Bitmap)new Bitmap(ofd.FileName);
-                        Picture4.Save(datafolder + 4 + ".png");
+                        Bitmap Picture4 = (Bitmap)new Bitmap(ofd.FileName); // Clones uploaded image
+                        Picture4.Save(datafolder + 4 + ".png"); //Saves uploaded folder to project folder 
                         pictureBox4.Image = MakeGrayscale3(Picture4); //Grey Scales Image in GUI
-                        FileName4.Text = ofd.SafeFileName;
+                        FileName4.Text = ofd.SafeFileName; //Stores File Name removing Path of File
                         CurrentFileName = (datafolder + 4 + ".png");
                         ImageSizeText4.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
-                        if ((Image.FromFile(ofd.FileName).Width) > 128)
+                        if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
                             MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        convertImageToData(CurrentFileName);
+                        convertImageToData(CurrentFileName); //Calls function to convert image to data
                         ImageHead4 = true;
                     }
                     break;
@@ -729,7 +742,7 @@ namespace DriverBoardDropwatcher
 
                             if (x >= inputImage.Width)
                             {
-                                pixel = Color.FromName("White");
+                                pixel = Color.FromName("White"); //Sets Pixel Colour to White if Input Image Width is smaller than x-width
                             }
                             else
                             {
@@ -737,7 +750,7 @@ namespace DriverBoardDropwatcher
                             }
                             uint val = (uint)(pixel.ToArgb());
 
-                            if (val == 4278190080)
+                            if (val == 4278190080) // Equivalent of Hex 000000 (Colour: Black)
                             {
                                 curByte = (byte)(curByte + Math.Pow(2, (7 - bitIdx)));
                             }
@@ -747,28 +760,124 @@ namespace DriverBoardDropwatcher
                     }
                 }
                 byte[] imageDataByteArray = imageData.ToArray();
-                File.WriteAllBytes(file_name + ".printDat", imageDataByteArray);
+                File.WriteAllBytes(file_name + ".printDat", imageDataByteArray); //Writes new image file into .printDat format and saves it to folder
             }
         }
 
         private void btnPrintImage_Click(object sender, EventArgs e)
         {
-            if (isConnected.Checked)
+            if ((isConnected.Checked) && (power.Checked))
             {
-                for (int i = 1; i < 5; i++)
+                if (ImageHead1 == true)
                 {
-                    String CurrentFile = datafolder + i + ".png.printDat";
-                    byte[] readText = File.ReadAllBytes(CurrentFile);
-                    byte[] dataToSend = new byte[readText.Length + 2];
-
-                    readText.CopyTo(dataToSend, 2);
-                    dataToSend[0] = (byte)'W';
-                    dataToSend[1] = (byte)(100 + i);
-
-                    driver_board.Write(dataToSend, 0, dataToSend.Length);
-
-                    Console.WriteLine("Write Print Head Data {0}", i);
+                    PrintingImage(1);
+                    Thread.Sleep(50);
                 }
+                if (ImageHead2 == true)
+                {
+                    PrintingImage(2);
+                    Thread.Sleep(50);
+                }
+                if (ImageHead3 == true)
+                {
+                    PrintingImage(3);
+                    Thread.Sleep(50);
+                }
+                if (ImageHead4 == true)
+                {
+                    PrintingImage(4);
+                    Thread.Sleep(50);
+                }
+            }
+        }
+
+        private void PrintingImage(int head)
+        {
+            try
+            {
+                String CurrentFile = datafolder + head + ".png.printDat";
+                byte[] readText = File.ReadAllBytes(CurrentFile);
+
+                byte[] dataToSend = new byte[readText.Length + 2];
+                readText.CopyTo(dataToSend, 2);
+                
+                //Set to write array
+                dataToSend[0] = (byte)'W';
+
+                //set the head index
+                dataToSend[1] = (byte)(100 + head);
+
+                //Send to driver board
+                driver_board.Write(dataToSend, 0, dataToSend.Length);
+                Thread.Sleep(100);
+            }
+
+            catch
+            {
+                MessageBox.Show("Error uploading file(s)");
+            }
+        }
+
+        private void VerifyImageData(int head, string existing_lines)
+        {
+            String CurrentFile = datafolder + head + ".png.printDat";
+            byte[] readText = File.ReadAllBytes(CurrentFile);
+
+            long lastValue = 0;
+            long runningCount = 0;
+            long dataLength = 0;
+            int LV, RC, DL;
+
+            //Splits each new line from the output from board into a new item in an array
+            string[] s_ = existing_lines.Split('\n');
+
+            foreach (byte dat in readText)
+            {
+                lastValue = dat;
+                runningCount += dat;
+                dataLength++;
+            }
+
+            if (s_.Length == 4)
+            {
+                //Parse LV, RC and DL Values outputted from Board
+                int.TryParse(s_[0].Substring(3), out LV);
+                int.TryParse(s_[1].Substring(3), out RC);
+                int.TryParse(s_[2].Substring(3), out DL);
+                if (LV == lastValue)
+                {
+                    if (RC == runningCount)
+                    {
+                        if (DL == dataLength)
+                        {
+                            Console.WriteLine("Data send correct");
+                        }
+                        else
+                        {
+                            Console.WriteLine("DL incorrect");
+                            MessageBox.Show(("Data Length Incorrect for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("RC incorrect");
+                        MessageBox.Show(("Running Count Incorrect for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine("RC Value Expected: " + runningCount);
+                        Console.WriteLine("RC Value Received from Board: " + RC);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("LV incorrect");
+                    MessageBox.Show(("Last Value Incorrect for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("LV Value Expected: " + lastValue);
+                    Console.WriteLine("LV Value Received from Board: " + LV);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Not recieved the correct data format");
+                MessageBox.Show(("Not received the correct data format for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -819,6 +928,7 @@ namespace DriverBoardDropwatcher
 
         private void ImageModeSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Determine relevent option from drop down menu selected by user
             activeImageMode = ImageModeSelection.SelectedIndex; //Stores Head Value
             if ((activeImageMode == 0) && (isConnected.Checked))
             {
@@ -888,6 +998,7 @@ namespace DriverBoardDropwatcher
 
         private void FillCycle(object sender, EventArgs e)
         {
+            // Tags used to identify which button has been pressed, to modify, change button tag name on Designer Panel
             System.Windows.Forms.Button b = (System.Windows.Forms.Button)sender;
             if (isConnected.Checked)
             {
@@ -943,56 +1054,6 @@ namespace DriverBoardDropwatcher
                 driver_board.Write($"I {(activeDropModeHead + 1).ToString()}");
             }
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            cbSerialPort_DropDown(sender, e);
-            cbSerialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
-            nudFrequency.Value = Properties.Settings.Default.Frequency;
-            cbDropWatchMode_SelectedIndexChanged(sender, e);
-            cbDropWatchMode.SelectedItem = Properties.Settings.Default.DropWatchMode;
-            cbDropWatchHeadSelection_SelectedIndexChanged(sender, e);
-            cbDropWatchHeadSelection.SelectedItem = Properties.Settings.Default.DropWatchHead;
-            nudNozzle.Value = Properties.Settings.Default.Index;
-            activeNozzleValue = (int)nudNozzle.Value;
-            nudSpan.Value = Properties.Settings.Default.Span;
-            activeSpanValue = (int)nudSpan.Value; 
-            nudGap.Value = Properties.Settings.Default.Gap;
-            activeGapValue = (int)nudGap.Value;
-            ImageModeSelection_SelectedIndexChanged(sender, e);
-            ImageModeSelection.SelectedItem = Properties.Settings.Default.ImageMode;
-            PD_Polarity_SelectedIndexChanged(sender, e);
-            PD_Polarity.SelectedItem = Properties.Settings.Default.pdPolarity;
-            EncoderTrackedPositionSelection_SelectedIndexChanged(sender, e);
-            EncoderTrackedPositionSelection.SelectedItem = Properties.Settings.Default.Encoder_TrackedPosition;
-            pdDirection.SelectedItem = Properties.Settings.Default.pd_direction;
-            tcDropWatchingAndImageModes.SelectedIndex = Properties.Settings.Default.TabNumber;
-            isFillNozzle.Checked = Properties.Settings.Default.FillNozzleCheckedStatus;
-            isFillSpan.Checked = Properties.Settings.Default.FillSpanCheckedStatus;
-            isFillGap.Checked = Properties.Settings.Default.FillGapCheckedStatus;
-            isFillHead.Checked = Properties.Settings.Default.FillHeadCheckedStatus;
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //Save data to user settings
-            Properties.Settings.Default.Serial_Port= cbSerialPort.SelectedItem.ToString();
-            Properties.Settings.Default.Frequency = (int)nudFrequency.Value;
-            Properties.Settings.Default.DropWatchMode = cbDropWatchMode.SelectedItem.ToString();
-            Properties.Settings.Default.DropWatchHead = cbDropWatchHeadSelection.SelectedItem.ToString();
-            Properties.Settings.Default.Index = (int)nudNozzle.Value;
-            Properties.Settings.Default.Span = (int)nudSpan.Value;
-            Properties.Settings.Default.Gap = (int)nudGap.Value;
-            Properties.Settings.Default.TabNumber = tcDropWatchingAndImageModes.SelectedIndex;
-            Properties.Settings.Default.FillNozzleCheckedStatus = isFillNozzle.Checked;
-            Properties.Settings.Default.FillSpanCheckedStatus = isFillSpan.Checked;
-            Properties.Settings.Default.FillGapCheckedStatus = isFillGap.Checked;
-            Properties.Settings.Default.FillHeadCheckedStatus = isFillHead.Checked;
-            //Properties.Settings.Default.ImageMode = ImageModeSelection.SelectedItem.ToString();
-            //Properties.Settings.Default.pdPolarity = PD_Polarity.SelectedItem.ToString();
-            //Properties.Settings.Default.Encoder_TrackedPosition = EncoderTrackedPositionSelection.SelectedItem.ToString();
-            //Properties.Settings.Default.pd_direction = pdDirection.SelectedItem.ToString();
-            Properties.Settings.Default.Save();
-        }
 
         private void PD_Polarity_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1012,6 +1073,7 @@ namespace DriverBoardDropwatcher
 
         private void EncoderTrackedPositionSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Selection changes for Encoder Tracked Poisition Modes (Normal or Reversed Modes)
             activeEncoderPosition = EncoderTrackedPositionSelection.SelectedIndex; 
             if ((activeEncoderPosition == 0) && (isConnected.Checked))
             {
@@ -1028,6 +1090,7 @@ namespace DriverBoardDropwatcher
 
         private void pdDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Selection changes between pd modes
             activePDdirection = pdDirection.SelectedIndex; 
             if ((activePDdirection == 0) && (isConnected.Checked))
             {
@@ -1044,6 +1107,7 @@ namespace DriverBoardDropwatcher
 
         private void tcDropWatchingAndImageModes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Function to determine setting changes by user between Image and Drp Watching Modes
             if (tcDropWatchingAndImageModes.SelectedIndex == 0)
             {
                 cbDropWatchMode_SelectedIndexChanged(sender, e);
@@ -1060,6 +1124,7 @@ namespace DriverBoardDropwatcher
         {
             switch (e.KeyCode)
             {
+                // Decrease Nozzle Value by -1 increment and send command to update board when left arrow key pressed
                 case (Keys.Left):
                     nudNozzle.Value = nudNozzle.Value - 1;
                     activeNozzleValue = (int)nudNozzle.Value;
@@ -1075,6 +1140,7 @@ namespace DriverBoardDropwatcher
                     }
                     break;
 
+                    // Increase Nozzle Value by +1 increment and send command to update board when right arrow key pressed
                 case (Keys.Right):
                     nudNozzle.Value = nudNozzle.Value + 1;
                     activeNozzleValue = (int)nudNozzle.Value;
@@ -1102,13 +1168,67 @@ namespace DriverBoardDropwatcher
             if ((isConnected.Checked) && (power.Checked))
             {
                 driver_board.Write("C");
-                //Console.Write(datafolder);
             }
         }
 
         private void DeleteAllFilesInFolder(object sender, EventArgs e)
         {
-            System.IO.DirectoryInfo dir = new DirectoryInfo(dataFolderPath);
+            // Delete All Files Saved in "Output Images" when closing Application
+            System.IO.DirectoryInfo directory = new DirectoryInfo(dataFolderPath);
+
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                file.Delete();
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Load Settings from Previous Saved Session
+            cbSerialPort_DropDown(sender, e);
+            cbSerialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
+            nudFrequency.Value = Properties.Settings.Default.Frequency;
+            cbDropWatchMode_SelectedIndexChanged(sender, e);
+            cbDropWatchMode.SelectedItem = Properties.Settings.Default.DropWatchMode;
+            cbDropWatchHeadSelection_SelectedIndexChanged(sender, e);
+            cbDropWatchHeadSelection.SelectedItem = Properties.Settings.Default.DropWatchHead;
+            nudNozzle.Value = Properties.Settings.Default.Index;
+            activeNozzleValue = (int)nudNozzle.Value;
+            nudSpan.Value = Properties.Settings.Default.Span;
+            activeSpanValue = (int)nudSpan.Value;
+            nudGap.Value = Properties.Settings.Default.Gap;
+            activeGapValue = (int)nudGap.Value;
+            ImageModeSelection_SelectedIndexChanged(sender, e);
+            ImageModeSelection.SelectedItem = Properties.Settings.Default.ImageMode;
+            PD_Polarity_SelectedIndexChanged(sender, e);
+            PD_Polarity.SelectedItem = Properties.Settings.Default.pdPolarity;
+            EncoderTrackedPositionSelection_SelectedIndexChanged(sender, e);
+            EncoderTrackedPositionSelection.SelectedItem = Properties.Settings.Default.Encoder_TrackedPosition;
+            pdDirection.SelectedItem = Properties.Settings.Default.pd_direction;
+            tcDropWatchingAndImageModes.SelectedIndex = Properties.Settings.Default.TabNumber;
+            isFillNozzle.Checked = Properties.Settings.Default.FillNozzleCheckedStatus;
+            isFillSpan.Checked = Properties.Settings.Default.FillSpanCheckedStatus;
+            isFillGap.Checked = Properties.Settings.Default.FillGapCheckedStatus;
+            isFillHead.Checked = Properties.Settings.Default.FillHeadCheckedStatus;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Save data to user settings
+            Properties.Settings.Default.Serial_Port = cbSerialPort.SelectedItem.ToString();
+            Properties.Settings.Default.Frequency = (int)nudFrequency.Value;
+            Properties.Settings.Default.DropWatchMode = cbDropWatchMode.SelectedItem.ToString();
+            Properties.Settings.Default.DropWatchHead = cbDropWatchHeadSelection.SelectedItem.ToString();
+            Properties.Settings.Default.Index = (int)nudNozzle.Value;
+            Properties.Settings.Default.Span = (int)nudSpan.Value;
+            Properties.Settings.Default.Gap = (int)nudGap.Value;
+            Properties.Settings.Default.TabNumber = tcDropWatchingAndImageModes.SelectedIndex;
+            Properties.Settings.Default.FillNozzleCheckedStatus = isFillNozzle.Checked;
+            Properties.Settings.Default.FillSpanCheckedStatus = isFillSpan.Checked;
+            Properties.Settings.Default.FillGapCheckedStatus = isFillGap.Checked;
+            Properties.Settings.Default.FillHeadCheckedStatus = isFillHead.Checked;
+            DeleteAllFilesInFolder(sender, e);
+            Properties.Settings.Default.Save();
         }
     }
 }
