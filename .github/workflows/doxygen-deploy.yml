@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  # The job that will build board
+  # The job that will build board software
   deploy-driverboarddropwatcher:
     
     # Defines the operating system for the virtual computer
