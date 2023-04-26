@@ -1,10 +1,10 @@
 ﻿/**
  * @file
+ * @brief This C# Code contains the Source Code for the Driver Board Dropwatcher Application.
  * 
- * This C# Code contains the Source Code for the Driver Board Dropwatcher Application.
+ * @author Added Scientific Limited (Kajeban Baskaran Internship Work)
+ * 
  */
-
-
 
 using System;
 using System.Collections.Generic;
