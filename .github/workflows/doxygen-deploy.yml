@@ -6,8 +6,8 @@ on:
 
 
 jobs:
-  # The job that will build worksheet 7
-  deploy-DriverBoardDropWatcher:
+  # The job that will build
+  deploy-MJ_Driver_Board:
     
     # Defines the operating system for the virtual computer
     runs-on: ubuntu-latest
@@ -22,9 +22,9 @@ jobs:
     - name: Install doxygen
       run: sudo apt-get install -y doxygen
 
-    # Run Doxygen on Worksheet7 folder
+    # Run Doxygen 
     - name: Run Doxygen
-      working-directory: ${{github.workspace}}/DriverBoardDropwatcher
+      working-directory: ${{github.workspace}}/MJ_Driver_Board/Software/DriverBoardDropwatcher
       run: doxygen
 
     # Deploy html output from Doxygen to ghpages branches- name: Deploy
@@ -32,5 +32,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4.2.5
       with:
         branch: gh-pages                                   # The branch the action should deploy to.
-        folder: ${{github.workspace}}/"MJ Driver Board"/Software/DriverBoardDropwatcher/html      # The folder the action should deploy.
+        folder: ${{github.workspace}}/MJ_Driver_Board/Software/DriverBoardDropwatcher/html      # The folder the action should deploy.
     
