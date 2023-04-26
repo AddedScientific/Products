@@ -7,7 +7,7 @@ on:
 
 jobs:
   # The job that will build worksheet 7
-  deploy-"MJ Driver Board":
+  deploy-DriverBoardDropWatcher:
     
     # Defines the operating system for the virtual computer
     runs-on: ubuntu-latest
