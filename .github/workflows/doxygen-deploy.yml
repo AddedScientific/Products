@@ -24,7 +24,7 @@ jobs:
 
     # Run Doxygen on Worksheet7 folder
     - name: Run Doxygen
-      working-directory: ${{github.workspace}}/"MJ Driver Board"/Software/DriverBoardDropwatcher
+      working-directory: ${{github.workspace}}/'"MJ Driver Board/Software/DriverBoardDropwatcher"'
       run: doxygen
 
     # Deploy html output from Doxygen to ghpages branches- name: Deploy
