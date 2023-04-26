@@ -7,7 +7,7 @@ on:
 
 jobs:
   # The job that will build
-  deploy-MJ_Driver_Board:
+  deploy-mj_driver_board:
     
     # Defines the operating system for the virtual computer
     runs-on: ubuntu-latest
