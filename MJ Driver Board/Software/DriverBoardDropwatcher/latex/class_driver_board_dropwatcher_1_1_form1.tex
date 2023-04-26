@@ -9,18 +9,822 @@ Inheritance diagram for Driver\+Board\+Dropwatcher.\+Form1\+:\begin{figure}[H]
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aea9d7ec0685bb40a204979933bbed54f}\label{class_driver_board_dropwatcher_1_1_form1_aea9d7ec0685bb40a204979933bbed54f}} 
-static Bitmap {\bfseries Make\+Grayscale3} (Bitmap original)
-\end{DoxyCompactItemize}
+static Bitmap \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_aea9d7ec0685bb40a204979933bbed54f}{Make\+Grayscale3}} (Bitmap original)
+\begin{DoxyCompactList}\small\item\em Grey Scale Image Function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 override void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_acf467bca7a101d26fc3bbdcc51a09d9e}{Dispose}} (bool disposing)
 \begin{DoxyCompactList}\small\item\em Clean up any resources being used. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a00dc8841c55dd08f53b62839a6c02e96}{Thread\+Task}} ()
+\begin{DoxyCompactList}\small\item\em A Thread Task Function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a1ff87e2b4bb7e50ea9ef18458dd759c3}{cb\+Serial\+Port\+\_\+\+Drop\+Down}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Detects Active Serial COM Ports from device. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ad9616f535cc2d36e811ec26fd01dc451}{cb\+Serial\+Port\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Detects Changes in Serial Ports. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a7697577cfda6df135ad065f9f45a7bd0}{disconnect\+\_\+board}} ()
+\begin{DoxyCompactList}\small\item\em Disconnect Driver Board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a5f66029cc1e826013e99d895a1e449f8}{connect\+\_\+board}} ()
+\begin{DoxyCompactList}\small\item\em Connect Driver Board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a79bb8e83336c7140139ba136a5bfad66}{Data\+Recieved\+Handler}} (object sender, Serial\+Data\+Received\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Processes data received from driver board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_aee035049b61e6128d3655e7c708a4b2e}{determine\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Determine the Status of Voltages and Temperatures. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_aca206305e339f2f9d0ddef9a80d00aac}{parse\+Json\+Data}} (string input\+\_\+string)
+\begin{DoxyCompactList}\small\item\em Parse the JSON Data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a90e4d56dcc6766f520d660fd90bd3487}{btn\+Connect\+Disconnect\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Controls the Connect/\+Disconnect Toggle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a70af1e9336987eea1be3c19ed37bd1dc}{power\+On\+Off\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Controls the Power On/\+Off Toggle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a0a24ccef63a0e8713b5ebf4c5f9c96d1}{power\+On}} ()
+\begin{DoxyCompactList}\small\item\em Power On Function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_acea8102a964e0086514ba2eaebc4bbb9}{power\+Off}} ()
+\begin{DoxyCompactList}\small\item\em Power Off Function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a2654acc75f32594e102f27acc5e28c03}{voltage\+\_\+\+Value\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fetches Voltage Data from GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a8fa86aa42a09274d5273d104634937b0}{temperature\+\_\+\+Value\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fetches Temperature Data from GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ae418fcf19582bc4c1b673c622e567dc8}{frequency\+Value\+\_\+\+Value\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fetches Frequency Data from GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a457fd37bf02c17649a06f5f3385c029c}{cb\+Drop\+Watch\+Mode\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fetches User Selected Drop Watch Mode Selection from GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a08f64cb1e6ad7a421a5c1b8645aa2cfa}{reset\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Reset Board Button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ae985da05e8db0055662912da91c32fcf}{cb\+Drop\+Watch\+Head\+Selection\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fetches User Selected Head from GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a995430db460e729b7491fc8869590cdd}{Image\+Box\+Clicked}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Image Box Selection in Image Mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a2931fdf07f2e9f990c47d4444e05e4ab}{picture\+Box1\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Picture Box 1 is pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ae1125f15347fb62d07e89ced6c89458a}{picture\+Box2\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Picture Box 2 is pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a97bfbbef40bfaf8336b6f181bf64da1d}{picture\+Box3\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Picture Box 3 is pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a8c5022991ecd6d950c7f069a62816233}{picture\+Box4\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Picture Box 4 is pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a111d34e11820c1e02c11225a30e467c0}{convert\+Image\+To\+Data}} (string file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Convert Image to Data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ab42c827aeb37815fdb737741f9d08832}{btn\+Print\+Image\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Print Image. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a3b590b30e1c0ad211cdc2507006047cc}{Printing\+Image}} (int head)
+\begin{DoxyCompactList}\small\item\em Printing Image Function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a61db6dbd950038e9b427bd613920ee6a}{Verify\+Image\+Data}} (int head, string existing\+\_\+lines)
+\begin{DoxyCompactList}\small\item\em Picture Box 2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_acbb4d4ded84226cd54b107d5a553160e}{Nozzle\+Value\+\_\+\+Value\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Nozzle Value Modified in GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ad53c61e7c0553ac73e65631cc1aea244}{Span\+Value\+\_\+\+Value\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Span Value Modified in GUI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_addb43da318a7193a6ee9805683051f03}{Fill\+Single\+Nozzle\+Button\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Nozzle Push Button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_afa4317206bc7fe3369263d6ba02e6704}{Fill\+Span\+Nozzle\+Button\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Span Push Button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a8bea2816054209e20404459111ed4e7b}{Image\+Mode\+Selection\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Runs if Image Mode Selection is Modified. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a2ab09beabec7edbb686b466893822052}{btn\+Clear\+Head\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Clear Heads Push Button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a23c4492d6ff32463be283c9929b19a33}{Fill\+Cycle\+A\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Cycle A Button Press. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_af4765cb5c6eda106f6ff5784510cdb04}{Fill\+Cycle\+B\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Cycle B Button Press. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_aa7eaa506185b270d3ace5f5dcdc23999}{Fill\+Cycle\+C\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Cycle C Button Press. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a0e6e96aa67048a1d83b18653eac18ee8}{Fill\+Cycle}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Cycle Function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a86da0e9cbfaa9e1fd47ed6a343d45179}{Gap\+Value\+\_\+\+Value\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Gap Value Modified. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7360f33a70ca68b501ae6bc18bd31377}\label{class_driver_board_dropwatcher_1_1_form1_a7360f33a70ca68b501ae6bc18bd31377}} 
+void {\bfseries Fill\+Gap\+Button\+\_\+\+Click} (object sender, Event\+Args e)
+\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a43c7ad985a59249007425888a29aac12}{fill\+Head\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Fill Head Button Press. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_aa9239c7203c06de1198784cf439e4db4}{PD\+\_\+\+Polarity\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em PD Polarity Mode Selection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a29e152633457418629ef783be36b7ac5}{Encoder\+Tracked\+Position\+Selection\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Encoder Position Selection Change. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ab8f72d7fd88643e71c92838f7671e45c}{pd\+Direction\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em PD Direction Selection Change. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_ae50739459c28b9f5de7e44f870e50094}{tc\+Drop\+Watching\+And\+Image\+Modes\+\_\+\+Selected\+Index\+Changed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Mode Selection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a402afb663d007ec33d10d1a4227ff3d9}{Drop\+Watching\+Tab\+\_\+\+Preview\+Key\+Down}} (object sender, Preview\+Key\+Down\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Arrow Keys Pushed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_aeac6099fc600f488ec22af8c6c3d6867}{Drop\+Watching\+Tab\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Drop Watching Tab pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a83d599f96464e28a8328e9ee094b93fc}{btn\+Cancel\+\_\+\+Click}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Cancel Button Pushed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a2b82c001d97a6d041b098e222c2de7cb}{Delete\+All\+Files\+In\+Folder}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Delete all Images and Data Files from Folder. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a5b90785959beb50048ecf3a4eb4e3807}{Form1\+\_\+\+Load}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Loads all data when opening application. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_driver_board_dropwatcher_1_1_form1_a4c02443bfa22a00afb0f9c2a23fa9a58}{Form1\+\_\+\+Form\+Closing}} (object sender, Form\+Closing\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Saves all data when closing application. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa6314c9e809bf6964b7f3cf820437783}\label{class_driver_board_dropwatcher_1_1_form1_aa6314c9e809bf6964b7f3cf820437783}} 
+void {\bfseries Initialize\+Component} ()
+\begin{DoxyCompactList}\small\item\em Required method for Designer support -\/ do not modify the contents of this method with the code editor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_afab3c8eaebdc9f8a1d1f518b2863aa8f}\label{class_driver_board_dropwatcher_1_1_form1_afab3c8eaebdc9f8a1d1f518b2863aa8f}} 
+Open\+File\+Dialog {\bfseries ofd}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a22061e455e0e9a8adf12007eac74acef}\label{class_driver_board_dropwatcher_1_1_form1_a22061e455e0e9a8adf12007eac74acef}} 
+bool {\bfseries valid\+\_\+port\+\_\+selected} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a249c191326680320380144919d10425a}\label{class_driver_board_dropwatcher_1_1_form1_a249c191326680320380144919d10425a}} 
+string {\bfseries port\+\_\+name}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a32f6260356091bf947a998ff6e301097}\label{class_driver_board_dropwatcher_1_1_form1_a32f6260356091bf947a998ff6e301097}} 
+int {\bfseries fail\+Counter} = 0
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2f225431dbaeb06d469b4395c3a9394d}\label{class_driver_board_dropwatcher_1_1_form1_a2f225431dbaeb06d469b4395c3a9394d}} 
+int {\bfseries active\+Drop\+Watch}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_abd7204523593753aa71c638454a508a4}\label{class_driver_board_dropwatcher_1_1_form1_abd7204523593753aa71c638454a508a4}} 
+int {\bfseries active\+Drop\+Mode\+Head}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a68b7e4033ae298667db9603491493468}\label{class_driver_board_dropwatcher_1_1_form1_a68b7e4033ae298667db9603491493468}} 
+int {\bfseries active\+Nozzle\+Value}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a6a3463599f51c2833aef67d5a55a24ab}\label{class_driver_board_dropwatcher_1_1_form1_a6a3463599f51c2833aef67d5a55a24ab}} 
+int {\bfseries active\+Span\+Value}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a5db29e1ca31dcd6faf4bcf5060645690}\label{class_driver_board_dropwatcher_1_1_form1_a5db29e1ca31dcd6faf4bcf5060645690}} 
+int {\bfseries active\+Image\+Mode}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8c513af15b8ee21f64650261f0fc8e41}\label{class_driver_board_dropwatcher_1_1_form1_a8c513af15b8ee21f64650261f0fc8e41}} 
+int {\bfseries active\+Gap\+Value}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a5f03557c6a730d3f482f5d786ea67ae4}\label{class_driver_board_dropwatcher_1_1_form1_a5f03557c6a730d3f482f5d786ea67ae4}} 
+int {\bfseries act\+Freq}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a9dd2ace9600c54feb86402ac1c086841}\label{class_driver_board_dropwatcher_1_1_form1_a9dd2ace9600c54feb86402ac1c086841}} 
+int {\bfseries time\+Board\+On} = -\/1
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aea688826b931411115d48166ef5ddca5}\label{class_driver_board_dropwatcher_1_1_form1_aea688826b931411115d48166ef5ddca5}} 
+int {\bfseries active\+PD\+\_\+\+Polarity}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_af008c90949a0ace79d9c8a1010a2a205}\label{class_driver_board_dropwatcher_1_1_form1_af008c90949a0ace79d9c8a1010a2a205}} 
+int {\bfseries active\+Encoder\+Position}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae5adfd2b24c077dae5dcda67bccc68c7}\label{class_driver_board_dropwatcher_1_1_form1_ae5adfd2b24c077dae5dcda67bccc68c7}} 
+int {\bfseries active\+PDdirection}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ad933f7263ddff92e34da13b0a50ad119}\label{class_driver_board_dropwatcher_1_1_form1_ad933f7263ddff92e34da13b0a50ad119}} 
+int {\bfseries active\+Image\+Head\+Index}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a928435838d71f20ec112e113a72c6461}\label{class_driver_board_dropwatcher_1_1_form1_a928435838d71f20ec112e113a72c6461}} 
+bool {\bfseries Image\+Head1} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7849ec003a5b967ef60d7cec4da12950}\label{class_driver_board_dropwatcher_1_1_form1_a7849ec003a5b967ef60d7cec4da12950}} 
+bool {\bfseries Image\+Head2} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a53d4c83ddab490b7e3f443ed18de1f1c}\label{class_driver_board_dropwatcher_1_1_form1_a53d4c83ddab490b7e3f443ed18de1f1c}} 
+bool {\bfseries Image\+Head3} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a96e0ac55f779a5303da8a225c3be8315}\label{class_driver_board_dropwatcher_1_1_form1_a96e0ac55f779a5303da8a225c3be8315}} 
+bool {\bfseries Image\+Head4} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_adaea1af229664165524da77e0a98d8fe}\label{class_driver_board_dropwatcher_1_1_form1_adaea1af229664165524da77e0a98d8fe}} 
+bool {\bfseries Head1\+Image\+Send} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab24e10af8eec478279be377f9d7f7b43}\label{class_driver_board_dropwatcher_1_1_form1_ab24e10af8eec478279be377f9d7f7b43}} 
+bool {\bfseries Head2\+Image\+Send} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aacf223d2976026b3597847051e6ab7f1}\label{class_driver_board_dropwatcher_1_1_form1_aacf223d2976026b3597847051e6ab7f1}} 
+bool {\bfseries Head3\+Image\+Send} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa5ed197b1336b3e967e90cc072f6b4b6}\label{class_driver_board_dropwatcher_1_1_form1_aa5ed197b1336b3e967e90cc072f6b4b6}} 
+bool {\bfseries Head4\+Image\+Send} = false
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a14467827a1cba67c0cb29a9b1dc18448}\label{class_driver_board_dropwatcher_1_1_form1_a14467827a1cba67c0cb29a9b1dc18448}} 
+bool {\bfseries is\+Running} = true
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a96366235919dff43a1da0950ccd1ab4b}\label{class_driver_board_dropwatcher_1_1_form1_a96366235919dff43a1da0950ccd1ab4b}} 
+String {\bfseries Current\+File\+Name}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a102ea70368e1ea762e2730f8b3d3d6e8}\label{class_driver_board_dropwatcher_1_1_form1_a102ea70368e1ea762e2730f8b3d3d6e8}} 
+String {\bfseries datafolder} = Application.\+Startup\+Path.\+Replace(\char`\"{}bin\textbackslash{}\textbackslash{}\+Debug\char`\"{}, \char`\"{}Output Images\textbackslash{}\textbackslash{}\+File\char`\"{})
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aadc861d7d3c4b5618cb9572439cf28af}\label{class_driver_board_dropwatcher_1_1_form1_aadc861d7d3c4b5618cb9572439cf28af}} 
+String {\bfseries newpath} = Application.\+Startup\+Path.\+Replace(\char`\"{}bin\textbackslash{}\textbackslash{}\+Debug\char`\"{}, \char`\"{}Output Images\char`\"{})
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ac8f09e0aa77c0f4b257e1a4132ca63d5}\label{class_driver_board_dropwatcher_1_1_form1_ac8f09e0aa77c0f4b257e1a4132ca63d5}} 
+String {\bfseries data\+Folder\+Path} = Application.\+Startup\+Path.\+Replace(\char`\"{}bin\textbackslash{}\textbackslash{}\+Debug\char`\"{}, \char`\"{}Output Images\char`\"{})
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aaf5546a897f656db3cbc12bb755bdfbb}\label{class_driver_board_dropwatcher_1_1_form1_aaf5546a897f656db3cbc12bb755bdfbb}} 
+int\mbox{[}$\,$\mbox{]} {\bfseries Head\+Print\+Counters\+Stored\+As\+Int} = new int\mbox{[}4\mbox{]}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ac8fc8f9cebd8d35891010101915ca502}\label{class_driver_board_dropwatcher_1_1_form1_ac8fc8f9cebd8d35891010101915ca502}} 
+int\mbox{[}$\,$\mbox{]} {\bfseries Previous\+Head\+Print\+Counters} = new int\mbox{[}4\mbox{]}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab43c0588bbcc2bf12f3757bf64b7bf1a}\label{class_driver_board_dropwatcher_1_1_form1_ab43c0588bbcc2bf12f3757bf64b7bf1a}} 
+int\mbox{[}$\,$\mbox{]} {\bfseries Head\+Status} = new int\mbox{[}4\mbox{]}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a5444b6c5390afc59088c74872884985b}\label{class_driver_board_dropwatcher_1_1_form1_a5444b6c5390afc59088c74872884985b}} 
+byte\mbox{[}$\,$\mbox{]} {\bfseries A\+\_\+\+Bits} = \{ 0b10010010, 0b01001001, 0b00100100 \}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae65ded77b98c4b0dacdeb5358421f06e}\label{class_driver_board_dropwatcher_1_1_form1_ae65ded77b98c4b0dacdeb5358421f06e}} 
+byte\mbox{[}$\,$\mbox{]} {\bfseries B\+\_\+\+Bits} = \{ 0b01001001, 0b00100100, 0b10010010 \}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a52fa4c5ae432d6acc4d0670d43ae789a}\label{class_driver_board_dropwatcher_1_1_form1_a52fa4c5ae432d6acc4d0670d43ae789a}} 
+byte\mbox{[}$\,$\mbox{]} {\bfseries C\+\_\+\+Bits} = \{ 0b00100100, 0b10010010, 0b01001001 \}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a990dbce6742fa13e0298943cf8bc52f2}\label{class_driver_board_dropwatcher_1_1_form1_a990dbce6742fa13e0298943cf8bc52f2}} 
+byte\mbox{[}$\,$\mbox{]} {\bfseries Bits\+Array}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aec5493050cb7593bd1dc5e9b87a593d4}\label{class_driver_board_dropwatcher_1_1_form1_aec5493050cb7593bd1dc5e9b87a593d4}} 
+System.\+Component\+Model.\+IContainer {\bfseries components} = null
+\begin{DoxyCompactList}\small\item\em Required designer variable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_abd3e9a251b911d736d8a77f88648b1c0}\label{class_driver_board_dropwatcher_1_1_form1_abd3e9a251b911d736d8a77f88648b1c0}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cb\+Serial\+Port}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_adec16fa105c7f92085f7f7c99df0dc41}\label{class_driver_board_dropwatcher_1_1_form1_adec16fa105c7f92085f7f7c99df0dc41}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Connect\+Disconnect}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a68c367366081136e3cf6f126a4c67320}\label{class_driver_board_dropwatcher_1_1_form1_a68c367366081136e3cf6f126a4c67320}} 
+System.\+Windows.\+Forms.\+Check\+Box {\bfseries Chbx\+Is\+Connected}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a35eb080b2694cd808101083a8d78178a}\label{class_driver_board_dropwatcher_1_1_form1_a35eb080b2694cd808101083a8d78178a}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Power\+On\+Off}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa64110620d2eff01e3ea9ad325007785}\label{class_driver_board_dropwatcher_1_1_form1_aa64110620d2eff01e3ea9ad325007785}} 
+System.\+Windows.\+Forms.\+Check\+Box {\bfseries Chbx\+Power}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ad95e36d6097a2f4f9e20c852a5b79a3f}\label{class_driver_board_dropwatcher_1_1_form1_ad95e36d6097a2f4f9e20c852a5b79a3f}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Status}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a67ae09539bfe0156ac0f817880b045b1}\label{class_driver_board_dropwatcher_1_1_form1_a67ae09539bfe0156ac0f817880b045b1}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Status\+Box}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7eceb6a4e0e8d570a62f2d547cf0c204}\label{class_driver_board_dropwatcher_1_1_form1_a7eceb6a4e0e8d570a62f2d547cf0c204}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Time\+On}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae1eb796eebf5f0fd41e7985b2b916464}\label{class_driver_board_dropwatcher_1_1_form1_ae1eb796eebf5f0fd41e7985b2b916464}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Board\+Up\+Time}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a4a5bb3331f8bd784a1f243a826044c2f}\label{class_driver_board_dropwatcher_1_1_form1_a4a5bb3331f8bd784a1f243a826044c2f}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Temperature\+Output1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a93dc633101e8bc54cd7216fccf5592d4}\label{class_driver_board_dropwatcher_1_1_form1_a93dc633101e8bc54cd7216fccf5592d4}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Temperature\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a4d5d60b3e85136334ce0f7e9ca8aeb23}\label{class_driver_board_dropwatcher_1_1_form1_a4d5d60b3e85136334ce0f7e9ca8aeb23}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Voltage\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a41709e17227901e38b37f5d1feb38e12}\label{class_driver_board_dropwatcher_1_1_form1_a41709e17227901e38b37f5d1feb38e12}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Temperature\+Output2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7d566e6c323954fcf320052716130284}\label{class_driver_board_dropwatcher_1_1_form1_a7d566e6c323954fcf320052716130284}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Temperature\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a9062b1bb9060cba29b63fe92081d64fd}\label{class_driver_board_dropwatcher_1_1_form1_a9062b1bb9060cba29b63fe92081d64fd}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Voltage\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7f8e30fb95ab375c1e5d327f3197cc1a}\label{class_driver_board_dropwatcher_1_1_form1_a7f8e30fb95ab375c1e5d327f3197cc1a}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Temperature\+Output3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7341f666db5e2c3371c80ce878a466c0}\label{class_driver_board_dropwatcher_1_1_form1_a7341f666db5e2c3371c80ce878a466c0}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Temperature\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a63fa097db87ba3f82b64341dd35ff673}\label{class_driver_board_dropwatcher_1_1_form1_a63fa097db87ba3f82b64341dd35ff673}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Voltage\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3cc2be37c567c5568212556312a67b6a}\label{class_driver_board_dropwatcher_1_1_form1_a3cc2be37c567c5568212556312a67b6a}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Temperature\+Output4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a66730b3fe6fe53096f52c681ac9786c6}\label{class_driver_board_dropwatcher_1_1_form1_a66730b3fe6fe53096f52c681ac9786c6}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Temperature\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a22d6654b8c6578d2a26502fa97e1b0a1}\label{class_driver_board_dropwatcher_1_1_form1_a22d6654b8c6578d2a26502fa97e1b0a1}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Voltage\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aec4307b1174b415ed665149a7245a438}\label{class_driver_board_dropwatcher_1_1_form1_aec4307b1174b415ed665149a7245a438}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Head\+Status2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa0c64acdd5b8c9b0396c837b91ea1236}\label{class_driver_board_dropwatcher_1_1_form1_aa0c64acdd5b8c9b0396c837b91ea1236}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Head\+Status3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_abfdd0eb539b831b295c57d74d469a444}\label{class_driver_board_dropwatcher_1_1_form1_abfdd0eb539b831b295c57d74d469a444}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Head\+Status1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3002f0884a9ff66baaec036cb11456f9}\label{class_driver_board_dropwatcher_1_1_form1_a3002f0884a9ff66baaec036cb11456f9}} 
+System.\+Windows.\+Forms.\+Tab\+Control {\bfseries tc\+Drop\+Watching\+And\+Image\+Modes}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a80e2c273618b4faeffec2074120aca0f}\label{class_driver_board_dropwatcher_1_1_form1_a80e2c273618b4faeffec2074120aca0f}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Reset}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a15c842be976bfecdfac25db314f613c7}\label{class_driver_board_dropwatcher_1_1_form1_a15c842be976bfecdfac25db314f613c7}} 
+System.\+Windows.\+Forms.\+Tab\+Page {\bfseries Drop\+Watching\+Tab}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_af7ef6faf7c5dca7f51ed371fbaab329b}\label{class_driver_board_dropwatcher_1_1_form1_af7ef6faf7c5dca7f51ed371fbaab329b}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Frequency}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab9f059461b03f4c55f522eaad5f23509}\label{class_driver_board_dropwatcher_1_1_form1_ab9f059461b03f4c55f522eaad5f23509}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Nozzle}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_af518ef45eff6ae4da2698ba2eb5a4ead}\label{class_driver_board_dropwatcher_1_1_form1_af518ef45eff6ae4da2698ba2eb5a4ead}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cb\+Drop\+Watch\+Head\+Selection}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a848cbbb187e7bcb7073aa5cdfeb9ed4f}\label{class_driver_board_dropwatcher_1_1_form1_a848cbbb187e7bcb7073aa5cdfeb9ed4f}} 
+System.\+Windows.\+Forms.\+Label {\bfseries label24}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_af9ac14cc996b82c11d82c0bae41d695d}\label{class_driver_board_dropwatcher_1_1_form1_af9ac14cc996b82c11d82c0bae41d695d}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cb\+Drop\+Watch\+Mode}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a997bbd0390753a77aa6b2106a551ac1a}\label{class_driver_board_dropwatcher_1_1_form1_a997bbd0390753a77aa6b2106a551ac1a}} 
+System.\+Windows.\+Forms.\+Tab\+Page {\bfseries Image\+Mode\+Tab}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a60065f26104d208c6c162eff24644bef}\label{class_driver_board_dropwatcher_1_1_form1_a60065f26104d208c6c162eff24644bef}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Span}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3624e172efc18d727509c021b0a6211e}\label{class_driver_board_dropwatcher_1_1_form1_a3624e172efc18d727509c021b0a6211e}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Head\+Index}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2bd32402fc9e54e76c159c07e366b004}\label{class_driver_board_dropwatcher_1_1_form1_a2bd32402fc9e54e76c159c07e366b004}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Drop\+Watching\+Mode}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a634c8fb6177f2955e694fdb55c891aef}\label{class_driver_board_dropwatcher_1_1_form1_a634c8fb6177f2955e694fdb55c891aef}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Drop\+Watching\+Span}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a6b48c2f501ee78439c9d104d86594bde}\label{class_driver_board_dropwatcher_1_1_form1_a6b48c2f501ee78439c9d104d86594bde}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Drop\+Watching\+Nozzle}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a258055c158e53b06c49826022becaa43}\label{class_driver_board_dropwatcher_1_1_form1_a258055c158e53b06c49826022becaa43}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+CycleA}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a802bdb4ad8ada2b1cf31b6fce350260f}\label{class_driver_board_dropwatcher_1_1_form1_a802bdb4ad8ada2b1cf31b6fce350260f}} 
+System.\+Windows.\+Forms.\+Table\+Layout\+Panel {\bfseries table\+Layout\+Panel1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a767d89ee97d250150f4eb6dbb13d38e7}\label{class_driver_board_dropwatcher_1_1_form1_a767d89ee97d250150f4eb6dbb13d38e7}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Current\+Temperature}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_af4232a1b8f7f421be505d1b92dec8661}\label{class_driver_board_dropwatcher_1_1_form1_af4232a1b8f7f421be505d1b92dec8661}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Set\+Temperature}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8d36ef6ce83c2b36869d4d2fac03894c}\label{class_driver_board_dropwatcher_1_1_form1_a8d36ef6ce83c2b36869d4d2fac03894c}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Head}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a23d2d60327b07764bde86dca707a51f9}\label{class_driver_board_dropwatcher_1_1_form1_a23d2d60327b07764bde86dca707a51f9}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Set\+Voltage}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a99387fd4bb1ae8f45fb9d9a28e652b91}\label{class_driver_board_dropwatcher_1_1_form1_a99387fd4bb1ae8f45fb9d9a28e652b91}} 
+System.\+Windows.\+Forms.\+Label {\bfseries label40}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae762bc98bb6916530a5d8422b9ef6c60}\label{class_driver_board_dropwatcher_1_1_form1_ae762bc98bb6916530a5d8422b9ef6c60}} 
+System.\+Windows.\+Forms.\+Label {\bfseries label37}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a937ebf9f4fb219a2195586dc48019b67}\label{class_driver_board_dropwatcher_1_1_form1_a937ebf9f4fb219a2195586dc48019b67}} 
+System.\+Windows.\+Forms.\+Label {\bfseries label39}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a25ff4e6f752d3956ea9d50c8b7ef6630}\label{class_driver_board_dropwatcher_1_1_form1_a25ff4e6f752d3956ea9d50c8b7ef6630}} 
+System.\+Windows.\+Forms.\+Label {\bfseries label38}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2c91a99c48fee29b7c29b7433d0e2539}\label{class_driver_board_dropwatcher_1_1_form1_a2c91a99c48fee29b7c29b7433d0e2539}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Head\+Status}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a737d34f22ddac4792b7101b1544cb60c}\label{class_driver_board_dropwatcher_1_1_form1_a737d34f22ddac4792b7101b1544cb60c}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Print\+Counter4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_abc8f74f5b49bca216ad4f933d77a549b}\label{class_driver_board_dropwatcher_1_1_form1_abc8f74f5b49bca216ad4f933d77a549b}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Print\+Count}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a68b56997da3a2f4ec853dd1c6f63a9a6}\label{class_driver_board_dropwatcher_1_1_form1_a68b56997da3a2f4ec853dd1c6f63a9a6}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Print\+Counter1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3c50a8b63329936992097aba7d5cde20}\label{class_driver_board_dropwatcher_1_1_form1_a3c50a8b63329936992097aba7d5cde20}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Print\+Counter2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a912d01c804c2d373bb43a71e6b7411e3}\label{class_driver_board_dropwatcher_1_1_form1_a912d01c804c2d373bb43a71e6b7411e3}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Print\+Counter3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a96d7414fd3ae9831dde5a3e870f298a2}\label{class_driver_board_dropwatcher_1_1_form1_a96d7414fd3ae9831dde5a3e870f298a2}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Frequency}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a1b987d9b0eb92fedcd236ab9fd37ff9e}\label{class_driver_board_dropwatcher_1_1_form1_a1b987d9b0eb92fedcd236ab9fd37ff9e}} 
+System.\+Windows.\+Forms.\+Picture\+Box {\bfseries picture\+Box1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3ae3249628fea3de30ad1d547e3cc3ec}\label{class_driver_board_dropwatcher_1_1_form1_a3ae3249628fea3de30ad1d547e3cc3ec}} 
+System.\+Windows.\+Forms.\+Picture\+Box {\bfseries picture\+Box4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab0f085e8071444315216235c9631c26a}\label{class_driver_board_dropwatcher_1_1_form1_ab0f085e8071444315216235c9631c26a}} 
+System.\+Windows.\+Forms.\+Picture\+Box {\bfseries picture\+Box3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7dca12fa5ae12f01942fe8a2a43d982a}\label{class_driver_board_dropwatcher_1_1_form1_a7dca12fa5ae12f01942fe8a2a43d982a}} 
+System.\+Windows.\+Forms.\+Picture\+Box {\bfseries picture\+Box2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aedcbac328f9c6fa7496db2973a05fa9e}\label{class_driver_board_dropwatcher_1_1_form1_aedcbac328f9c6fa7496db2973a05fa9e}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Image\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aae6c71a5a6e4bfbb33390b5077b02359}\label{class_driver_board_dropwatcher_1_1_form1_aae6c71a5a6e4bfbb33390b5077b02359}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Image\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aed13c356925ad8e240bbbeca8faece15}\label{class_driver_board_dropwatcher_1_1_form1_aed13c356925ad8e240bbbeca8faece15}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Image\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a17807d98bff0a81c0f07ab9af4327898}\label{class_driver_board_dropwatcher_1_1_form1_a17807d98bff0a81c0f07ab9af4327898}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Image\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a593b207b3d5db2759362a2439431c6d5}\label{class_driver_board_dropwatcher_1_1_form1_a593b207b3d5db2759362a2439431c6d5}} 
+System.\+Windows.\+Forms.\+Open\+File\+Dialog {\bfseries open\+File\+Dialog1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aeb1fc0ec0ad6eac303fc6ef284600963}\label{class_driver_board_dropwatcher_1_1_form1_aeb1fc0ec0ad6eac303fc6ef284600963}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+File\+Name\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae023af1889df4a434db02d3b316b0797}\label{class_driver_board_dropwatcher_1_1_form1_ae023af1889df4a434db02d3b316b0797}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+File\+Name\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae51131d30c0b15a918f15444e4f107c2}\label{class_driver_board_dropwatcher_1_1_form1_ae51131d30c0b15a918f15444e4f107c2}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+File\+Name\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a9ef990bbb6fb11824886f5635ef90956}\label{class_driver_board_dropwatcher_1_1_form1_a9ef990bbb6fb11824886f5635ef90956}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+File\+Name\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae239e6e0c5404efc2e905039dec190d8}\label{class_driver_board_dropwatcher_1_1_form1_ae239e6e0c5404efc2e905039dec190d8}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+File\+Name\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a0d9a85162ef7f8dd44a0de89b11ebbe0}\label{class_driver_board_dropwatcher_1_1_form1_a0d9a85162ef7f8dd44a0de89b11ebbe0}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+File\+Name\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a03abffcfb153bf2d55c8aed48945505f}\label{class_driver_board_dropwatcher_1_1_form1_a03abffcfb153bf2d55c8aed48945505f}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+File\+Name\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7462f10c4d46c1ba74b50a7f30660817}\label{class_driver_board_dropwatcher_1_1_form1_a7462f10c4d46c1ba74b50a7f30660817}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+File\+Name\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a528200cbdbfe461c80c638ebb2e8d7b2}\label{class_driver_board_dropwatcher_1_1_form1_a528200cbdbfe461c80c638ebb2e8d7b2}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Dimensions\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a6aea0f5bb27629dff43433b7541ad54c}\label{class_driver_board_dropwatcher_1_1_form1_a6aea0f5bb27629dff43433b7541ad54c}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Dimensions\+Head4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8fbfe4d67d7213cc83b59efb16db2eae}\label{class_driver_board_dropwatcher_1_1_form1_a8fbfe4d67d7213cc83b59efb16db2eae}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Dimensions\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab1ec53d99873ad7f7740b7042b33c175}\label{class_driver_board_dropwatcher_1_1_form1_ab1ec53d99873ad7f7740b7042b33c175}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Dimensions\+Head3}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae7a859482eee40626fe8e050a55ed033}\label{class_driver_board_dropwatcher_1_1_form1_ae7a859482eee40626fe8e050a55ed033}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Dimensions\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a0ce0c283dd1483f4b19e86c39add8328}\label{class_driver_board_dropwatcher_1_1_form1_a0ce0c283dd1483f4b19e86c39add8328}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Dimensions\+Head2}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aba3aa0af659cecde251b1ceaa9066f64}\label{class_driver_board_dropwatcher_1_1_form1_aba3aa0af659cecde251b1ceaa9066f64}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Dimensions\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a9ec547b1f028747c20080f4281533fa8}\label{class_driver_board_dropwatcher_1_1_form1_a9ec547b1f028747c20080f4281533fa8}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Dimensions\+Head1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a9276869cd07b692836338aef5c0a9784}\label{class_driver_board_dropwatcher_1_1_form1_a9276869cd07b692836338aef5c0a9784}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Head\+Status4}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a4773b79bb93712a264c624b6e94ffbd6}\label{class_driver_board_dropwatcher_1_1_form1_a4773b79bb93712a264c624b6e94ffbd6}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Drop\+Watching\+Frequency\+Duplicate}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa64b4de2444cbceb85eab6254c297184}\label{class_driver_board_dropwatcher_1_1_form1_aa64b4de2444cbceb85eab6254c297184}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Frequency\+Duplicate}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8c16822a7b94506c97f4867310b13e98}\label{class_driver_board_dropwatcher_1_1_form1_a8c16822a7b94506c97f4867310b13e98}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Clear\+Head}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a9ec39efddeeb77f8504c6bd820eb6df8}\label{class_driver_board_dropwatcher_1_1_form1_a9ec39efddeeb77f8504c6bd820eb6df8}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Print\+Image}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a15c13abfdc12b85028b0f48586f4a27e}\label{class_driver_board_dropwatcher_1_1_form1_a15c13abfdc12b85028b0f48586f4a27e}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Cancel}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a4046dcbdf57fec3725f64c2fcfa57da8}\label{class_driver_board_dropwatcher_1_1_form1_a4046dcbdf57fec3725f64c2fcfa57da8}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+Nozzle}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a81f51fc34ba1bf916c331aea9eb06522}\label{class_driver_board_dropwatcher_1_1_form1_a81f51fc34ba1bf916c331aea9eb06522}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+Span}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a1806c46ceb1ee15f576033367818e1d5}\label{class_driver_board_dropwatcher_1_1_form1_a1806c46ceb1ee15f576033367818e1d5}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Image\+Mode}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab6a7803626e5381a3791f4c2a9287687}\label{class_driver_board_dropwatcher_1_1_form1_ab6a7803626e5381a3791f4c2a9287687}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cb\+Image\+Mode}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab2e780f10944785d61d276194c887525}\label{class_driver_board_dropwatcher_1_1_form1_ab2e780f10944785d61d276194c887525}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Head\+Status}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a592e70ed8efb21bf83ed14ac13e0b89a}\label{class_driver_board_dropwatcher_1_1_form1_a592e70ed8efb21bf83ed14ac13e0b89a}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Drop\+Watching\+Fill\+Cycle}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a135fa246f514111814fb1893f719ce14}\label{class_driver_board_dropwatcher_1_1_form1_a135fa246f514111814fb1893f719ce14}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+CycleC}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2f51cb5f3f54760be7d9c7082db2ec87}\label{class_driver_board_dropwatcher_1_1_form1_a2f51cb5f3f54760be7d9c7082db2ec87}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+CycleB}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a03c6b627cbf8edb6a192b9a70bfcc3a3}\label{class_driver_board_dropwatcher_1_1_form1_a03c6b627cbf8edb6a192b9a70bfcc3a3}} 
+System.\+Windows.\+Forms.\+Group\+Box {\bfseries Fill\+Cycle\+Box}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a27cc7913092f730d08653128541d600d}\label{class_driver_board_dropwatcher_1_1_form1_a27cc7913092f730d08653128541d600d}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+Gap}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa83111b59876bf748caa84adde76c8e7}\label{class_driver_board_dropwatcher_1_1_form1_aa83111b59876bf748caa84adde76c8e7}} 
+System.\+Windows.\+Forms.\+Numeric\+Up\+Down {\bfseries nud\+Gap}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_afa09e14e25b8028d7df81f0bf28be941}\label{class_driver_board_dropwatcher_1_1_form1_afa09e14e25b8028d7df81f0bf28be941}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Drop\+Watching\+Gap}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae775d306765495f64a3e29e228eda1f6}\label{class_driver_board_dropwatcher_1_1_form1_ae775d306765495f64a3e29e228eda1f6}} 
+System.\+Windows.\+Forms.\+Tool\+Tip {\bfseries tool\+Tip1}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a1c6a5dcd28b48fef231f3c1a08bf8d13}\label{class_driver_board_dropwatcher_1_1_form1_a1c6a5dcd28b48fef231f3c1a08bf8d13}} 
+System.\+Windows.\+Forms.\+Button {\bfseries btn\+Fill\+Head}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a273fe9a68043bee3b4802debad38d3c7}\label{class_driver_board_dropwatcher_1_1_form1_a273fe9a68043bee3b4802debad38d3c7}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cb\+PDpolarity}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2752b22a5cb8107feeea737f91dd8f31}\label{class_driver_board_dropwatcher_1_1_form1_a2752b22a5cb8107feeea737f91dd8f31}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+PDpolarity}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ad20251d049893c22c657e7bd7f00ab1f}\label{class_driver_board_dropwatcher_1_1_form1_ad20251d049893c22c657e7bd7f00ab1f}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cb\+Encoder\+Tracked\+Position}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3f9208a31e5bd95abbf0f6ef2fae0f7b}\label{class_driver_board_dropwatcher_1_1_form1_a3f9208a31e5bd95abbf0f6ef2fae0f7b}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+Encoder\+Tracked\+Position}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a6cc310bcc8a5d628dc7cc19fbe4e16c7}\label{class_driver_board_dropwatcher_1_1_form1_a6cc310bcc8a5d628dc7cc19fbe4e16c7}} 
+System.\+Windows.\+Forms.\+Combo\+Box {\bfseries cd\+PDdirection}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa7aa5dddf050b7df98a954b4e45c250d}\label{class_driver_board_dropwatcher_1_1_form1_aa7aa5dddf050b7df98a954b4e45c250d}} 
+System.\+Windows.\+Forms.\+Label {\bfseries lb\+PDdirection}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a1dcf99751ad35f5369ac9bedebe3251f}\label{class_driver_board_dropwatcher_1_1_form1_a1dcf99751ad35f5369ac9bedebe3251f}} 
+System.\+Windows.\+Forms.\+Check\+Box {\bfseries chbx\+Is\+Fill\+Span}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_afa6101ee88d614d5c1424b5996e89e75}\label{class_driver_board_dropwatcher_1_1_form1_afa6101ee88d614d5c1424b5996e89e75}} 
+System.\+Windows.\+Forms.\+Check\+Box {\bfseries chbx\+Is\+Fill\+Gap}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_afba5ce7e511882fd2d999c813c630e60}\label{class_driver_board_dropwatcher_1_1_form1_afba5ce7e511882fd2d999c813c630e60}} 
+System.\+Windows.\+Forms.\+Check\+Box {\bfseries chbx\+Is\+Fill\+Head}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2af09b7dc96f91e0de0cd54e9bcc5665}\label{class_driver_board_dropwatcher_1_1_form1_a2af09b7dc96f91e0de0cd54e9bcc5665}} 
+System.\+Windows.\+Forms.\+Check\+Box {\bfseries chbx\+Is\+Fill\+Nozzle}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ac0458cfea743044f8d2af84b4cdbb0ad}\label{class_driver_board_dropwatcher_1_1_form1_ac0458cfea743044f8d2af84b4cdbb0ad}} 
+System.\+Windows.\+Forms.\+Text\+Box {\bfseries txtb\+Image\+Head\+Status}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3103ce2d23df940ad26d209d52c974bd}\label{class_driver_board_dropwatcher_1_1_form1_a3103ce2d23df940ad26d209d52c974bd}} 
+static Serial\+Port {\bfseries driver\+\_\+board}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_acf467bca7a101d26fc3bbdcc51a09d9e}\label{class_driver_board_dropwatcher_1_1_form1_acf467bca7a101d26fc3bbdcc51a09d9e}} 
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a83d599f96464e28a8328e9ee094b93fc}\label{class_driver_board_dropwatcher_1_1_form1_a83d599f96464e28a8328e9ee094b93fc}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!btnCancel\_Click@{btnCancel\_Click}}
+\index{btnCancel\_Click@{btnCancel\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{btnCancel\_Click()}{btnCancel\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+btn\+Cancel\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Cancel Button Pushed. 
+
+This function is called when the \char`\"{}\+Cancel\char`\"{} button is pushed. This is to cancel all printing and clear all heads
+
+Runs only if driver board is connected and powered on.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2ab09beabec7edbb686b466893822052}\label{class_driver_board_dropwatcher_1_1_form1_a2ab09beabec7edbb686b466893822052}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!btnClearHead\_Click@{btnClearHead\_Click}}
+\index{btnClearHead\_Click@{btnClearHead\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{btnClearHead\_Click()}{btnClearHead\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+btn\+Clear\+Head\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Clear Heads Push Button. 
+
+This function is called when \char`\"{}\+Clear Heads\char`\"{} button is pushed
+
+It sends the relevent command to the driver board whilst unchecking all other relevent checkboxes to indicate that all heads are cleared.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a90e4d56dcc6766f520d660fd90bd3487}\label{class_driver_board_dropwatcher_1_1_form1_a90e4d56dcc6766f520d660fd90bd3487}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!btnConnectDisconnect\_Click@{btnConnectDisconnect\_Click}}
+\index{btnConnectDisconnect\_Click@{btnConnectDisconnect\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{btnConnectDisconnect\_Click()}{btnConnectDisconnect\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+btn\+Connect\+Disconnect\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Controls the Connect/\+Disconnect Toggle. 
+
+This function controls the connection state of the driver board and modifies the checkbox as checked if connected or unchecked if disconnected
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab42c827aeb37815fdb737741f9d08832}\label{class_driver_board_dropwatcher_1_1_form1_ab42c827aeb37815fdb737741f9d08832}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!btnPrintImage\_Click@{btnPrintImage\_Click}}
+\index{btnPrintImage\_Click@{btnPrintImage\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{btnPrintImage\_Click()}{btnPrintImage\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+btn\+Print\+Image\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Print Image. 
+
+This function is called when the Print Image Button is pressed.
+
+Only runs if driver board is connected and powered on. Sends only the relevent images to print. For example, if images are uploaded to Head 1 and Head 3 and Head 2 and 4 are left blank, only Heads 1 and 3 will print.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae985da05e8db0055662912da91c32fcf}\label{class_driver_board_dropwatcher_1_1_form1_ae985da05e8db0055662912da91c32fcf}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!cbDropWatchHeadSelection\_SelectedIndexChanged@{cbDropWatchHeadSelection\_SelectedIndexChanged}}
+\index{cbDropWatchHeadSelection\_SelectedIndexChanged@{cbDropWatchHeadSelection\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{cbDropWatchHeadSelection\_SelectedIndexChanged()}{cbDropWatchHeadSelection\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+cb\+Drop\+Watch\+Head\+Selection\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fetches User Selected Head from GUI. 
+
+This function is called when user modifies the head selection in the drop watching mode. Stores selected head in a variable called \char`\"{}active\+Drop\+Mode\+Head\char`\"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a457fd37bf02c17649a06f5f3385c029c}\label{class_driver_board_dropwatcher_1_1_form1_a457fd37bf02c17649a06f5f3385c029c}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!cbDropWatchMode\_SelectedIndexChanged@{cbDropWatchMode\_SelectedIndexChanged}}
+\index{cbDropWatchMode\_SelectedIndexChanged@{cbDropWatchMode\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{cbDropWatchMode\_SelectedIndexChanged()}{cbDropWatchMode\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+cb\+Drop\+Watch\+Mode\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fetches User Selected Drop Watch Mode Selection from GUI. 
+
+This function is called when the Drop Watch Mode Seection is changed between Internal and External Modes. Stores user selected mode in a variable called \char`\"{}active\+Drop\+Watch\char`\"{} Only runs if driver board is connected
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a1ff87e2b4bb7e50ea9ef18458dd759c3}\label{class_driver_board_dropwatcher_1_1_form1_a1ff87e2b4bb7e50ea9ef18458dd759c3}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!cbSerialPort\_DropDown@{cbSerialPort\_DropDown}}
+\index{cbSerialPort\_DropDown@{cbSerialPort\_DropDown}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{cbSerialPort\_DropDown()}{cbSerialPort\_DropDown()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+cb\+Serial\+Port\+\_\+\+Drop\+Down (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Detects Active Serial COM Ports from device. 
+
+This function searches and detects any available COM Ports available to open.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ad9616f535cc2d36e811ec26fd01dc451}\label{class_driver_board_dropwatcher_1_1_form1_ad9616f535cc2d36e811ec26fd01dc451}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!cbSerialPort\_SelectedIndexChanged@{cbSerialPort\_SelectedIndexChanged}}
+\index{cbSerialPort\_SelectedIndexChanged@{cbSerialPort\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{cbSerialPort\_SelectedIndexChanged()}{cbSerialPort\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+cb\+Serial\+Port\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Detects Changes in Serial Ports. 
+
+This function runs when the Serial COM Port is changed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a5f66029cc1e826013e99d895a1e449f8}\label{class_driver_board_dropwatcher_1_1_form1_a5f66029cc1e826013e99d895a1e449f8}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!connect\_board@{connect\_board}}
+\index{connect\_board@{connect\_board}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{connect\_board()}{connect\_board()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+connect\+\_\+board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Connect Driver Board. 
+
+This function sends command to driver board to connect and checks the checkbox in the GUI. Only runs if a valid port is selected and is connected successfully to the driver board. If this fails to run, then an Error Dialog Box shows up. \mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a111d34e11820c1e02c11225a30e467c0}\label{class_driver_board_dropwatcher_1_1_form1_a111d34e11820c1e02c11225a30e467c0}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!convertImageToData@{convertImageToData}}
+\index{convertImageToData@{convertImageToData}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{convertImageToData()}{convertImageToData()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+convert\+Image\+To\+Data (\begin{DoxyParamCaption}\item[{string}]{file\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Convert Image to Data. 
+
+This function is called when the Image is ready to be converted into data in order to send it to the driver board.
+
+Stores image as data in a file with an extension of \char`\"{}.\+print\+Dat\char`\"{} in a Folder Called \char`\"{}\+Output Images\char`\"{} in Project Folder.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+name} & This is the full path of where the file is stored in the system. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a79bb8e83336c7140139ba136a5bfad66}\label{class_driver_board_dropwatcher_1_1_form1_a79bb8e83336c7140139ba136a5bfad66}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!DataRecievedHandler@{DataRecievedHandler}}
+\index{DataRecievedHandler@{DataRecievedHandler}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{DataRecievedHandler()}{DataRecievedHandler()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Data\+Recieved\+Handler (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Serial\+Data\+Received\+Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Processes data received from driver board. 
+
+This function reads the data received from the driver board. If the substring matches to the expected character, then the data is sent to parse. If this fails to run multipe times, then an Error Dialog Box shows up.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2b82c001d97a6d041b098e222c2de7cb}\label{class_driver_board_dropwatcher_1_1_form1_a2b82c001d97a6d041b098e222c2de7cb}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!DeleteAllFilesInFolder@{DeleteAllFilesInFolder}}
+\index{DeleteAllFilesInFolder@{DeleteAllFilesInFolder}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{DeleteAllFilesInFolder()}{DeleteAllFilesInFolder()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Delete\+All\+Files\+In\+Folder (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Delete all Images and Data Files from Folder. 
+
+This function is called when the user closes the application. THis is to delete all files stored in the \char`\"{}\+Output Images\char`\"{} folder created to save memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aee035049b61e6128d3655e7c708a4b2e}\label{class_driver_board_dropwatcher_1_1_form1_aee035049b61e6128d3655e7c708a4b2e}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!determineStatus@{determineStatus}}
+\index{determineStatus@{determineStatus}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{determineStatus()}{determineStatus()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+determine\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Determine the Status of Voltages and Temperatures. 
+
+This function determines what state each Head is in and outputs the Voltage and Temperature Values to the GUI. Only runs if a valid port is selected and is connected and powered on successfully to the driver board. \mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a7697577cfda6df135ad065f9f45a7bd0}\label{class_driver_board_dropwatcher_1_1_form1_a7697577cfda6df135ad065f9f45a7bd0}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!disconnect\_board@{disconnect\_board}}
+\index{disconnect\_board@{disconnect\_board}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{disconnect\_board()}{disconnect\_board()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+disconnect\+\_\+board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Disconnect Driver Board. 
+
+This function sends command to driver board to disconnect and unchecks the checkbox in the GUI. \mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_acf467bca7a101d26fc3bbdcc51a09d9e}\label{class_driver_board_dropwatcher_1_1_form1_acf467bca7a101d26fc3bbdcc51a09d9e}} 
 \index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!Dispose@{Dispose}}
 \index{Dispose@{Dispose}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
 \doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
@@ -33,6 +837,713 @@ Clean up any resources being used.
 
 \begin{DoxyParams}{Parameters}
 {\em disposing} & true if managed resources should be disposed; otherwise, false.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aeac6099fc600f488ec22af8c6c3d6867}\label{class_driver_board_dropwatcher_1_1_form1_aeac6099fc600f488ec22af8c6c3d6867}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!DropWatchingTab\_Click@{DropWatchingTab\_Click}}
+\index{DropWatchingTab\_Click@{DropWatchingTab\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{DropWatchingTab\_Click()}{DropWatchingTab\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Drop\+Watching\+Tab\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Drop Watching Tab pressed. 
+
+This function is called when the user clicks anywhere withinthe drop watching tab
+
+This will set focus onto the tab allowing for other functions to run such as right and left keys increasing and decreasing the nozzle value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a402afb663d007ec33d10d1a4227ff3d9}\label{class_driver_board_dropwatcher_1_1_form1_a402afb663d007ec33d10d1a4227ff3d9}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!DropWatchingTab\_PreviewKeyDown@{DropWatchingTab\_PreviewKeyDown}}
+\index{DropWatchingTab\_PreviewKeyDown@{DropWatchingTab\_PreviewKeyDown}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{DropWatchingTab\_PreviewKeyDown()}{DropWatchingTab\_PreviewKeyDown()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Drop\+Watching\+Tab\+\_\+\+Preview\+Key\+Down (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Preview\+Key\+Down\+Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Arrow Keys Pushed. 
+
+This function is called when the user presses down on an arrow key If right arrow key, then increase nozzle value by increments of 1 and send command to driver board. If left arrow key, then decrease nozzle value by increments of 1 and send command to driver board.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a29e152633457418629ef783be36b7ac5}\label{class_driver_board_dropwatcher_1_1_form1_a29e152633457418629ef783be36b7ac5}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!EncoderTrackedPositionSelection\_SelectedIndexChanged@{EncoderTrackedPositionSelection\_SelectedIndexChanged}}
+\index{EncoderTrackedPositionSelection\_SelectedIndexChanged@{EncoderTrackedPositionSelection\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{EncoderTrackedPositionSelection\_SelectedIndexChanged()}{EncoderTrackedPositionSelection\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Encoder\+Tracked\+Position\+Selection\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Encoder Position Selection Change. 
+
+This function is called when the user modifies the Encoer Position Mode
+
+Sends relevent command to driver board if Encoder Position is changed between (Stepper Normal and Stepper Reverse)
+
+Only runs if board is connected.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a0e6e96aa67048a1d83b18653eac18ee8}\label{class_driver_board_dropwatcher_1_1_form1_a0e6e96aa67048a1d83b18653eac18ee8}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!FillCycle@{FillCycle}}
+\index{FillCycle@{FillCycle}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{FillCycle()}{FillCycle()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Fill\+Cycle (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Cycle Function. 
+
+This function is called by either Fill Cycle A,B or C.
+
+Sends relevent commands in bytes to driver board in order to fill cycles.
+
+Contains tags to identify which push button has been triggered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a23c4492d6ff32463be283c9929b19a33}\label{class_driver_board_dropwatcher_1_1_form1_a23c4492d6ff32463be283c9929b19a33}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!FillCycleA\_Click@{FillCycleA\_Click}}
+\index{FillCycleA\_Click@{FillCycleA\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{FillCycleA\_Click()}{FillCycleA\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Fill\+Cycle\+A\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Cycle A Button Press. 
+
+This function is called Fill Cycle A Button is Pressed. Calls the Fill Cycle function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_af4765cb5c6eda106f6ff5784510cdb04}\label{class_driver_board_dropwatcher_1_1_form1_af4765cb5c6eda106f6ff5784510cdb04}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!FillCycleB\_Click@{FillCycleB\_Click}}
+\index{FillCycleB\_Click@{FillCycleB\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{FillCycleB\_Click()}{FillCycleB\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Fill\+Cycle\+B\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Cycle B Button Press. 
+
+This function is called Fill Cycle B Button is Pressed. Calls the Fill Cycle function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa7eaa506185b270d3ace5f5dcdc23999}\label{class_driver_board_dropwatcher_1_1_form1_aa7eaa506185b270d3ace5f5dcdc23999}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!FillCycleC\_Click@{FillCycleC\_Click}}
+\index{FillCycleC\_Click@{FillCycleC\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{FillCycleC\_Click()}{FillCycleC\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Fill\+Cycle\+C\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Cycle C Button Press. 
+
+This function is called Fill Cycle C Button is Pressed. Calls the Fill Cycle function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a43c7ad985a59249007425888a29aac12}\label{class_driver_board_dropwatcher_1_1_form1_a43c7ad985a59249007425888a29aac12}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!fillHead\_Click@{fillHead\_Click}}
+\index{fillHead\_Click@{fillHead\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{fillHead\_Click()}{fillHead\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+fill\+Head\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Head Button Press. 
+
+This function is called when the \char`\"{}\+Fill Head\char`\"{} button is pushed.
+
+Sends relevent command to driver board and sets other checkboxes to unchecked to indicate which mode is running.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_addb43da318a7193a6ee9805683051f03}\label{class_driver_board_dropwatcher_1_1_form1_addb43da318a7193a6ee9805683051f03}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!FillSingleNozzleButton\_Click@{FillSingleNozzleButton\_Click}}
+\index{FillSingleNozzleButton\_Click@{FillSingleNozzleButton\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{FillSingleNozzleButton\_Click()}{FillSingleNozzleButton\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Fill\+Single\+Nozzle\+Button\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Nozzle Push Button. 
+
+This function is called when the \char`\"{}\+Fill Nozzle\char`\"{} button is pushed
+
+It sends the relevent command to the driver board whilst checking the checkbox to show that it is running.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_afa4317206bc7fe3369263d6ba02e6704}\label{class_driver_board_dropwatcher_1_1_form1_afa4317206bc7fe3369263d6ba02e6704}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!FillSpanNozzleButton\_Click@{FillSpanNozzleButton\_Click}}
+\index{FillSpanNozzleButton\_Click@{FillSpanNozzleButton\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{FillSpanNozzleButton\_Click()}{FillSpanNozzleButton\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Fill\+Span\+Nozzle\+Button\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fill Span Push Button. 
+
+This function is called when the \char`\"{}\+Fill Span\char`\"{} button is pushed
+
+It sends the relevent command to the driver board whilst checking the checkbox to show that it is running.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a4c02443bfa22a00afb0f9c2a23fa9a58}\label{class_driver_board_dropwatcher_1_1_form1_a4c02443bfa22a00afb0f9c2a23fa9a58}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!Form1\_FormClosing@{Form1\_FormClosing}}
+\index{Form1\_FormClosing@{Form1\_FormClosing}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{Form1\_FormClosing()}{Form1\_FormClosing()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Form1\+\_\+\+Form\+Closing (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Form\+Closing\+Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Saves all data when closing application. 
+
+This function is called when the User presses the close button
+
+It stores all the user modified values/data and stores it ready to load up the next time the user opens it. This is to make everything more convenient for the user the next time they use this application instead of re-\/selecting all relevent options.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a5b90785959beb50048ecf3a4eb4e3807}\label{class_driver_board_dropwatcher_1_1_form1_a5b90785959beb50048ecf3a4eb4e3807}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!Form1\_Load@{Form1\_Load}}
+\index{Form1\_Load@{Form1\_Load}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{Form1\_Load()}{Form1\_Load()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Form1\+\_\+\+Load (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Loads all data when opening application. 
+
+This function is called when the user starts application
+
+It loads all stored values/data from the last session. This is to make everything more convenient for the user saving repetitive actions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae418fcf19582bc4c1b673c622e567dc8}\label{class_driver_board_dropwatcher_1_1_form1_ae418fcf19582bc4c1b673c622e567dc8}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!frequencyValue\_ValueChanged@{frequencyValue\_ValueChanged}}
+\index{frequencyValue\_ValueChanged@{frequencyValue\_ValueChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{frequencyValue\_ValueChanged()}{frequencyValue\_ValueChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+frequency\+Value\+\_\+\+Value\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fetches Frequency Data from GUI. 
+
+This function runs when the Frequency Value is changed in the GUI so the new value is updated on the board. Only runs if driver board is connected and is powered on.
+
+Uses tags to find relevent Numeric Up Downs and Labels in GUI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a86da0e9cbfaa9e1fd47ed6a343d45179}\label{class_driver_board_dropwatcher_1_1_form1_a86da0e9cbfaa9e1fd47ed6a343d45179}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!GapValue\_ValueChanged@{GapValue\_ValueChanged}}
+\index{GapValue\_ValueChanged@{GapValue\_ValueChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{GapValue\_ValueChanged()}{GapValue\_ValueChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Gap\+Value\+\_\+\+Value\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Gap Value Modified. 
+
+This function is called the Gap Value Numeric Up Down Box is modified.
+
+Stores new value in variable called \char`\"{}active\+Gap\+Value\char`\"{}
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a995430db460e729b7491fc8869590cdd}\label{class_driver_board_dropwatcher_1_1_form1_a995430db460e729b7491fc8869590cdd}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!ImageBoxClicked@{ImageBoxClicked}}
+\index{ImageBoxClicked@{ImageBoxClicked}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{ImageBoxClicked()}{ImageBoxClicked()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Image\+Box\+Clicked (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Image Box Selection in Image Mode. 
+
+This function is called when user presses the picture box in GUI to upload image
+
+Opens up file dialog and filters it out to only allow upload of image files. Clones the image and saves it into a folder called \char`\"{}\+Output Images\char`\"{} in the .png format
+
+Uses tags to find relevent Picture Boxes (1-\/4).
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8bea2816054209e20404459111ed4e7b}\label{class_driver_board_dropwatcher_1_1_form1_a8bea2816054209e20404459111ed4e7b}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!ImageModeSelection\_SelectedIndexChanged@{ImageModeSelection\_SelectedIndexChanged}}
+\index{ImageModeSelection\_SelectedIndexChanged@{ImageModeSelection\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{ImageModeSelection\_SelectedIndexChanged()}{ImageModeSelection\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Image\+Mode\+Selection\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Runs if Image Mode Selection is Modified. 
+
+This function is user modified the image mode selection in GUI.
+
+It stores the image mode into a variable called \char`\"{}active\+Image\+Mode\char`\"{} This function greys out other irrelevent combo box. For example, when Stepper Motor Mode is selected, the PD Polarity Settings are greyed out as they are irrelevent in this mode.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aea9d7ec0685bb40a204979933bbed54f}\label{class_driver_board_dropwatcher_1_1_form1_aea9d7ec0685bb40a204979933bbed54f}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!MakeGrayscale3@{MakeGrayscale3}}
+\index{MakeGrayscale3@{MakeGrayscale3}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{MakeGrayscale3()}{MakeGrayscale3()}}
+{\footnotesize\ttfamily static Bitmap Driver\+Board\+Dropwatcher.\+Form1.\+Make\+Grayscale3 (\begin{DoxyParamCaption}\item[{Bitmap}]{original }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Grey Scale Image Function. 
+
+This function grey scales any image passed to it
+
+
+\begin{DoxyParams}{Parameters}
+{\em original} & Original Image (Coloured) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Grey-\/\+Scaled Image in Bitmap format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_acbb4d4ded84226cd54b107d5a553160e}\label{class_driver_board_dropwatcher_1_1_form1_acbb4d4ded84226cd54b107d5a553160e}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!NozzleValue\_ValueChanged@{NozzleValue\_ValueChanged}}
+\index{NozzleValue\_ValueChanged@{NozzleValue\_ValueChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{NozzleValue\_ValueChanged()}{NozzleValue\_ValueChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Nozzle\+Value\+\_\+\+Value\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Nozzle Value Modified in GUI. 
+
+This function is called when user changed value of the Nozzle (Numeric Up Down)
+
+If span value + nozzle value is greater than 128, then a warning message will pop up automatically rectifying the error in the numeric up down.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aca206305e339f2f9d0ddef9a80d00aac}\label{class_driver_board_dropwatcher_1_1_form1_aca206305e339f2f9d0ddef9a80d00aac}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!parseJsonData@{parseJsonData}}
+\index{parseJsonData@{parseJsonData}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{parseJsonData()}{parseJsonData()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+parse\+Json\+Data (\begin{DoxyParamCaption}\item[{string}]{input\+\_\+string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Parse the JSON Data. 
+
+This function parses the data received from the driver board. Stores data such as Voltage, Temperature and Print Count into variables that can be called later
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+string} & The Data Lines received from the driver board in JSON Format \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_aa9239c7203c06de1198784cf439e4db4}\label{class_driver_board_dropwatcher_1_1_form1_aa9239c7203c06de1198784cf439e4db4}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!PD\_Polarity\_SelectedIndexChanged@{PD\_Polarity\_SelectedIndexChanged}}
+\index{PD\_Polarity\_SelectedIndexChanged@{PD\_Polarity\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{PD\_Polarity\_SelectedIndexChanged()}{PD\_Polarity\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+PD\+\_\+\+Polarity\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+PD Polarity Mode Selection. 
+
+This function is called when the PD Polarity Mode is changed.
+
+Stores active mode in variable called \char`\"{}active\+PD\+\_\+\+Polarity\char`\"{} Sends relevent command to driver board. Only runs if driver baord is connected.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ab8f72d7fd88643e71c92838f7671e45c}\label{class_driver_board_dropwatcher_1_1_form1_ab8f72d7fd88643e71c92838f7671e45c}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!pdDirection\_SelectedIndexChanged@{pdDirection\_SelectedIndexChanged}}
+\index{pdDirection\_SelectedIndexChanged@{pdDirection\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{pdDirection\_SelectedIndexChanged()}{pdDirection\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+pd\+Direction\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+PD Direction Selection Change. 
+
+This function is called when the user modifes the PD Direction Setting Sends relevent command to driver board depending on which mode they have selected (continuous or single)
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2931fdf07f2e9f990c47d4444e05e4ab}\label{class_driver_board_dropwatcher_1_1_form1_a2931fdf07f2e9f990c47d4444e05e4ab}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!pictureBox1\_Click@{pictureBox1\_Click}}
+\index{pictureBox1\_Click@{pictureBox1\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{pictureBox1\_Click()}{pictureBox1\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+picture\+Box1\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Picture Box 1 is pressed. 
+
+This function calls the Image\+Box\+Clicked function when Head 1 Image is modified
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae1125f15347fb62d07e89ced6c89458a}\label{class_driver_board_dropwatcher_1_1_form1_ae1125f15347fb62d07e89ced6c89458a}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!pictureBox2\_Click@{pictureBox2\_Click}}
+\index{pictureBox2\_Click@{pictureBox2\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{pictureBox2\_Click()}{pictureBox2\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+picture\+Box2\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Picture Box 2 is pressed. 
+
+This function calls the Image\+Box\+Clicked function when Head 2 Image is modified
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a97bfbbef40bfaf8336b6f181bf64da1d}\label{class_driver_board_dropwatcher_1_1_form1_a97bfbbef40bfaf8336b6f181bf64da1d}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!pictureBox3\_Click@{pictureBox3\_Click}}
+\index{pictureBox3\_Click@{pictureBox3\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{pictureBox3\_Click()}{pictureBox3\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+picture\+Box3\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Picture Box 3 is pressed. 
+
+This function calls the Image\+Box\+Clicked function when Head 3 Image is modified
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8c5022991ecd6d950c7f069a62816233}\label{class_driver_board_dropwatcher_1_1_form1_a8c5022991ecd6d950c7f069a62816233}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!pictureBox4\_Click@{pictureBox4\_Click}}
+\index{pictureBox4\_Click@{pictureBox4\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{pictureBox4\_Click()}{pictureBox4\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+picture\+Box4\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Picture Box 4 is pressed. 
+
+This function calls the Image\+Box\+Clicked function when Head 4 Image is modified
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_acea8102a964e0086514ba2eaebc4bbb9}\label{class_driver_board_dropwatcher_1_1_form1_acea8102a964e0086514ba2eaebc4bbb9}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!powerOff@{powerOff}}
+\index{powerOff@{powerOff}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{powerOff()}{powerOff()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+power\+Off (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Power Off Function. 
+
+This function is called when the toggle mode is set to Power Off
+
+Sends command to driver board.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a0a24ccef63a0e8713b5ebf4c5f9c96d1}\label{class_driver_board_dropwatcher_1_1_form1_a0a24ccef63a0e8713b5ebf4c5f9c96d1}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!powerOn@{powerOn}}
+\index{powerOn@{powerOn}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{powerOn()}{powerOn()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+power\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Power On Function. 
+
+This function sends the command to turn on the driver board. Only runs if correct COM Port is selected. \mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a70af1e9336987eea1be3c19ed37bd1dc}\label{class_driver_board_dropwatcher_1_1_form1_a70af1e9336987eea1be3c19ed37bd1dc}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!powerOnOff\_Click@{powerOnOff\_Click}}
+\index{powerOnOff\_Click@{powerOnOff\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{powerOnOff\_Click()}{powerOnOff\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+power\+On\+Off\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Controls the Power On/\+Off Toggle. 
+
+This function controls the power state of the driver board and modifies the checkbox as checked if powered on or unchecked if powered off.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a3b590b30e1c0ad211cdc2507006047cc}\label{class_driver_board_dropwatcher_1_1_form1_a3b590b30e1c0ad211cdc2507006047cc}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!PrintingImage@{PrintingImage}}
+\index{PrintingImage@{PrintingImage}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{PrintingImage()}{PrintingImage()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Printing\+Image (\begin{DoxyParamCaption}\item[{int}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Printing Image Function. 
+
+This function sends the relevent command with the relevent print head to the driver board.
+
+Read the image data file and stores it in an array ready to send in bytes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & The Active Head with the Image Loaded onto it. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a08f64cb1e6ad7a421a5c1b8645aa2cfa}\label{class_driver_board_dropwatcher_1_1_form1_a08f64cb1e6ad7a421a5c1b8645aa2cfa}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!reset\_Click@{reset\_Click}}
+\index{reset\_Click@{reset\_Click}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{reset\_Click()}{reset\_Click()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+reset\+\_\+\+Click (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Reset Board Button. 
+
+This function is called when user presses Reset Board Button in GUI Only runs if driver board is connected Sends relevent command to the driver board to reset it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ad53c61e7c0553ac73e65631cc1aea244}\label{class_driver_board_dropwatcher_1_1_form1_ad53c61e7c0553ac73e65631cc1aea244}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!SpanValue\_ValueChanged@{SpanValue\_ValueChanged}}
+\index{SpanValue\_ValueChanged@{SpanValue\_ValueChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{SpanValue\_ValueChanged()}{SpanValue\_ValueChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Span\+Value\+\_\+\+Value\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Span Value Modified in GUI. 
+
+This function is called when user changed value of the Span (Numeric Up Down)
+
+If span value + nozzle value is greater than 128, then a warning message will pop up automatically rectifying the error in the numeric up down.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_ae50739459c28b9f5de7e44f870e50094}\label{class_driver_board_dropwatcher_1_1_form1_ae50739459c28b9f5de7e44f870e50094}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!tcDropWatchingAndImageModes\_SelectedIndexChanged@{tcDropWatchingAndImageModes\_SelectedIndexChanged}}
+\index{tcDropWatchingAndImageModes\_SelectedIndexChanged@{tcDropWatchingAndImageModes\_SelectedIndexChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{tcDropWatchingAndImageModes\_SelectedIndexChanged()}{tcDropWatchingAndImageModes\_SelectedIndexChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+tc\+Drop\+Watching\+And\+Image\+Modes\+\_\+\+Selected\+Index\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Mode Selection. 
+
+This function is called when the user switches between Drop Watching Mode and Image Mode
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a8fa86aa42a09274d5273d104634937b0}\label{class_driver_board_dropwatcher_1_1_form1_a8fa86aa42a09274d5273d104634937b0}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!temperature\_ValueChanged@{temperature\_ValueChanged}}
+\index{temperature\_ValueChanged@{temperature\_ValueChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{temperature\_ValueChanged()}{temperature\_ValueChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+temperature\+\_\+\+Value\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fetches Temperature Data from GUI. 
+
+This function reads data parsed from driverboard and outputs the required variables into the GUI. Only runs if driver board is connected
+
+Uses tags to find relevent Numeric Up Downs and Labels in GUI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a00dc8841c55dd08f53b62839a6c02e96}\label{class_driver_board_dropwatcher_1_1_form1_a00dc8841c55dd08f53b62839a6c02e96}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!ThreadTask@{ThreadTask}}
+\index{ThreadTask@{ThreadTask}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{ThreadTask()}{ThreadTask()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Thread\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+A Thread Task Function. 
+
+This function constantly runs in the background to ensure the board is connected at all times. It sends the command \textquotesingle{}b\textquotesingle{} to receive relevent information such as voltage, temperature etc If this fails to run, then Error Message Box pops up signalling an error. \mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a61db6dbd950038e9b427bd613920ee6a}\label{class_driver_board_dropwatcher_1_1_form1_a61db6dbd950038e9b427bd613920ee6a}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!VerifyImageData@{VerifyImageData}}
+\index{VerifyImageData@{VerifyImageData}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{VerifyImageData()}{VerifyImageData()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+Verify\+Image\+Data (\begin{DoxyParamCaption}\item[{int}]{head,  }\item[{string}]{existing\+\_\+lines }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Picture Box 2. 
+
+This function calls the Image\+Box\+Clicked function when Head 2 Image is modified
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_driver_board_dropwatcher_1_1_form1_a2654acc75f32594e102f27acc5e28c03}\label{class_driver_board_dropwatcher_1_1_form1_a2654acc75f32594e102f27acc5e28c03}} 
+\index{DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}!voltage\_ValueChanged@{voltage\_ValueChanged}}
+\index{voltage\_ValueChanged@{voltage\_ValueChanged}!DriverBoardDropwatcher.Form1@{DriverBoardDropwatcher.Form1}}
+\doxysubsubsection{\texorpdfstring{voltage\_ValueChanged()}{voltage\_ValueChanged()}}
+{\footnotesize\ttfamily void Driver\+Board\+Dropwatcher.\+Form1.\+voltage\+\_\+\+Value\+Changed (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Fetches Voltage Data from GUI. 
+
+This function reads data parsed from driverboard and outputs the required variables into the GUI. Only runs if driver board is connected
+
+Uses tags to find relevent Numeric Up Downs and Labels in GUI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The object that contains the reference to the object that raised the event \\
+\hline
+{\em e} & The event data \\
 \hline
 \end{DoxyParams}
 
