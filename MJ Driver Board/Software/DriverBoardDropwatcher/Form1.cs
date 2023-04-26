@@ -33,7 +33,7 @@ namespace DriverBoardDropwatcher
 {
     public partial class Form1 : Form
     {
-        private OpenFileDialog ofd;
+        private OpenFileDialog ofd; /*!< Creates an OpenFileDialog variable called ofd */
         bool valid_port_selected = false;
         string port_name;
         int failCounter = 0;
