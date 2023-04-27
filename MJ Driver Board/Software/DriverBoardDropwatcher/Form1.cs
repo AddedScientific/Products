@@ -237,6 +237,12 @@ namespace DriverBoardDropwatcher
             if (driver_board != null && driver_board.IsOpen)
                 driver_board.Close();
             ChbxIsConnected.Checked = false;
+            tcDropWatchingAndImageModes.Enabled = false;
+            StatusTable.Enabled = false;
+            nudFrequency.ReadOnly = true;
+            lbFrequency.ForeColor = Color.Gray;
+            lbStatus.ForeColor = Color.Gray;
+            lbTimeOn.ForeColor = Color.Gray;
         }
 
         /**
@@ -260,8 +266,15 @@ namespace DriverBoardDropwatcher
                     driver_board.ReadExisting();
                     driver_board.DataReceived += new SerialDataReceivedEventHandler(DataRecievedHandler);
                     ChbxIsConnected.Checked = true;
+                    tcDropWatchingAndImageModes.Enabled = true;
+                    StatusTable.Enabled = true;
+                    nudFrequency.ReadOnly = true;
+                    lbFrequency.ForeColor = Color.Black;
+                    lbStatus.ForeColor = Color.Black;
+                    lbTimeOn.ForeColor = Color.Black;
                     Console.WriteLine("Connected");
                     txtbStatusBox.Text = "Connected";
+                    
                 }
                 catch
                 {
@@ -329,7 +342,7 @@ namespace DriverBoardDropwatcher
                     }
                 }
 
-                else if (input.Substring(0, 3).Contains("LV:"))
+                if (input.Substring(0, 3).Contains("LV:"))
                 {
                     if (Head1ImageSend == true)
                     {
@@ -383,7 +396,7 @@ namespace DriverBoardDropwatcher
             System.Windows.Forms.TextBox[] HeadPrintCounters = { txtbPrintCounter1, txtbPrintCounter2, txtbPrintCounter3, txtbPrintCounter4 };
 
             if (ChbxPower.Checked)
-            {
+            { 
                 //FOR loop for 4 Heads, to determine it status and update the UI accordingly
                 for (int i = 0; i <= 3; i++)
                 {
@@ -540,6 +553,12 @@ namespace DriverBoardDropwatcher
 
             }
 
+            if (activeImageMode == 0)
+                txtbCurrentStepperPosition.Text = d.locations[0].stepper.ToString();
+            if (activeImageMode == 1)
+                txtbCurrentEncoderPosition.Text = d.locations[0].encoder.ToString();
+
+
             //--------------------------------------------------
             //Updates Voltage Values in GUI 
             NumericUpDown[] nudHeadVoltages = { nudVoltageHead1, nudVoltageHead2, nudVoltageHead3, nudVoltageHead4 };
@@ -553,6 +572,7 @@ namespace DriverBoardDropwatcher
             if (actFreq > 0)
             {
                 //Check Frequency for each Head
+                nudFrequency.Value = (1000000 / actFreq);
                 nudFrequency.Value = (1000000 / actFreq);
                 txtbFrequencyDuplicate.Text = nudFrequency.Value.ToString();
             }
@@ -596,13 +616,31 @@ namespace DriverBoardDropwatcher
                     //Toggle button to power on and off
                     powerOff();
                     txtbStatusBox.Text = "Power Off"; //Displays Disconnected in Status Box
+                    tcDropWatchingAndImageModes.Enabled = false;
+                    StatusTable.Enabled = false;
+                    nudFrequency.ReadOnly = true;
+                    lbFrequency.ForeColor = Color.Gray;
+                    lbStatus.ForeColor = Color.Gray;
+                    lbTimeOn.ForeColor = Color.Gray;
+
                 }
                 else
                 {
                     powerOn();
+                    tcDropWatchingAndImageModes.Enabled = true;
+                    StatusTable.Enabled = true;
+                    nudFrequency.ReadOnly = true;
+                    lbFrequency.ForeColor = Color.Black;
+                    lbStatus.ForeColor = Color.Black;
+                    lbTimeOn.ForeColor = Color.Black;
                     txtbStatusBox.Text = "Power On"; //Displays Connected in Status Box
                     tcDropWatchingAndImageModes_SelectedIndexChanged(sender, e);
+                    frequencyChange(sender, e);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /**
@@ -616,6 +654,10 @@ namespace DriverBoardDropwatcher
             if (ChbxIsConnected.Checked)
             {
                 driver_board.Write("O"); // Turns on Board
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -634,6 +676,10 @@ namespace DriverBoardDropwatcher
             if (ChbxIsConnected.Checked)
             {
                 driver_board.Write("F"); // Turns off Board
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -677,6 +723,10 @@ namespace DriverBoardDropwatcher
                     Console.WriteLine("Head 4 Voltage Changed to: {0}", nudVoltageHead1.Value);
                 }
             }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -717,6 +767,15 @@ namespace DriverBoardDropwatcher
                     Console.WriteLine("Head 4 Temperature Changed to: {0}", nudTemperatureHead4.Value);
                 }
             }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void frequencyValue_ValueChanged(object sender, EventArgs e)
+        {
+            frequencyChange(sender, e);
         }
 
         /**
@@ -730,17 +789,28 @@ namespace DriverBoardDropwatcher
         * @param sender The object that contains the reference to the object that raised the event
         * @param e The event data
         */
-        private void frequencyValue_ValueChanged(object sender, EventArgs e)
+        private void frequencyChange(object sender, EventArgs e)
         {
-            // This Function Checks for Tag Names to determine which Frequency Value is being changed.
-            System.Windows.Forms.NumericUpDown nudFrequencyChanged = (System.Windows.Forms.NumericUpDown)sender;
-            if ((ChbxIsConnected.Checked) && (ChbxPower.Checked))
+            try
             {
-                if (nudFrequencyChanged.Tag == "nudFrequency")
+                // This Function Checks for Tag Names to determine which Frequency Value is being changed.
+                System.Windows.Forms.NumericUpDown nudFrequencyChanged = (System.Windows.Forms.NumericUpDown)sender;
+                if ((ChbxPower.Checked) && (ChbxIsConnected.Checked))
                 {
-                    //Sets Head Frequency
-                    driver_board.Write($"p {nudFrequency.Value.ToString()}");
+                    if (nudFrequencyChanged.Tag == "nudFrequency")
+                    {
+                        //Sets Head Frequency
+                        driver_board.Write($"p {nudFrequency.Value.ToString()}");
+                    }
                 }
+                else
+                {
+                    nudFrequency.ReadOnly = true;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error");
             }
         }
 
@@ -796,10 +866,14 @@ namespace DriverBoardDropwatcher
 
         private void reset_Click(object sender, EventArgs e)
         {
-            if (ChbxIsConnected.Checked)
+            if (ChbxIsConnected.Checked && ChbxPower.Checked)
             {
                 driver_board.Write("r"); //Resets Board
                 tcDropWatchingAndImageModes_SelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1073,6 +1147,11 @@ namespace DriverBoardDropwatcher
  
                 isRunning = true;
             }
+
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1230,6 +1309,10 @@ namespace DriverBoardDropwatcher
                 chbxIsFillSpan.Checked = false;
                 driver_board.Write($"n {(activeDropModeHead + 1).ToString()} {activeNozzleValue.ToString()}");
             }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1250,6 +1333,10 @@ namespace DriverBoardDropwatcher
                 chbxIsFillHead.Checked = false;
                 chbxIsFillNozzle.Checked = false;
                 driver_board.Write($"N {(activeDropModeHead + 1).ToString()} {activeNozzleValue.ToString()} {activeSpanValue.ToString()}");
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1278,6 +1365,14 @@ namespace DriverBoardDropwatcher
                 lbEncoderTrackedPosition.ForeColor = Color.Black;
                 cdPDdirection.Visible = false;
                 lbPDdirection.ForeColor = Color.Gray;
+                txtbCurrentEncoderPosition.Visible = false;
+                nudSetPosition.Visible = true;
+                lbCurrentEncoderPosition.Visible = true;
+                lbCurrentEncoderPosition.ForeColor = Color.Gray;
+                lbSetPosition.Visible = true;
+                txtbCurrentStepperPosition.Visible = true;
+                lbCurrentStepperPosition.Visible = true;
+                lbCurrentStepperPosition.ForeColor = Color.Black;
             }
 
             else if ((activeImageMode == 1) && (ChbxIsConnected.Checked))
@@ -1290,6 +1385,14 @@ namespace DriverBoardDropwatcher
                 lbEncoderTrackedPosition.ForeColor = Color.Gray;
                 cdPDdirection.Visible = false;
                 lbPDdirection.ForeColor = Color.Gray;
+                txtbCurrentEncoderPosition.Visible = true;
+                nudSetPosition.Visible = true;
+                lbCurrentEncoderPosition.Visible = true;
+                lbCurrentEncoderPosition.ForeColor = Color.Black;
+                lbSetPosition.Visible = true;
+                txtbCurrentStepperPosition.Visible = false;
+                lbCurrentStepperPosition.Visible = true;
+                lbCurrentStepperPosition.ForeColor = Color.Gray;
             }
 
             else if ((activeImageMode == 2) && (ChbxIsConnected.Checked))
@@ -1305,6 +1408,12 @@ namespace DriverBoardDropwatcher
                 cdPDdirection.Visible = true;
                 lbPDdirection.Visible = true;
                 lbPDdirection.ForeColor = Color.Black;
+                txtbCurrentEncoderPosition.Visible = false;
+                nudSetPosition.Visible = false;
+                lbCurrentEncoderPosition.Visible = false;
+                lbSetPosition.Visible = false;
+                txtbCurrentStepperPosition.Visible = false;
+                lbCurrentStepperPosition.Visible = false;
             }
         }
 
@@ -1328,6 +1437,10 @@ namespace DriverBoardDropwatcher
                 chbxIsFillHead.Checked = false;
                 chbxIsFillGap.Checked = false;
             }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1340,7 +1453,14 @@ namespace DriverBoardDropwatcher
         */
         private void FillCycleA_Click(object sender, EventArgs e)
         {
-            FillCycle(sender, e);
+            if (ChbxPower.Checked)
+            {
+                FillCycle(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1353,7 +1473,14 @@ namespace DriverBoardDropwatcher
         */
         private void FillCycleB_Click(object sender, EventArgs e)
         {
-            FillCycle(sender, e);
+            if (ChbxPower.Checked)
+            {
+                FillCycle(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1366,7 +1493,14 @@ namespace DriverBoardDropwatcher
         */
         private void FillCycleC_Click(object sender, EventArgs e)
         {
-            FillCycle(sender, e);
+            if (ChbxPower.Checked)
+            {
+                FillCycle(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1385,7 +1519,7 @@ namespace DriverBoardDropwatcher
         {
             // Tags used to identify which button has been pressed, to modify, change button tag name on Designer Panel
             System.Windows.Forms.Button b = (System.Windows.Forms.Button)sender;
-            if (ChbxIsConnected.Checked)
+            if (ChbxIsConnected.Checked && ChbxPower.Checked)
             {
                 BitsArray = new byte[18];
 
@@ -1414,6 +1548,10 @@ namespace DriverBoardDropwatcher
                 driver_board.Write(BitsArray, 0, 18);
 
             }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -1434,10 +1572,17 @@ namespace DriverBoardDropwatcher
 
         private void FillGapButton_Click(object sender, EventArgs e)
         {
-            chbxIsFillGap.Checked = true;
-            chbxIsFillHead.Checked = false;
-            chbxIsFillSpan.Checked = false;
-            chbxIsFillNozzle.Checked = false;
+            if (ChbxPower.Checked)
+            {
+                chbxIsFillGap.Checked = true;
+                chbxIsFillHead.Checked = false;
+                chbxIsFillSpan.Checked = false;
+                chbxIsFillNozzle.Checked = false;
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /**
@@ -1458,6 +1603,10 @@ namespace DriverBoardDropwatcher
                 chbxIsFillNozzle.Checked = false;
                 chbxIsFillSpan.Checked = false;
                 driver_board.Write($"I {(activeDropModeHead + 1).ToString()}");
+            }
+            else
+            {
+                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1564,6 +1713,17 @@ namespace DriverBoardDropwatcher
             else if (tcDropWatchingAndImageModes.SelectedIndex == 1)
             {
                 ImageModeSelection_SelectedIndexChanged(sender, e);
+                cbDropWatchHeadSelection_SelectedIndexChanged(sender, e);
+
+                if (activeImageMode == 2)
+                {
+                    nudSetPosition.Visible = false;
+                    lbSetPosition.Visible = false;
+                    txtbCurrentEncoderPosition.Visible = false;
+                    txtbCurrentStepperPosition.Visible = false;
+                    lbCurrentEncoderPosition.Visible = false;
+                    lbCurrentStepperPosition.Visible = false;
+                }
             }
         }
 
@@ -1686,6 +1846,12 @@ namespace DriverBoardDropwatcher
             try
             {
                 // Load Settings from Previous Saved Session
+                tcDropWatchingAndImageModes.Enabled = false;
+                StatusTable.Enabled = false;
+                nudFrequency.ReadOnly = false;
+                lbFrequency.ForeColor = Color.Gray;
+                lbStatus.ForeColor = Color.Gray;
+                lbTimeOn.ForeColor = Color.Gray;
                 cbSerialPort_DropDown(sender, e);
                 cbSerialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
                 nudFrequency.Value = Properties.Settings.Default.Frequency;
@@ -1755,6 +1921,50 @@ namespace DriverBoardDropwatcher
             {
                 Console.WriteLine("Error saving");
             }
+        }
+
+        /**
+        * @brief Sets the Position of Print Head for Image Printing
+        * 
+        * Function is called when user enters value into Set Position Numeric Up Down
+        * 
+        * Sends relevent command to the driver board. 
+        * 
+        * @param sender The object that contains the reference to the object that raised the event
+        * @param e The event data
+        */
+
+        private void SetPosition(object sender, EventArgs e)
+        {
+            System.Windows.Forms.NumericUpDown setPosition = (System.Windows.Forms.NumericUpDown)sender;
+            if ((ChbxIsConnected.Checked) && (ChbxPower.Checked))
+            {
+                if (setPosition.Tag == "nudSetStartPosition")
+                {
+                    //Set Position of Head
+                    string messageToSend = ",";
+                    messageToSend += " " + nudSetPosition.Value;
+                    messageToSend += "\r\n";
+
+                    driver_board.Write(messageToSend);
+
+                }
+            }
+        }
+
+        /**
+        * @brief Sets the Position of Print Head for Image Printing
+        * 
+        * Function is called when user modifies value in numeric up down
+        * 
+        * Calls the SetPosition function.
+        * 
+        * @param sender The object that contains the reference to the object that raised the event
+        * @param e The event data
+        */
+        private void nudSetPosition_ValueChanged(object sender, EventArgs e)
+        {
+            SetPosition(sender, e);
         }
     }
 }
