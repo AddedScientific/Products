@@ -240,11 +240,12 @@ namespace DriverBoardDropwatcher
         }
 
         /**
-        * @brief Connect Driver Board
+        * @brief Connect Driver Board 
         * 
         * This function sends command to driver board to connect and checks the checkbox in the GUI.
         * Only runs if a valid port is selected and is connected successfully to the driver board.
         * If this fails to run, then an Error Dialog Box shows up.
+        * 
         */
 
         private void connect_board()
@@ -1682,32 +1683,40 @@ namespace DriverBoardDropwatcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Load Settings from Previous Saved Session
-            cbSerialPort_DropDown(sender, e);
-            cbSerialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
-            nudFrequency.Value = Properties.Settings.Default.Frequency;
-            cbDropWatchMode_SelectedIndexChanged(sender, e);
-            cbDropWatchMode.SelectedItem = Properties.Settings.Default.DropWatchMode;
-            cbDropWatchHeadSelection_SelectedIndexChanged(sender, e);
-            cbDropWatchHeadSelection.SelectedItem = Properties.Settings.Default.DropWatchHead;
-            nudNozzle.Value = Properties.Settings.Default.Index;
-            activeNozzleValue = (int)nudNozzle.Value;
-            nudSpan.Value = Properties.Settings.Default.Span;
-            activeSpanValue = (int)nudSpan.Value;
-            nudGap.Value = Properties.Settings.Default.Gap;
-            activeGapValue = (int)nudGap.Value;
-            ImageModeSelection_SelectedIndexChanged(sender, e);
-            cbImageMode.SelectedItem = Properties.Settings.Default.ImageMode;
-            PD_Polarity_SelectedIndexChanged(sender, e);
-            cbPDpolarity.SelectedItem = Properties.Settings.Default.pdPolarity;
-            EncoderTrackedPositionSelection_SelectedIndexChanged(sender, e);
-            cbEncoderTrackedPosition.SelectedItem = Properties.Settings.Default.Encoder_TrackedPosition;
-            cdPDdirection.SelectedItem = Properties.Settings.Default.pd_direction;
-            tcDropWatchingAndImageModes.SelectedIndex = Properties.Settings.Default.TabNumber;
-            chbxIsFillNozzle.Checked = Properties.Settings.Default.FillNozzleCheckedStatus;
-            chbxIsFillSpan.Checked = Properties.Settings.Default.FillSpanCheckedStatus;
-            chbxIsFillGap.Checked = Properties.Settings.Default.FillGapCheckedStatus;
-            chbxIsFillHead.Checked = Properties.Settings.Default.FillHeadCheckedStatus;
+            try
+            {
+                // Load Settings from Previous Saved Session
+                cbSerialPort_DropDown(sender, e);
+                cbSerialPort.SelectedItem = Properties.Settings.Default.Serial_Port;
+                nudFrequency.Value = Properties.Settings.Default.Frequency;
+                cbDropWatchMode_SelectedIndexChanged(sender, e);
+                cbDropWatchMode.SelectedItem = Properties.Settings.Default.DropWatchMode;
+                cbDropWatchHeadSelection_SelectedIndexChanged(sender, e);
+                cbDropWatchHeadSelection.SelectedItem = Properties.Settings.Default.DropWatchHead;
+                nudNozzle.Value = Properties.Settings.Default.Index;
+                activeNozzleValue = (int)nudNozzle.Value;
+                nudSpan.Value = Properties.Settings.Default.Span;
+                activeSpanValue = (int)nudSpan.Value;
+                nudGap.Value = Properties.Settings.Default.Gap;
+                activeGapValue = (int)nudGap.Value;
+                ImageModeSelection_SelectedIndexChanged(sender, e);
+                cbImageMode.SelectedItem = Properties.Settings.Default.ImageMode;
+                PD_Polarity_SelectedIndexChanged(sender, e);
+                cbPDpolarity.SelectedItem = Properties.Settings.Default.pdPolarity;
+                EncoderTrackedPositionSelection_SelectedIndexChanged(sender, e);
+                cbEncoderTrackedPosition.SelectedItem = Properties.Settings.Default.Encoder_TrackedPosition;
+                cdPDdirection.SelectedItem = Properties.Settings.Default.pd_direction;
+                tcDropWatchingAndImageModes.SelectedIndex = Properties.Settings.Default.TabNumber;
+                chbxIsFillNozzle.Checked = Properties.Settings.Default.FillNozzleCheckedStatus;
+                chbxIsFillSpan.Checked = Properties.Settings.Default.FillSpanCheckedStatus;
+                chbxIsFillGap.Checked = Properties.Settings.Default.FillGapCheckedStatus;
+                chbxIsFillHead.Checked = Properties.Settings.Default.FillHeadCheckedStatus;
+            }
+
+            catch
+            {
+                Console.WriteLine("Error saving");
+            }
         }
 
         /**
@@ -1724,20 +1733,28 @@ namespace DriverBoardDropwatcher
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Save data to user settings
-            Properties.Settings.Default.Serial_Port = cbSerialPort.SelectedItem.ToString();
-            Properties.Settings.Default.Frequency = (int)nudFrequency.Value;
-            Properties.Settings.Default.DropWatchMode = cbDropWatchMode.SelectedItem.ToString();
-            Properties.Settings.Default.DropWatchHead = cbDropWatchHeadSelection.SelectedItem.ToString();
-            Properties.Settings.Default.Index = (int)nudNozzle.Value;
-            Properties.Settings.Default.Span = (int)nudSpan.Value;
-            Properties.Settings.Default.Gap = (int)nudGap.Value;
-            Properties.Settings.Default.TabNumber = tcDropWatchingAndImageModes.SelectedIndex;
-            Properties.Settings.Default.FillNozzleCheckedStatus = chbxIsFillNozzle.Checked;
-            Properties.Settings.Default.FillSpanCheckedStatus = chbxIsFillSpan.Checked;
-            Properties.Settings.Default.FillGapCheckedStatus = chbxIsFillGap.Checked;
-            Properties.Settings.Default.FillHeadCheckedStatus = chbxIsFillHead.Checked;
-            DeleteAllFilesInFolder(sender, e);
-            Properties.Settings.Default.Save();
+            try
+            {
+                Properties.Settings.Default.Serial_Port = cbSerialPort.SelectedItem.ToString();
+                Properties.Settings.Default.Frequency = (int)nudFrequency.Value;
+                Properties.Settings.Default.DropWatchMode = cbDropWatchMode.SelectedItem.ToString();
+                Properties.Settings.Default.DropWatchHead = cbDropWatchHeadSelection.SelectedItem.ToString();
+                Properties.Settings.Default.Index = (int)nudNozzle.Value;
+                Properties.Settings.Default.Span = (int)nudSpan.Value;
+                Properties.Settings.Default.Gap = (int)nudGap.Value;
+                Properties.Settings.Default.TabNumber = tcDropWatchingAndImageModes.SelectedIndex;
+                Properties.Settings.Default.FillNozzleCheckedStatus = chbxIsFillNozzle.Checked;
+                Properties.Settings.Default.FillSpanCheckedStatus = chbxIsFillSpan.Checked;
+                Properties.Settings.Default.FillGapCheckedStatus = chbxIsFillGap.Checked;
+                Properties.Settings.Default.FillHeadCheckedStatus = chbxIsFillHead.Checked;
+                DeleteAllFilesInFolder(sender, e);
+                Properties.Settings.Default.Save();
+            }
+
+            catch
+            {
+                Console.WriteLine("Error saving");
+            }
         }
     }
 }

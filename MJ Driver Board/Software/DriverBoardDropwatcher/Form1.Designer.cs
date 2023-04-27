@@ -222,17 +222,17 @@ namespace DriverBoardDropwatcher
             // txtbHeadStatus1
             // 
             this.txtbHeadStatus1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbHeadStatus1.Location = new System.Drawing.Point(90, 71);
+            this.txtbHeadStatus1.Location = new System.Drawing.Point(88, 71);
             this.txtbHeadStatus1.Margin = new System.Windows.Forms.Padding(2);
             this.txtbHeadStatus1.Name = "txtbHeadStatus1";
             this.txtbHeadStatus1.ReadOnly = true;
-            this.txtbHeadStatus1.Size = new System.Drawing.Size(110, 26);
+            this.txtbHeadStatus1.Size = new System.Drawing.Size(130, 26);
             this.txtbHeadStatus1.TabIndex = 22;
             // 
             // txtbTemperatureOutput1
             // 
             this.txtbTemperatureOutput1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbTemperatureOutput1.Location = new System.Drawing.Point(500, 71);
+            this.txtbTemperatureOutput1.Location = new System.Drawing.Point(517, 71);
             this.txtbTemperatureOutput1.Margin = new System.Windows.Forms.Padding(2);
             this.txtbTemperatureOutput1.Name = "txtbTemperatureOutput1";
             this.txtbTemperatureOutput1.ReadOnly = true;
@@ -243,7 +243,7 @@ namespace DriverBoardDropwatcher
             // 
             this.nudTemperatureHead1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudTemperatureHead1.DecimalPlaces = 1;
-            this.nudTemperatureHead1.Location = new System.Drawing.Point(369, 71);
+            this.nudTemperatureHead1.Location = new System.Drawing.Point(383, 71);
             this.nudTemperatureHead1.Margin = new System.Windows.Forms.Padding(2);
             this.nudTemperatureHead1.Maximum = new decimal(new int[] {
             99,
@@ -275,7 +275,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.nudVoltageHead1.Location = new System.Drawing.Point(241, 71);
+            this.nudVoltageHead1.Location = new System.Drawing.Point(254, 71);
             this.nudVoltageHead1.Margin = new System.Windows.Forms.Padding(2);
             this.nudVoltageHead1.Maximum = new decimal(new int[] {
             36,
@@ -301,17 +301,17 @@ namespace DriverBoardDropwatcher
             // txtbHeadStatus2
             // 
             this.txtbHeadStatus2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbHeadStatus2.Location = new System.Drawing.Point(90, 123);
+            this.txtbHeadStatus2.Location = new System.Drawing.Point(88, 123);
             this.txtbHeadStatus2.Margin = new System.Windows.Forms.Padding(2);
             this.txtbHeadStatus2.Name = "txtbHeadStatus2";
             this.txtbHeadStatus2.ReadOnly = true;
-            this.txtbHeadStatus2.Size = new System.Drawing.Size(110, 26);
+            this.txtbHeadStatus2.Size = new System.Drawing.Size(130, 26);
             this.txtbHeadStatus2.TabIndex = 20;
             // 
             // txtbTemperatureOutput2
             // 
             this.txtbTemperatureOutput2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbTemperatureOutput2.Location = new System.Drawing.Point(500, 123);
+            this.txtbTemperatureOutput2.Location = new System.Drawing.Point(517, 123);
             this.txtbTemperatureOutput2.Margin = new System.Windows.Forms.Padding(2);
             this.txtbTemperatureOutput2.Name = "txtbTemperatureOutput2";
             this.txtbTemperatureOutput2.ReadOnly = true;
@@ -322,7 +322,7 @@ namespace DriverBoardDropwatcher
             // 
             this.nudTemperatureHead2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudTemperatureHead2.DecimalPlaces = 1;
-            this.nudTemperatureHead2.Location = new System.Drawing.Point(369, 123);
+            this.nudTemperatureHead2.Location = new System.Drawing.Point(383, 123);
             this.nudTemperatureHead2.Margin = new System.Windows.Forms.Padding(2);
             this.nudTemperatureHead2.Maximum = new decimal(new int[] {
             99,
@@ -354,7 +354,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.nudVoltageHead2.Location = new System.Drawing.Point(241, 123);
+            this.nudVoltageHead2.Location = new System.Drawing.Point(254, 123);
             this.nudVoltageHead2.Margin = new System.Windows.Forms.Padding(2);
             this.nudVoltageHead2.Maximum = new decimal(new int[] {
             36,
@@ -380,17 +380,17 @@ namespace DriverBoardDropwatcher
             // txtbHeadStatus3
             // 
             this.txtbHeadStatus3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbHeadStatus3.Location = new System.Drawing.Point(90, 176);
+            this.txtbHeadStatus3.Location = new System.Drawing.Point(88, 176);
             this.txtbHeadStatus3.Margin = new System.Windows.Forms.Padding(2);
             this.txtbHeadStatus3.Name = "txtbHeadStatus3";
             this.txtbHeadStatus3.ReadOnly = true;
-            this.txtbHeadStatus3.Size = new System.Drawing.Size(110, 26);
+            this.txtbHeadStatus3.Size = new System.Drawing.Size(130, 26);
             this.txtbHeadStatus3.TabIndex = 22;
             // 
             // txtbTemperatureOutput3
             // 
             this.txtbTemperatureOutput3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbTemperatureOutput3.Location = new System.Drawing.Point(500, 176);
+            this.txtbTemperatureOutput3.Location = new System.Drawing.Point(517, 176);
             this.txtbTemperatureOutput3.Margin = new System.Windows.Forms.Padding(2);
             this.txtbTemperatureOutput3.Name = "txtbTemperatureOutput3";
             this.txtbTemperatureOutput3.ReadOnly = true;
@@ -401,7 +401,7 @@ namespace DriverBoardDropwatcher
             // 
             this.nudTemperatureHead3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudTemperatureHead3.DecimalPlaces = 1;
-            this.nudTemperatureHead3.Location = new System.Drawing.Point(369, 176);
+            this.nudTemperatureHead3.Location = new System.Drawing.Point(383, 176);
             this.nudTemperatureHead3.Margin = new System.Windows.Forms.Padding(2);
             this.nudTemperatureHead3.Maximum = new decimal(new int[] {
             99,
@@ -433,7 +433,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.nudVoltageHead3.Location = new System.Drawing.Point(241, 176);
+            this.nudVoltageHead3.Location = new System.Drawing.Point(254, 176);
             this.nudVoltageHead3.Margin = new System.Windows.Forms.Padding(2);
             this.nudVoltageHead3.Maximum = new decimal(new int[] {
             36,
@@ -459,7 +459,7 @@ namespace DriverBoardDropwatcher
             // txtbTemperatureOutput4
             // 
             this.txtbTemperatureOutput4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbTemperatureOutput4.Location = new System.Drawing.Point(500, 231);
+            this.txtbTemperatureOutput4.Location = new System.Drawing.Point(517, 231);
             this.txtbTemperatureOutput4.Margin = new System.Windows.Forms.Padding(2);
             this.txtbTemperatureOutput4.Name = "txtbTemperatureOutput4";
             this.txtbTemperatureOutput4.ReadOnly = true;
@@ -470,7 +470,7 @@ namespace DriverBoardDropwatcher
             // 
             this.nudTemperatureHead4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudTemperatureHead4.DecimalPlaces = 1;
-            this.nudTemperatureHead4.Location = new System.Drawing.Point(369, 231);
+            this.nudTemperatureHead4.Location = new System.Drawing.Point(383, 231);
             this.nudTemperatureHead4.Margin = new System.Windows.Forms.Padding(2);
             this.nudTemperatureHead4.Maximum = new decimal(new int[] {
             99,
@@ -502,7 +502,7 @@ namespace DriverBoardDropwatcher
             0,
             0,
             65536});
-            this.nudVoltageHead4.Location = new System.Drawing.Point(241, 231);
+            this.nudVoltageHead4.Location = new System.Drawing.Point(254, 231);
             this.nudVoltageHead4.Margin = new System.Windows.Forms.Padding(2);
             this.nudVoltageHead4.Maximum = new decimal(new int[] {
             36,
@@ -570,12 +570,12 @@ namespace DriverBoardDropwatcher
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.13208F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.86793F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.131F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.869F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 107F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 147F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 99F));
             this.tableLayoutPanel1.Controls.Add(this.txtbHeadStatus4, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtbPrintCounter4, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.label40, 0, 4);
@@ -622,17 +622,17 @@ namespace DriverBoardDropwatcher
             // txtbHeadStatus4
             // 
             this.txtbHeadStatus4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbHeadStatus4.Location = new System.Drawing.Point(90, 231);
+            this.txtbHeadStatus4.Location = new System.Drawing.Point(88, 231);
             this.txtbHeadStatus4.Margin = new System.Windows.Forms.Padding(2);
             this.txtbHeadStatus4.Name = "txtbHeadStatus4";
             this.txtbHeadStatus4.ReadOnly = true;
-            this.txtbHeadStatus4.Size = new System.Drawing.Size(110, 26);
+            this.txtbHeadStatus4.Size = new System.Drawing.Size(130, 26);
             this.txtbHeadStatus4.TabIndex = 39;
             // 
             // txtbPrintCounter4
             // 
             this.txtbPrintCounter4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbPrintCounter4.Location = new System.Drawing.Point(629, 231);
+            this.txtbPrintCounter4.Location = new System.Drawing.Point(638, 231);
             this.txtbPrintCounter4.Margin = new System.Windows.Forms.Padding(2);
             this.txtbPrintCounter4.Name = "txtbPrintCounter4";
             this.txtbPrintCounter4.ReadOnly = true;
@@ -643,7 +643,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label40.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(29, 234);
+            this.label40.Location = new System.Drawing.Point(30, 234);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(18, 20);
@@ -655,7 +655,7 @@ namespace DriverBoardDropwatcher
             this.lbHead.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbHead.AutoSize = true;
             this.lbHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbHead.Location = new System.Drawing.Point(14, 22);
+            this.lbHead.Location = new System.Drawing.Point(15, 22);
             this.lbHead.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbHead.Name = "lbHead";
             this.lbHead.Size = new System.Drawing.Size(48, 20);
@@ -667,7 +667,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label37.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(29, 74);
+            this.label37.Location = new System.Drawing.Point(30, 74);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(18, 20);
@@ -678,7 +678,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label39.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(29, 126);
+            this.label39.Location = new System.Drawing.Point(30, 126);
             this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(18, 20);
@@ -689,7 +689,7 @@ namespace DriverBoardDropwatcher
             // 
             this.label38.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(29, 179);
+            this.label38.Location = new System.Drawing.Point(30, 179);
             this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(18, 20);
@@ -700,7 +700,7 @@ namespace DriverBoardDropwatcher
             // 
             this.lbCurrentTemperature.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbCurrentTemperature.AutoSize = true;
-            this.lbCurrentTemperature.Location = new System.Drawing.Point(477, 12);
+            this.lbCurrentTemperature.Location = new System.Drawing.Point(494, 12);
             this.lbCurrentTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbCurrentTemperature.Name = "lbCurrentTemperature";
             this.lbCurrentTemperature.Size = new System.Drawing.Size(130, 40);
@@ -712,7 +712,7 @@ namespace DriverBoardDropwatcher
             // 
             this.lbSetTemperature.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbSetTemperature.AutoSize = true;
-            this.lbSetTemperature.Location = new System.Drawing.Point(336, 12);
+            this.lbSetTemperature.Location = new System.Drawing.Point(351, 12);
             this.lbSetTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbSetTemperature.Name = "lbSetTemperature";
             this.lbSetTemperature.Size = new System.Drawing.Size(129, 40);
@@ -724,7 +724,7 @@ namespace DriverBoardDropwatcher
             // 
             this.lbSetVoltage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbSetVoltage.AutoSize = true;
-            this.lbSetVoltage.Location = new System.Drawing.Point(229, 22);
+            this.lbSetVoltage.Location = new System.Drawing.Point(243, 22);
             this.lbSetVoltage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbSetVoltage.Name = "lbSetVoltage";
             this.lbSetVoltage.Size = new System.Drawing.Size(89, 20);
@@ -736,7 +736,7 @@ namespace DriverBoardDropwatcher
             // 
             this.lbHeadStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbHeadStatus.AutoSize = true;
-            this.lbHeadStatus.Location = new System.Drawing.Point(117, 22);
+            this.lbHeadStatus.Location = new System.Drawing.Point(125, 22);
             this.lbHeadStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbHeadStatus.Name = "lbHeadStatus";
             this.lbHeadStatus.Size = new System.Drawing.Size(56, 20);
@@ -748,7 +748,7 @@ namespace DriverBoardDropwatcher
             // 
             this.lbPrintCount.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbPrintCount.AutoSize = true;
-            this.lbPrintCount.Location = new System.Drawing.Point(627, 22);
+            this.lbPrintCount.Location = new System.Drawing.Point(636, 22);
             this.lbPrintCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPrintCount.Name = "lbPrintCount";
             this.lbPrintCount.Size = new System.Drawing.Size(88, 20);
@@ -759,7 +759,7 @@ namespace DriverBoardDropwatcher
             // txtbPrintCounter1
             // 
             this.txtbPrintCounter1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbPrintCounter1.Location = new System.Drawing.Point(629, 71);
+            this.txtbPrintCounter1.Location = new System.Drawing.Point(638, 71);
             this.txtbPrintCounter1.Margin = new System.Windows.Forms.Padding(2);
             this.txtbPrintCounter1.Name = "txtbPrintCounter1";
             this.txtbPrintCounter1.ReadOnly = true;
@@ -769,7 +769,7 @@ namespace DriverBoardDropwatcher
             // txtbPrintCounter2
             // 
             this.txtbPrintCounter2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbPrintCounter2.Location = new System.Drawing.Point(629, 123);
+            this.txtbPrintCounter2.Location = new System.Drawing.Point(638, 123);
             this.txtbPrintCounter2.Margin = new System.Windows.Forms.Padding(2);
             this.txtbPrintCounter2.Name = "txtbPrintCounter2";
             this.txtbPrintCounter2.ReadOnly = true;
@@ -779,7 +779,7 @@ namespace DriverBoardDropwatcher
             // txtbPrintCounter3
             // 
             this.txtbPrintCounter3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtbPrintCounter3.Location = new System.Drawing.Point(629, 176);
+            this.txtbPrintCounter3.Location = new System.Drawing.Point(638, 176);
             this.txtbPrintCounter3.Margin = new System.Windows.Forms.Padding(2);
             this.txtbPrintCounter3.Name = "txtbPrintCounter3";
             this.txtbPrintCounter3.ReadOnly = true;
@@ -1700,6 +1700,7 @@ namespace DriverBoardDropwatcher
             this.Controls.Add(this.nudFrequency);
             this.Controls.Add(this.cbSerialPort);
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Driver Board";
