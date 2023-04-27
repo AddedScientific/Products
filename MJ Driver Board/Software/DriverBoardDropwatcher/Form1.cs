@@ -57,12 +57,12 @@ namespace DriverBoardDropwatcher
         bool Head1ImageSend = false;
         bool Head2ImageSend = false;
         bool Head3ImageSend = false;
-        bool Head4ImageSend = false;
+        bool Head4ImageSend = false;    
         bool isRunning = true;
         String CurrentFileName;
-        String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
-        String newpath = Application.StartupPath.Replace("bin\\Debug", "Output Images");
-        String dataFolderPath = Application.StartupPath.Replace("bin\\Debug", "Output Images");
+        //String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
+        String datafolder = System.IO.Path.Combine(Application.StartupPath, "Output Images\\File");
+        String outputFolderPath = System.IO.Path.Combine(Application.StartupPath, "Output Images");
         int[] HeadPrintCountersStoredAsInt = new int[4];
         int[] PreviousHeadPrintCounters = new int[4];
         int[] HeadStatus = new int[4];
@@ -80,9 +80,9 @@ namespace DriverBoardDropwatcher
             pictureBox3.Image = Properties.Resources.upload;
             pictureBox4.Image = Properties.Resources.upload;
 
-            if (!Directory.Exists(newpath))
+            if (!Directory.Exists(outputFolderPath))
             {
-                Directory.CreateDirectory(newpath);
+                Directory.CreateDirectory(outputFolderPath);
             }
             this.FormClosing += Form1_FormClosing;
             Thread trd = new Thread(new ThreadStart(this.ThreadTask));
@@ -1661,7 +1661,7 @@ namespace DriverBoardDropwatcher
         private void DeleteAllFilesInFolder(object sender, EventArgs e)
         {
             // Delete All Files Saved in "Output Images" when closing Application
-            System.IO.DirectoryInfo directory = new DirectoryInfo(dataFolderPath);
+            System.IO.DirectoryInfo directory = new DirectoryInfo(outputFolderPath);
 
             foreach (FileInfo file in directory.GetFiles())
             {
