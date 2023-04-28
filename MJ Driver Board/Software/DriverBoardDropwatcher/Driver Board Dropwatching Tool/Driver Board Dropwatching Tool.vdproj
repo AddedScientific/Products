@@ -34,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BF8F6F3A834A561FF9801EFD493905A6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C269416098684338990BF9B266908E3D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -47,6 +41,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B6EF96E494BF23392A64F4D3D4A7C5BC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BF8F6F3A834A561FF9801EFD493905A6"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -74,6 +74,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -255,7 +263,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Driver Board Dropwatching Tool"
         "ProductCode" = "8:{B84D4594-22B1-4C64-87CD-7939EBE329DB}"
-        "PackageCode" = "8:{B30A158B-DFEE-4496-B9FF-1C71F0B3C5EB}"
+        "PackageCode" = "8:{3DD33279-105D-4033-A07D-0EFB20FB7ABB}"
         "UpgradeCode" = "8:{ED732D3B-8907-43AE-9A85-8FAB8850E9BC}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -263,7 +271,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:kajeban0108@hotmail.com"
+        "Manufacturer" = "8:Added Scientific Limited"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Driver Board Dropwatching Tool"
