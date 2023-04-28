@@ -135,8 +135,6 @@ private void convertImageToData(string folder, int numberNozzles){
 		Logger.Debug("Image", "Finished with sliced image to process data");
 
 	}
-
-
 }
 
 private void sliceImage(int numberNozzles, string sourceImage, string outputFolder, string headStringIdx){
