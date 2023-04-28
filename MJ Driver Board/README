@@ -1,1 +1,1 @@
-This Github repo is to support the use of the printhead driver board. 
+This Github repo is to support the use of the printhead driver board. This version of the software is incompatible with versions of the firmware before the mode switching introduction. If mode switching is not enabled on your board please contact ASL, or consult previous repo versions.

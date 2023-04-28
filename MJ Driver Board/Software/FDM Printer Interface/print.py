@@ -160,8 +160,6 @@ def setStartPoint(loc):
     #sending this command zeros the current stepper tracker and sets an absolute start position
     board_command(", %d"%loc)
     val = board_command(">")
-    if(val.find("Stepper current count: 0") < 0):
-        setStartPoint(loc)
 
     return val
     
@@ -176,6 +174,7 @@ printer_command("G1 X 125 Y 30 Z 10 F18000")
 
 
 board_command("O") #turn board on
+board_command("M 3") #switch to stepper mode
 
 PrintSpeed = 100 ##100mm/s is 3khz
 pSpacing = 722 #dpi
