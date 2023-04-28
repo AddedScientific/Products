@@ -9,3 +9,5 @@
 - lb = Label,
 - btn = Button
 - tc = Tab Control.
+
+Source Code Written by Kajeban Baskaran for Added Scientific Limited
