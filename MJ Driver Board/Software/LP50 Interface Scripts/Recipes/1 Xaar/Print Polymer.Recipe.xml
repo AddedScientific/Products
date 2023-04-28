@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<Recipe xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="utf-8"?>
+<Recipe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Print Polymer</Name>
   <FlowFile>standard-print.xml</FlowFile>
   <ParameterValues>
@@ -7,32 +7,32 @@
     <Parameter Name="Alignment.SettingsFile[0]" Value="%FilePath%\..\3 Alignment\..\..\Configuration\3 Alignment\" />
     <Parameter Name="General.HeadAssemblyFile[0]" Value="..\HeadAssy\01 Custom Head\Dual Front.HeadAssy.xml" />
     <Parameter Name="Motion.PrintSpeed[0]" Value="200.000" />
-    <Parameter Name="Motion.RunInLength[0]" Value="15" />
-    <Parameter Name="Motion.RunOutLength[0]" Value="15" />
-    <Parameter Name="Recipe.Bitmap[0]" Value="%FilePath%\..\..\SampleBitmaps\PixDro Creo Target POS.png" />
-    <Parameter Name="Recipe.Bitmap[1]" Value="%FilePath%\..\..\SampleBitmaps\DMC_Signature.bmp" />
-    <Parameter Name="Recipe.Bitmap[2]" Value="%FilePath%\..\..\SampleBitmaps\DMC_Signature.bmp" />
-    <Parameter Name="Recipe.Bitmap[3]" Value="%FilePath%\..\..\SampleBitmaps\DMC_Signature.bmp" />
+    <Parameter Name="Motion.RunInLength[0]" Value="40" />
+    <Parameter Name="Motion.RunOutLength[0]" Value="40" />
+    <Parameter Name="Recipe.Bitmap[0]" Value="..\Recipes\21 Simon\bmps\BlackSquare.bmp" />
+    <Parameter Name="Recipe.Bitmap[1]" Value="..\SampleBitmaps\HeadB.bmp" />
+    <Parameter Name="Recipe.Bitmap[2]" Value="..\SampleBitmaps\HeadC.bmp" />
+    <Parameter Name="Recipe.Bitmap[3]" Value="..\SampleBitmaps\3DPRG.bmp" />
     <Parameter Name="Recipe.Direction[0]" Value="1" />
     <Parameter Name="Recipe.DoMaintenance[0]" Value="0" />
     <Parameter Name="Recipe.GenerateData[0]" Value="1" />
     <Parameter Name="Recipe.HeadAssy[0]" Value="%FilePath%\..\..\HeadAssy\01 Custom Head\Dual Front.HeadAssy.xml" />
     <Parameter Name="Recipe.IgnoreRecipeSize[0]" Value="0" />
     <Parameter Name="Recipe.ImageHeight[0]" Value="100" />
-    <Parameter Name="Recipe.ImageWidth[0]" Value="100" />
+    <Parameter Name="Recipe.ImageWidth[0]" Value="34" />
     <Parameter Name="Recipe.Layer[0]" Value="0" />
     <Parameter Name="Recipe.Layers[0]" Value="1" />
     <Parameter Name="Recipe.Mask[0]" Value="QF1" />
     <Parameter Name="Recipe.PrintAngle[0]" Value="90" />
-    <Parameter Name="Recipe.PrintFrequency[0]" Value="3500" />
+    <Parameter Name="Recipe.PrintFrequency[0]" Value="2000" />
     <Parameter Name="Recipe.PrintScaler[0]" Value="80" />
-    <Parameter Name="Recipe.PrintSpeedControl[0]" Value="3" />
+    <Parameter Name="Recipe.PrintSpeedControl[0]" Value="2" />
     <Parameter Name="Recipe.StepSize[0]" Value="1" />
     <Parameter Name="Recipe.TOF[0]" Value="0" />
     <Parameter Name="Recipe.Tolerance[0]" Value="0.015" />
     <Parameter Name="Recipe.UseIR[0]" Value="0" />
     <Parameter Name="Recipe.UseUV[0]" Value="0" />
-    <Parameter Name="Recipe.X_Resolution[0]" Value="185" />
-    <Parameter Name="Recipe.Y_Resolution[0]" Value="722" />
+    <Parameter Name="Recipe.X_Resolution[0]" Value="186" />
+    <Parameter Name="Recipe.Y_Resolution[0]" Value="300" />
   </ParameterValues>
 </Recipe>

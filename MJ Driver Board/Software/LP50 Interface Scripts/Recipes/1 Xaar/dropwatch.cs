@@ -10,6 +10,10 @@
 public void Initialize()
 {
 
+Parameters.SetValue("AUXOUT.Gate[0]", 1); //Enable gate?
+Parameters.SetValue("AUXOUT.OUT1Mode[0]", 4096); //Match 1
+Parameters.SetValue("AUXOUT.OUT2Mode[0]", 0);    //None
+
 Parameters.SetValue("General.NumberOfPCAs", 2);
 PHD.StopJetting(DataGen.Active.HeadInfo);
 
@@ -39,7 +43,7 @@ PHD.StopJetting(DataGen.Active.HeadInfo);
     port.Close();
 
 	port.Open();
-    messageToSend = "U 1";
+    messageToSend = "M 2";
     messageToSend += "\r\n";
     port.Write(messageToSend);
     Logger.Log(messageToSend);
@@ -59,6 +63,8 @@ PHD.StopJetting(DataGen.Active.HeadInfo);
     port.Close();
 	
 	Script.Run(Helper.GetScriptDir() + "\\Status.cs");
+	
+	
 }
 public void Execute()
 {

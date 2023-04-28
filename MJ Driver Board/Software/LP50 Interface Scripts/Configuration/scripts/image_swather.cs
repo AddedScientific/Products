@@ -26,6 +26,9 @@ int flagForFIle =  Parameters.GetIntValue("Recipe.IgnoreRecipeSize[0]");
 if(flagForFIle == 0){
 sourceImage = Parameters.GetValue("DataFileConversion.OutputFile[0]");
 }
+
+string[] imageArray = {sourceImage, sourceImage2, sourceImage3, sourceImage4};
+string[] labelArray = {"_A", "_B", "_C", "_D"};
 //this only works for the first head
 
 
@@ -40,36 +43,14 @@ double dropSpacingY = Parameters.GetDoubleValue("Recipe.Y_Resolution[0]");
 clearDirectory(outputFolder);
 
 //need to select all images that may be related using headmask
-
-//first take image and split into swaths
-if(sourceImage.Contains(".png") | sourceImage.Contains(".bmp")){
-sliceImage(numberNozzles, sourceImage, outputFolder, 0);
+for(int internalIndex = 0; internalIndex < 4; internalIndex++){
+int imageIndex = Parameters.GetIntValue("PrintHead.ImgMask[" + internalIndex.ToString() + "]");
+if(imageIndex != 0){
+if(imageArray[imageIndex-1].Contains(".png") | imageArray[imageIndex-1].Contains(".bmp")){
+sliceImage(numberNozzles, imageArray[imageIndex-1], outputFolder, labelArray[internalIndex]);
 }
-else{
-	Logger.Debug("Primary image not found");
 }
-
-if(sourceImage2.Contains(".png") | sourceImage2.Contains(".bmp")){
-sliceImage(numberNozzles, sourceImage2, outputFolder, 1);
 }
-else{
-	Logger.Debug("Secondary image not found");
-}
-
-if(sourceImage3.Contains(".png") | sourceImage3.Contains(".bmp")){
-sliceImage(numberNozzles, sourceImage3, outputFolder, 2);
-}
-else{
-	Logger.Debug("Tertiary image not found");
-}
-
-if(sourceImage4.Contains(".png") | sourceImage4.Contains(".bmp")){
-sliceImage(numberNozzles, sourceImage4, outputFolder, 3);
-}
-else{
-	Logger.Debug("?Quartery? image not found");
-}
-
 //take images and convert to data
 convertImageToData(outputFolder, numberNozzles);
 
@@ -87,12 +68,21 @@ private int determinePadding(string filename){
 	
 	
 	
-	if(filename.Contains("_A"))
-		return (int)Math.Round(3*pix_distance);
-	if(filename.Contains("_B"))
-		return (int)Math.Round(2*pix_distance);
-	if(filename.Contains("_C"))
-		return (int)Math.Round(1*pix_distance);
+	if(filename.Contains("_A")){
+		double val = 3.0*pix_distance;
+		return (int)Math.Round(val);
+		}
+	if(filename.Contains("_B")){
+		double val = 2.0*pix_distance;
+		return (int)Math.Round(val);
+		}
+	if(filename.Contains("_C")){
+		double val = 1.0*pix_distance;
+		return (int)Math.Round(val);
+		}
+	if(filename.Contains("_D")){
+		return (int)0;
+		}
 	
 	return 0;
 }
@@ -149,7 +139,7 @@ private void convertImageToData(string folder, int numberNozzles){
 
 }
 
-private void sliceImage(int numberNozzles, string sourceImage, string outputFolder, int internalIndex){
+private void sliceImage(int numberNozzles, string sourceImage, string outputFolder, string headStringIdx){
 	Bitmap inputImage = new Bitmap(sourceImage);
 	Logger.Debug("Slicing image " + numberNozzles.ToString() + " " + inputImage.Height.ToString());
 	System.Drawing.Imaging.PixelFormat format = (System.Drawing.Imaging.PixelFormat)196865; //1bpp indexed
@@ -170,7 +160,6 @@ private void sliceImage(int numberNozzles, string sourceImage, string outputFold
 		Bitmap cloneBitmap = inputImage.Clone(cloneRect, format);
 		double dropSpacingX = Parameters.GetDoubleValue("Recipe.X_Resolution[0]");
 		int printIdx = (int)(imageCount * numberNozzles * (25400 / dropSpacingX));
-		string headStringIdx = getHeadString(internalIndex);
 		cloneBitmap.Save(outputFolder + printIdx.ToString("000000") + headStringIdx +  ".png");
 		imageCount++;
 		rectStart+= numberNozzles;
@@ -212,42 +201,4 @@ private int getNozzleNumber(){
 
 	return -1;
 
-}
-
-private string getHeadString(int internalIndex){
-	/*int headType = Parameters.GetIntValue("PrintHead.Type[0]"); //get current head type
-	switch(headType){
-		case 50:
-			return "_A";
-		case 51:
-		case 52:
-		case 54:
-		case 55:
-		case 56:
-		case 60:
-		case 61:	
-			return "_X";
-			
-	}
-	
-		Logger.Error("Print head string index not found in configuration");
-		Helper.GenerateScriptError("Head", "Head type not found in list");
-
-	return " ";
-	*/
-	string ident = Parameters.GetValue("PrintHead.ImgMask[" + internalIndex.ToString() + "]");
-	if(ident.Contains("1")){
-		return "_A";
-	}
-	if(ident.Contains("2")){
-		return "_B";
-	}
-	if(ident.Contains("3")){
-		return "_C";
-	}
-	if(ident.Contains("4")){
-		return "_D";
-	}
-	
-	return "_N";
 }

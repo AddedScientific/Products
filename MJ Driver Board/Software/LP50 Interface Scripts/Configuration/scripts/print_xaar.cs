@@ -22,7 +22,7 @@ public void Initialize()
 {
 }
 
-public static double EncoderDividerSet = 0.0064;
+public static double EncoderDividerSet = 0.0001;
 public static string currentFile;
 public static double print_length = 1000; //Temporry values, overwritten when loading file
 public static int printHeadNPI = 0;
@@ -58,7 +58,7 @@ public void Execute()
 
     //check PH power
     turnOnPrintHead(); // only turns on if already off
-	
+	setEncoderMode();
 	//Check head NPI
 	printHeadNPI = getPrintheadNPI();
 
@@ -183,6 +183,11 @@ public void Execute()
     //***************************************************
     
 */
+Parameters.SetValue("AUXOUT.Gate[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.Enable[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.Trigger[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.OUT1Mode[0]", 8); //Match 1
+Parameters.SetValue("AUXOUT.OUT2Mode[0]", 16);    //None
 
     //rotate print head to correct orientation
     rotateHead();
@@ -221,6 +226,7 @@ public void Execute()
                     //if data isnt sent right, resend
         //motion
 		currentHeadIndex = 1;
+		clearHead();
 		foreach(string headIdx in headIndexes){
             
 			bool sendSuccess = false;
@@ -418,34 +424,42 @@ private void resetPrintHead(){
     port.Close();
 }
 
+private void setEncoderMode(){
+    string serial_port = Parameters.GetValue("HeadAssy.COMPORT");
+    SerialPort port = new SerialPort(serial_port, 1000000);
+
+    string messageToSend = "M 4";
+    port.Open();
+    port.WriteLine(messageToSend);
+    Thread.Sleep(1);
+    string reply = port.ReadExisting();
+    port.Close();
+}
+
+private void clearHead(){
+    string serial_port = Parameters.GetValue("HeadAssy.COMPORT");
+    SerialPort port = new SerialPort(serial_port, 1000000);
+
+    string messageToSend = "C";
+    port.Open();
+    port.WriteLine(messageToSend);
+    Thread.Sleep(1);
+    string reply = port.ReadExisting();
+    port.Close();
+}
+
 private void turnOnPrintHead(){
     
     string serial_port = Parameters.GetValue("HeadAssy.COMPORT");
     SerialPort port = new SerialPort(serial_port, 1000000);
 
-    string messageToSend = "R";
+    string messageToSend = "O";
     port.Open();
     string reply = port.ReadExisting();
     port.WriteLine(messageToSend);
     Thread.Sleep(10);
     reply = port.ReadExisting();
     port.Close();
-    string[] subs = reply.Split(':');
-	string powerString = subs[14];
-	bool powerState = (powerString[1] == '1');
-
-		if(powerState){
-			Logger.Debug("Board already on.");
-		}
-		else{
-			Logger.Debug("Board off, turning on");
-            port.Open();
-		    messageToSend = "O";
-            port.WriteLine(messageToSend);
-            Thread.Sleep(200); //boot sequence is about 150 ms
-            reply = port.ReadExisting();
-            port.Close();
-		}
 		
 }
 
@@ -500,49 +514,6 @@ public bool encodePrintHead()
     Logger.Debug("RX " + s);
     port.Close();
 
-    //make sure the head is clear
-    port.Open();
-    messageToSend = "C";
-    messageToSend += "\r\n";
-    port.Write(messageToSend);
-    Logger.Debug(messageToSend);
-    Thread.Sleep(50);
-    //Check for any data on the port
-    s = port.ReadExisting();
-    drop_count = 0;
-    while(s.Length < 1){
-    s = port.ReadExisting();
-    drop_count++;
-    Thread.Sleep(1);
-    if(drop_count > 1000){
-        break;
-    }
-    }
-    Logger.Debug("RX " + s);
-    port.Close();
-	
-	
-    //Reverse encoder counting direction
-    port.Open();
-    messageToSend = "M -1";
-    messageToSend += "\r\n";
-    port.Write(messageToSend);
-    Logger.Debug(messageToSend);
-    Thread.Sleep(50);
-    //Check for any data on the port
-    s = port.ReadExisting();
-    drop_count = 0;
-    while(s.Length < 1){
-    s = port.ReadExisting();
-    drop_count++;
-    Thread.Sleep(1);
-    if(drop_count > 1000){
-        break;
-    }
-    }
-    Logger.Debug("RX " + s);
-    port.Close();
-
     //send the frequency for printing
     double YRes =  Parameters.GetIntValue("Recipe.Y_Resolution[0]");
     YRes = 25.400 / YRes;
@@ -552,7 +523,7 @@ public bool encodePrintHead()
     messageToSend+= frequency.ToString();
     messageToSend += "\r\n"; //not sent by defualt and using Arduino parseInt();
     
-    if(frequency > 4000){
+    if(frequency > 8000){
 		Logger.Error("Frequency too high for head");
         Helper.GenerateScriptError("Head", "Freq = " + frequency.ToString() + " too high");
     }

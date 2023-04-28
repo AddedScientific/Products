@@ -10,6 +10,12 @@
 public void Initialize()
 {
 
+Parameters.SetValue("AUXOUT.Gate[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.Enable[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.Trigger[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.OUT1Mode[0]", 8); //Match 1
+Parameters.SetValue("AUXOUT.OUT2Mode[0]", 16);    //None
+
 string headAssy = Parameters.GetValue("General.HeadAssemblyFile[0]");
 	HeadAssy.ActivateSet(headAssy, true);
 Parameters.SetValue("General.NumberOfPCAs", 2);
@@ -82,12 +88,7 @@ string headAssy = Parameters.GetValue("General.HeadAssemblyFile[0]");
 		{
 			Script.Run(Helper.GetScriptDir() + "maintenance.cs");
 		}
-    if (!simOnly && (Parameters.GetIntValue("MachCFG.IRF") != 0))
-    {
-			Parameters.SetValue("IRF.ImmediateFillAllowed", false);
-      // Perform the auto fill action for all applicable bottles (and wait for completion)
-      IRF.PerformAutoFillBlocking();
-    }
+
 
     if ((!simOnly) & (Parameters.GetBoolValue("Alignment.Activated")))
     {

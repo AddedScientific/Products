@@ -15,6 +15,11 @@ string headAssy = Parameters.GetValue("General.HeadAssemblyFile[0]");
 Parameters.SetValue("General.NumberOfPCAs", 2);
 
 	Script.Run(Helper.GetScriptDir()  + "\\Status.cs");
+Parameters.SetValue("AUXOUT.Gate[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.Enable[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.Trigger[0]", 0); //Enable gate?
+Parameters.SetValue("AUXOUT.OUT1Mode[0]", 8); //Match 1
+Parameters.SetValue("AUXOUT.OUT2Mode[0]", 16);    //None
 }
 
 public void Execute()

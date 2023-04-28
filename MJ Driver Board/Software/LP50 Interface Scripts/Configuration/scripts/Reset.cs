@@ -48,7 +48,7 @@ public void Execute()
 	
 	
 	port.Open();
-    messageToSend = "U 1";
+    messageToSend = "M 2";
     messageToSend += "\r\n";
     port.Write(messageToSend);
     Logger.Log(messageToSend);
