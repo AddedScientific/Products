@@ -34,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BF8F6F3A834A561FF9801EFD493905A6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C269416098684338990BF9B266908E3D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -47,6 +41,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B6EF96E494BF23392A64F4D3D4A7C5BC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BF8F6F3A834A561FF9801EFD493905A6"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -74,6 +74,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -228,7 +236,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A4071668619F4828B4E8C1DD6AFEC72B"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
