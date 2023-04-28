@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.4.26)  26 APR 2023 16:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.4.26)  28 APR 2023 11:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -982,29 +982,75 @@ LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 6.29996pt on input line 39.
  [13] [14] [15] [16] [17]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 585.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 58
-5.
+(Font)              scaled to size 7.19995pt on input line 614.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 61
+4.
 
 (C:\Users\kajeb\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 585.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 614.
 
-[18] [19] [20]
+[18] [19] [20] [21]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 753.
- [21] [22] [23] [24] [25] [26] [27] [28] [29]
-Underfull \hbox (badness 10000) detected at line 1192
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 782.
+ [22] [23] [24] [25] [26] [27] [28] [29]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.29 on input line 1224.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.31 on input line 1262.
+
+
+Overfull \vbox (9.95276pt too high) has occurred while \output is active []
+
+
+[30]
+Underfull \hbox (badness 10000) detected at line 1263
 [][][]
  []
 
-[30] [31] [32] [33] [34] [35] [36]
+[31]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.34 on input line 1324.
+
+[32] [33]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.40 on input line 1440.
+
+[34]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.43 on input line 1509.
+
+[35] [36]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.47 on input line 1589.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.48 on input line 1610.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.49 on input line 1639.
+
+
 Overfull \vbox (23.35693pt too high) has occurred while \output is active []
 
 
-[37]) [38]
+[37]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7.50 on input line 1660.
+
+) [38]
 Chapter 8.
 (_form1_8cs.tex
 Underfull \hbox (badness 10000) detected at line 45
@@ -1017,18 +1063,30 @@ Underfull \hbox (badness 10000) detected at line 45
 
 ]
 No file refman.ind.
+
+Package longtable Warning: Table widths have changed. Rerun LaTeX.
+
 (refman.aux)
-Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: 548E60CE9763E43B02D56E9929DBCB1A;15561.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `refman.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `refman.out':
+(rerunfilecheck)             Before: 548E60CE9763E43B02D56E9929DBCB1A;15561
+(rerunfilecheck)             After:  603E83B05BC3332A01678C799CB252BA;16372.
  ) 
 Here is how much of TeX's memory you used:
- 18692 strings out of 476331
- 331179 string characters out of 5787765
+ 18729 strings out of 476331
+ 333213 string characters out of 5787765
  1898660 words of memory out of 5000000
- 38407 multiletter control sequences out of 15000+600000
+ 38425 multiletter control sequences out of 15000+600000
  565441 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 101i,16n,117p,554b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,16n,117p,554b,741s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/kajeb/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.
 pfb><C:/Users/kajeb/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro
 8a.pfb><C:/Users/kajeb/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/u
@@ -1036,9 +1094,9 @@ hvb8a.pfb><C:/Users/kajeb/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helveti
 c/uhvb8ac.pfb><C:/Users/kajeb/AppData/Local/Programs/MiKTeX/fonts/type1/urw/hel
 vetic/uhvr8a.pfb><C:/Users/kajeb/AppData/Local/Programs/MiKTeX/fonts/type1/urw/
 helvetic/uhvro8a.pfb>
-Output written on refman.pdf (44 pages, 259500 bytes).
+Output written on refman.pdf (44 pages, 265358 bytes).
 PDF statistics:
- 986 PDF objects out of 1000 (max. 8388607)
- 381 named destinations out of 1000 (max. 500000)
+ 1013 PDF objects out of 1200 (max. 8388607)
+ 400 named destinations out of 1000 (max. 500000)
  566 words of extra memory for PDF output out of 10000 (max. 10000000)
 

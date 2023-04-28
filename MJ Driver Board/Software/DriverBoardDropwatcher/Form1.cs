@@ -28,6 +28,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using System.Linq.Expressions;
 using System.IO.Compression;
+using Newtonsoft.Json.Converters;
 
 namespace DriverBoardDropwatcher
 {
@@ -70,6 +71,7 @@ namespace DriverBoardDropwatcher
         byte[] B_Bits = { 0b01001001, 0b00100100, 0b10010010 };
         byte[] C_Bits = { 0b00100100, 0b10010010, 0b01001001 };
         byte[] BitsArray;
+        byte[] BytesToSend;
 
         public Form1()
         {
@@ -1228,16 +1230,20 @@ namespace DriverBoardDropwatcher
                         else
                         {
                             Console.WriteLine("DL incorrect");
+                            //MessageBox.Show("DL Incorrect for Head: " + head);
                         }
                     }
                     else
                     {
                         Console.WriteLine("RC incorrect");
+                        //MessageBox.Show("RC Incorrect for Head: " + head);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("LV incorrect");                }
+                    Console.WriteLine("LV incorrect");
+                    //MessageBox.Show("LV Incorrect for Head: " + head);
+                }
             }
             else
             {
@@ -1262,9 +1268,9 @@ namespace DriverBoardDropwatcher
             if ((activeSpanValue + activeNozzleValue) > 128)
             {
                 activeNozzleValue = 128 - activeSpanValue;
-                MessageBox.Show("Maximum value of 128 Exceeded!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nudNozzle.Value = activeNozzleValue;
+
+                txtbNozzleSpanStatusBox.Text = "Maximum value of 128 Exceeded!";
             }
         }
 
@@ -1284,9 +1290,8 @@ namespace DriverBoardDropwatcher
             if ((activeSpanValue + activeNozzleValue) > 128)
             {
                 activeSpanValue = 128 - activeNozzleValue;
-                MessageBox.Show("Maximum value of 128 Exceeded!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nudSpan.Value = activeSpanValue;
+                txtbNozzleSpanStatusBox.Text = "Maximum value of 128 Exceeded!";
             }
         }
 
@@ -1308,6 +1313,7 @@ namespace DriverBoardDropwatcher
                 chbxIsFillHead.Checked = false;
                 chbxIsFillSpan.Checked = false;
                 driver_board.Write($"n {(activeDropModeHead + 1).ToString()} {activeNozzleValue.ToString()}");
+                txtbNozzleSpanStatusBox.Text = "";
             }
             else
             {
@@ -1332,6 +1338,7 @@ namespace DriverBoardDropwatcher
                 chbxIsFillSpan.Checked = true;
                 chbxIsFillHead.Checked = false;
                 chbxIsFillNozzle.Checked = false;
+                txtbNozzleSpanStatusBox.Text = "";
                 driver_board.Write($"N {(activeDropModeHead + 1).ToString()} {activeNozzleValue.ToString()} {activeSpanValue.ToString()}");
             }
             else
@@ -1381,8 +1388,8 @@ namespace DriverBoardDropwatcher
                 Console.WriteLine("Quadrature Encoder Mode");
                 lbPDpolarity.ForeColor = Color.Gray;
                 cbPDpolarity.Visible = false;
-                cbEncoderTrackedPosition.Visible = false;
-                lbEncoderTrackedPosition.ForeColor = Color.Gray;
+                cbEncoderTrackedPosition.Visible = true;
+                lbEncoderTrackedPosition.ForeColor = Color.Black;
                 cdPDdirection.Visible = false;
                 lbPDdirection.ForeColor = Color.Gray;
                 txtbCurrentEncoderPosition.Visible = true;
@@ -1436,6 +1443,7 @@ namespace DriverBoardDropwatcher
                 chbxIsFillSpan.Checked = false;
                 chbxIsFillHead.Checked = false;
                 chbxIsFillGap.Checked = false;
+                txtbNozzleSpanStatusBox.Text = "";
             }
             else
             {
@@ -1456,6 +1464,7 @@ namespace DriverBoardDropwatcher
             if (ChbxPower.Checked)
             {
                 FillCycle(sender, e);
+                txtbNozzleSpanStatusBox.Text = "";
             }
             else
             {
@@ -1476,6 +1485,7 @@ namespace DriverBoardDropwatcher
             if (ChbxPower.Checked)
             {
                 FillCycle(sender, e);
+                txtbNozzleSpanStatusBox.Text = "";
             }
             else
             {
@@ -1496,6 +1506,7 @@ namespace DriverBoardDropwatcher
             if (ChbxPower.Checked)
             {
                 FillCycle(sender, e);
+                txtbNozzleSpanStatusBox.Text = "";
             }
             else
             {
@@ -1570,18 +1581,62 @@ namespace DriverBoardDropwatcher
             activeGapValue = (int)nudGap.Value;
         }
 
+        /**
+        * @brief Fill Gap Button 
+        * 
+        * This function is called the Fill Gap Button is pressed
+        * 
+        * Calls the FillGap() function
+        * 
+        * @param sender The object that contains the reference to the object that raised the event
+        * @param e The event data
+        */
         private void FillGapButton_Click(object sender, EventArgs e)
+        {
+            fillGap();
+            chbxIsFillGap.Checked = true;
+            chbxIsFillHead.Checked = false;
+            chbxIsFillNozzle.Checked = false;
+            chbxIsFillSpan.Checked = false;
+            txtbNozzleSpanStatusBox.Text = "";
+        }
+
+        /**
+        * @brief Fill Gap Function 
+        * 
+        * This function is called the Fill Gap Button is pressed
+        * 
+        * Prints in every nth nozzle gap.
+        * 
+        * @param sender The object that contains the reference to the object that raised the event
+        * @param e The event data
+        */
+        private void fillGap()
         {
             if (ChbxPower.Checked)
             {
-                chbxIsFillGap.Checked = true;
-                chbxIsFillHead.Checked = false;
-                chbxIsFillSpan.Checked = false;
-                chbxIsFillNozzle.Checked = false;
-            }
-            else
-            {
-                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BytesToSend = new byte[18];
+
+                BytesToSend[0] = (byte)('s');
+                BytesToSend[1] = (byte)(activeDropModeHead + 1);
+                BytesToSend[2] = (byte)1;
+                for (int x = 0; x < activeSpanValue; x += (activeGapValue + 1))
+                {
+
+                    byte bit_value = (byte)(x % activeNozzleValue);
+                    byte byte_value = (byte)(x / activeNozzleValue + 2);
+                    BytesToSend[byte_value] |= (byte)(1 << bit_value);
+                }
+                Console.WriteLine("");
+
+                foreach (byte b in BytesToSend)
+                {
+                    Console.Write(Convert.ToString(b, 2).PadLeft(8, '0') + " ");
+                }
+
+                Console.WriteLine("");
+
+                driver_board.Write(BytesToSend, 0, 18);
             }
         }
 
@@ -1602,6 +1657,7 @@ namespace DriverBoardDropwatcher
                 chbxIsFillHead.Checked = true;
                 chbxIsFillNozzle.Checked = false;
                 chbxIsFillSpan.Checked = false;
+                txtbNozzleSpanStatusBox.Text = "";
                 driver_board.Write($"I {(activeDropModeHead + 1).ToString()}");
             }
             else
@@ -1848,7 +1904,7 @@ namespace DriverBoardDropwatcher
                 // Load Settings from Previous Saved Session
                 tcDropWatchingAndImageModes.Enabled = false;
                 StatusTable.Enabled = false;
-                nudFrequency.ReadOnly = false;
+                nudFrequency.ReadOnly = true;
                 lbFrequency.ForeColor = Color.Gray;
                 lbStatus.ForeColor = Color.Gray;
                 lbTimeOn.ForeColor = Color.Gray;
