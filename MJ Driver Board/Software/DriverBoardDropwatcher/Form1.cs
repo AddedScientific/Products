@@ -2,7 +2,7 @@
  * @file
  * @brief This C# Code contains the Source Code for the Driver Board Dropwatcher Application.
  * 
- * @author Added Scientific Limited (Kajeban Baskaran Internship Work)
+ * @author Written by Kajeban Baskaran for Added Scientific Limited
  * 
  */
 
@@ -270,7 +270,7 @@ namespace DriverBoardDropwatcher
                     ChbxIsConnected.Checked = true;
                     tcDropWatchingAndImageModes.Enabled = true;
                     StatusTable.Enabled = true;
-                    nudFrequency.ReadOnly = true;
+                    nudFrequency.ReadOnly = false;
                     lbFrequency.ForeColor = Color.Black;
                     lbStatus.ForeColor = Color.Black;
                     lbTimeOn.ForeColor = Color.Black;
@@ -323,6 +323,7 @@ namespace DriverBoardDropwatcher
                         {
                             parseJsonData(input);
                             failCounter = 0;
+                            txtbJSONview.Text += input;
                         }
                         catch
                         {
@@ -350,35 +351,32 @@ namespace DriverBoardDropwatcher
                     {
                         VerifyImageData(1, input);
                         Head1ImageSend = false;
-                        ImageHead1 = false;
-                        btnPrintImage_Click(sender, e);
                     }
                     else if (Head2ImageSend == true)
                     {
                         VerifyImageData(2, input);
                         Head2ImageSend = false;
-                        ImageHead2 = false;
-                        btnPrintImage_Click(sender, e);
                     }
                     else if (Head3ImageSend == true)
                     {
                         VerifyImageData(3, input);
                         Head3ImageSend = false;
-                        ImageHead3 = false;
-                        btnPrintImage_Click(sender, e);
 
                     }
                     else if (Head4ImageSend == true)
                     {
                         VerifyImageData(4, input);
                         Head4ImageSend = false;
-                        ImageHead4 = false;
                     }
+
+                    txtbJSONview.Text += "\n";
+                    txtbJSONview.Text += input;
+                    txtbJSONview.Text += "\n";
                 }
 
                 else
                 {
-                    Console.WriteLine(input);
+                    //Console.WriteLine(input);
                 }
             }
         }
@@ -631,7 +629,7 @@ namespace DriverBoardDropwatcher
                     powerOn();
                     tcDropWatchingAndImageModes.Enabled = true;
                     StatusTable.Enabled = true;
-                    nudFrequency.ReadOnly = true;
+                    nudFrequency.ReadOnly = false;
                     lbFrequency.ForeColor = Color.Black;
                     lbStatus.ForeColor = Color.Black;
                     lbTimeOn.ForeColor = Color.Black;
@@ -711,18 +709,18 @@ namespace DriverBoardDropwatcher
                 else if (voltageChanged.Tag == "voltageHead2")
                 {
                     driver_board.Write($"v {(2).ToString()} {nudVoltageHead2.Value.ToString()}");
-                    Console.WriteLine("Head 2 Voltage Changed to: {0}", nudVoltageHead1.Value);
+                    Console.WriteLine("Head 2 Voltage Changed to: {0}", nudVoltageHead2.Value);
 
                 }
                 else if (voltageChanged.Tag == "voltageHead3")
                 {
                     driver_board.Write($"v {(3).ToString()} {nudVoltageHead3.Value.ToString()}");
-                    Console.WriteLine("Head 3 Voltage Changed to: {0}", nudVoltageHead1.Value);
+                    Console.WriteLine("Head 3 Voltage Changed to: {0}", nudVoltageHead3.Value);
                 }
                 else if (voltageChanged.Tag == "voltageHead4")
                 {
                     driver_board.Write($"v {(4).ToString()} {nudVoltageHead4.Value.ToString()}");
-                    Console.WriteLine("Head 4 Voltage Changed to: {0}", nudVoltageHead1.Value);
+                    Console.WriteLine("Head 4 Voltage Changed to: {0}", nudVoltageHead4.Value);
                 }
             }
             else
@@ -804,10 +802,6 @@ namespace DriverBoardDropwatcher
                         //Sets Head Frequency
                         driver_board.Write($"p {nudFrequency.Value.ToString()}");
                     }
-                }
-                else
-                {
-                    nudFrequency.ReadOnly = true;
                 }
             }
             catch
@@ -928,7 +922,7 @@ namespace DriverBoardDropwatcher
                         // If File Size has a width of more that
                         if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
-                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
+                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Warning",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
@@ -951,7 +945,7 @@ namespace DriverBoardDropwatcher
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
-                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
+                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Warning",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
@@ -973,7 +967,7 @@ namespace DriverBoardDropwatcher
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
-                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
+                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Warning",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
@@ -995,7 +989,7 @@ namespace DriverBoardDropwatcher
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
                         {
-                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Error",
+                            MessageBox.Show("Maximum 128 Pixels Per Head!", "File Warning",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
@@ -1130,21 +1124,25 @@ namespace DriverBoardDropwatcher
                 {
                     Head1ImageSend = true;
                     PrintingImage(1);
+                    txtbPrintStatus.Text = "Print Successful";
                 }
                 if (ImageHead2 == true)
                 {
                     Head2ImageSend = true;
                     PrintingImage(2);
+                    txtbPrintStatus.Text = "Print Successful";
                 }
                 if (ImageHead3 == true)
                 {
                     Head3ImageSend = true;
                     PrintingImage(3);
+                    txtbPrintStatus.Text = "Print Successful";
                 }
                 if (ImageHead4 == true)
                 {
                     Head4ImageSend = true;
                     PrintingImage(4);
+                    txtbPrintStatus.Text = "Print Successful";
                 }
  
                 isRunning = true;
@@ -1623,8 +1621,8 @@ namespace DriverBoardDropwatcher
                 for (int x = 0; x < activeSpanValue; x += (activeGapValue + 1))
                 {
 
-                    byte bit_value = (byte)(x % activeNozzleValue);
-                    byte byte_value = (byte)(x / activeNozzleValue + 2);
+                    byte bit_value = (byte)(x % 8);
+                    byte byte_value = (byte)((x / 8) + 2);
                     BytesToSend[byte_value] |= (byte)(1 << bit_value);
                 }
                 Console.WriteLine("");
@@ -1862,6 +1860,7 @@ namespace DriverBoardDropwatcher
             if ((ChbxIsConnected.Checked) && (ChbxPower.Checked))
             {
                 driver_board.Write("C");
+                txtbPrintStatus.Text = "Print Cancelled";
             }
         }
 

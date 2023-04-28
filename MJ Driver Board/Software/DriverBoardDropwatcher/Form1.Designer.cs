@@ -149,6 +149,9 @@ namespace DriverBoardDropwatcher
             this.nudFrequency = new System.Windows.Forms.NumericUpDown();
             this.cbSerialPort = new System.Windows.Forms.ComboBox();
             this.txtbNozzleSpanStatusBox = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtbJSONview = new System.Windows.Forms.RichTextBox();
+            this.txtbPrintStatus = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudTemperatureHead1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVoltageHead1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTemperatureHead2)).BeginInit();
@@ -171,6 +174,7 @@ namespace DriverBoardDropwatcher
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrequency)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnConnectDisconnect
@@ -819,7 +823,7 @@ namespace DriverBoardDropwatcher
             this.FillCycleBox.Size = new System.Drawing.Size(274, 92);
             this.FillCycleBox.TabIndex = 52;
             this.FillCycleBox.TabStop = false;
-            this.toolTip1.SetToolTip(this.FillCycleBox, "Hover Message\r\n");
+            this.toolTip1.SetToolTip(this.FillCycleBox, "Fill each cycle");
             // 
             // btnFillCycleA
             // 
@@ -831,6 +835,7 @@ namespace DriverBoardDropwatcher
             this.btnFillCycleA.TabIndex = 27;
             this.btnFillCycleA.Tag = "fillACycle";
             this.btnFillCycleA.Text = "A";
+            this.toolTip1.SetToolTip(this.btnFillCycleA, "Fill every 1st nozzle of 3");
             this.btnFillCycleA.UseVisualStyleBackColor = true;
             this.btnFillCycleA.Click += new System.EventHandler(this.FillCycleA_Click);
             // 
@@ -855,6 +860,7 @@ namespace DriverBoardDropwatcher
             this.btnFillCycleB.TabIndex = 49;
             this.btnFillCycleB.Tag = "fillBCycle";
             this.btnFillCycleB.Text = "B";
+            this.toolTip1.SetToolTip(this.btnFillCycleB, "Fill every 2nd nozzle of 3");
             this.btnFillCycleB.UseVisualStyleBackColor = true;
             this.btnFillCycleB.Click += new System.EventHandler(this.FillCycleB_Click);
             // 
@@ -868,6 +874,7 @@ namespace DriverBoardDropwatcher
             this.btnFillCycleC.TabIndex = 50;
             this.btnFillCycleC.Tag = "fillCCycle";
             this.btnFillCycleC.Text = "C";
+            this.toolTip1.SetToolTip(this.btnFillCycleC, "Fill every 3rd nozzle of 3");
             this.btnFillCycleC.UseVisualStyleBackColor = true;
             this.btnFillCycleC.Click += new System.EventHandler(this.FillCycleC_Click);
             // 
@@ -875,6 +882,7 @@ namespace DriverBoardDropwatcher
             // 
             this.tcDropWatchingAndImageModes.Controls.Add(this.DropWatchingTab);
             this.tcDropWatchingAndImageModes.Controls.Add(this.ImageModeTab);
+            this.tcDropWatchingAndImageModes.Controls.Add(this.tabPage1);
             this.tcDropWatchingAndImageModes.DataBindings.Add(new System.Windows.Forms.Binding("TabIndex", global::DriverBoardDropwatcher.Properties.Settings.Default, "TabNumber", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tcDropWatchingAndImageModes.Location = new System.Drawing.Point(28, 295);
             this.tcDropWatchingAndImageModes.Name = "tcDropWatchingAndImageModes";
@@ -981,6 +989,7 @@ namespace DriverBoardDropwatcher
             this.btnFillHead.Size = new System.Drawing.Size(120, 35);
             this.btnFillHead.TabIndex = 56;
             this.btnFillHead.Text = "Fill Head";
+            this.toolTip1.SetToolTip(this.btnFillHead, "Fill all Nozzles on Selected Head");
             this.btnFillHead.UseVisualStyleBackColor = true;
             this.btnFillHead.Click += new System.EventHandler(this.fillHead_Click);
             // 
@@ -1023,6 +1032,7 @@ namespace DriverBoardDropwatcher
             this.btnFillGap.Size = new System.Drawing.Size(120, 35);
             this.btnFillGap.TabIndex = 53;
             this.btnFillGap.Text = "Fill Gap";
+            this.toolTip1.SetToolTip(this.btnFillGap, "Fill Selected Nozzles every internal determined by the Gap");
             this.btnFillGap.UseVisualStyleBackColor = true;
             this.btnFillGap.Click += new System.EventHandler(this.FillGapButton_Click);
             // 
@@ -1043,6 +1053,7 @@ namespace DriverBoardDropwatcher
             this.btnFillSpan.Size = new System.Drawing.Size(120, 35);
             this.btnFillSpan.TabIndex = 46;
             this.btnFillSpan.Text = "Fill Span";
+            this.toolTip1.SetToolTip(this.btnFillSpan, "Fill Selected Span");
             this.btnFillSpan.UseVisualStyleBackColor = true;
             this.btnFillSpan.Click += new System.EventHandler(this.FillSpanNozzleButton_Click);
             // 
@@ -1054,6 +1065,7 @@ namespace DriverBoardDropwatcher
             this.btnFillNozzle.Size = new System.Drawing.Size(120, 35);
             this.btnFillNozzle.TabIndex = 45;
             this.btnFillNozzle.Text = "Fill Nozzle";
+            this.toolTip1.SetToolTip(this.btnFillNozzle, "Fill Selected Nozzle");
             this.btnFillNozzle.UseVisualStyleBackColor = true;
             this.btnFillNozzle.Click += new System.EventHandler(this.FillSingleNozzleButton_Click);
             // 
@@ -1066,6 +1078,7 @@ namespace DriverBoardDropwatcher
             this.btnClearHead.Size = new System.Drawing.Size(120, 35);
             this.btnClearHead.TabIndex = 44;
             this.btnClearHead.Text = "Clear Head";
+            this.toolTip1.SetToolTip(this.btnClearHead, "Clear all the Heads and Stop Printing");
             this.btnClearHead.UseVisualStyleBackColor = true;
             this.btnClearHead.Click += new System.EventHandler(this.btnClearHead_Click);
             // 
@@ -1212,6 +1225,7 @@ namespace DriverBoardDropwatcher
             // 
             // ImageModeTab
             // 
+            this.ImageModeTab.Controls.Add(this.txtbPrintStatus);
             this.ImageModeTab.Controls.Add(this.txtbCurrentStepperPosition);
             this.ImageModeTab.Controls.Add(this.lbCurrentStepperPosition);
             this.ImageModeTab.Controls.Add(this.nudSetPosition);
@@ -1761,6 +1775,34 @@ namespace DriverBoardDropwatcher
             this.txtbNozzleSpanStatusBox.Size = new System.Drawing.Size(276, 26);
             this.txtbNozzleSpanStatusBox.TabIndex = 61;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.txtbJSONview);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1186, 609);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "View JSON";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtbJSONview
+            // 
+            this.txtbJSONview.Location = new System.Drawing.Point(19, 21);
+            this.txtbJSONview.Name = "txtbJSONview";
+            this.txtbJSONview.Size = new System.Drawing.Size(1156, 570);
+            this.txtbJSONview.TabIndex = 0;
+            this.txtbJSONview.Text = "";
+            // 
+            // txtbPrintStatus
+            // 
+            this.txtbPrintStatus.Location = new System.Drawing.Point(995, 100);
+            this.txtbPrintStatus.Name = "txtbPrintStatus";
+            this.txtbPrintStatus.ReadOnly = true;
+            this.txtbPrintStatus.Size = new System.Drawing.Size(169, 26);
+            this.txtbPrintStatus.TabIndex = 62;
+            this.txtbPrintStatus.Text = "--Print Status--";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1814,6 +1856,7 @@ namespace DriverBoardDropwatcher
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrequency)).EndInit();
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1939,6 +1982,9 @@ namespace DriverBoardDropwatcher
         private System.Windows.Forms.TextBox txtbCurrentStepperPosition;
         private System.Windows.Forms.Label lbCurrentStepperPosition;
         private System.Windows.Forms.TextBox txtbNozzleSpanStatusBox;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.RichTextBox txtbJSONview;
+        private System.Windows.Forms.TextBox txtbPrintStatus;
     }
 }
 
