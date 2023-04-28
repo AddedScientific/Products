@@ -236,7 +236,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A4071668619F4828B4E8C1DD6AFEC72B"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -263,7 +263,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Driver Board Dropwatching Tool"
         "ProductCode" = "8:{B84D4594-22B1-4C64-87CD-7939EBE329DB}"
-        "PackageCode" = "8:{B30A158B-DFEE-4496-B9FF-1C71F0B3C5EB}"
+        "PackageCode" = "8:{3DD33279-105D-4033-A07D-0EFB20FB7ABB}"
         "UpgradeCode" = "8:{ED732D3B-8907-43AE-9A85-8FAB8850E9BC}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -271,7 +271,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:kajeban0108@hotmail.com"
+        "Manufacturer" = "8:Added Scientific Limited"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Driver Board Dropwatching Tool"
