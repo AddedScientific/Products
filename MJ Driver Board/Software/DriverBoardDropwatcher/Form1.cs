@@ -52,6 +52,7 @@ namespace DriverBoardDropwatcher
         int activePDdirection;
         int activeImageHeadIndex;
         bool[] ImageHead = { false, false, false, false };
+        int[] positions = new int[2];
         bool Head1ImageSend = false;
         bool Head2ImageSend = false;
         bool Head3ImageSend = false;
@@ -85,10 +86,10 @@ namespace DriverBoardDropwatcher
                 Directory.CreateDirectory(outputFolderPath);
             }
             this.FormClosing += Form1_FormClosing;
-            Thread trd = new Thread(new ThreadStart(this.ThreadTask));
-            trd.IsBackground = true;
-            trd.Start();
-            Control.CheckForIllegalCrossThreadCalls = false;
+
+            Action background = () => { ThreadTask(); };
+            Task.Run(background);
+
             txtbStatusBox.Text = "Disconnected"; //Displays Disconnected in Status Box
             ofd = new OpenFileDialog();
 
@@ -312,18 +313,18 @@ namespace DriverBoardDropwatcher
             while (driver_board.BytesToRead > 0)
             {
                 string input = driver_board.ReadExisting();
-                //Console.WriteLine(input);
+                Console.WriteLine(input);
                 if (input.Substring(0, 1) == "{")
                 {
                     if (!input.Substring(10).Contains("board"))
                     {
-                        try
+
+                        txtbJSONview.Text = input;
+                        if(parseJsonData(input))
                         {
-                            parseJsonData(input);
                             failCounter = 0;
-                            txtbJSONview.Text = input;
                         }
-                        catch
+                        else
                         {
                             failCounter++;
                             Console.WriteLine("Parse JSON Failed for the {0} time.", failCounter);
@@ -493,9 +494,17 @@ namespace DriverBoardDropwatcher
         * 
         * @param input_string The Data Lines received from the driver board in JSON Format
         */
-        private void parseJsonData(string input_string)
+        private bool parseJsonData(string input_string)
         {
-            dynamic d = JObject.Parse(input_string);
+            dynamic d;
+            try
+            {
+                d = JObject.Parse(input_string);
+            }
+            catch
+            {
+                return false;
+            }
             //--------------------------------------------------
             //Retrieves Head Status from JSON
             for (int i = 0; i <= 3; i++)
@@ -510,18 +519,23 @@ namespace DriverBoardDropwatcher
             //Updates Text Box to view current print count
             for (int i = 0; i <= 3; i++)
             {
-                HeadPrintCounters[i].Text = d.heads[i].printCounts.ToString();
-                HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts;
+                Invoke(new MethodInvoker(delegate () {
+                    HeadPrintCounters[i].Text = d.heads[i].printCounts.ToString();
+                    HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts; 
+                }));
+                
             }
 
-            determineStatus();
+            Invoke(new MethodInvoker(delegate () {determineStatus();}));
 
             if (!ChbxPower.Checked)
             {
+                Invoke(new MethodInvoker(delegate () { 
                 txtbHeadStatus.Text = "Powered Off";
                 txtbHeadStatus.BackColor = Color.Red;
                 txtbImageHeadStatus.Text = "Powered Off";
                 txtbImageHeadStatus.BackColor = Color.Red;
+                }));
             }
 
             // Replaces previous count with current count to determine if value is increasing or stationary
@@ -535,51 +549,62 @@ namespace DriverBoardDropwatcher
             //Check Currrent Temeperatures for Heads
             System.Windows.Forms.TextBox[] HeadTemperatures = { txtbTemperatureOutput1, txtbTemperatureOutput2, txtbTemperatureOutput3, txtbTemperatureOutput4 };
 
-            for (int i = 0; i <= 3; i++)
+            Invoke(new MethodInvoker(delegate ()
             {
-                HeadTemperatures[i].Text = d.heads[i].curTemperature.ToString();
-
-                //Changes Current Temperature Text Box Colour if its heating
-                if ((d.heads[i].isHeating) == 1)
+                for (int i = 0; i <= 3; i++)
                 {
-                    HeadTemperatures[i].ForeColor = Color.Red;
+                    HeadTemperatures[i].Text = d.heads[i].curTemperature.ToString();
+
+                    //Changes Current Temperature Text Box Colour if its heating
+                    if ((d.heads[i].isHeating) == 1)
+                    {
+                        HeadTemperatures[i].ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        HeadTemperatures[i].BackColor = Color.WhiteSmoke;
+                    }
+
                 }
-                else
+
+                if (activeImageMode == 0)
                 {
-                    HeadTemperatures[i].BackColor = Color.WhiteSmoke;
+                    positions[0] = (int)d.locations[0].stepper;
+                    txtbCurrentStepperPosition.Text = d.locations[0].stepper.ToString();
                 }
+                if (activeImageMode == 1)
+                {
+                    positions[1] = (int)d.locations[0].encoder;
+                    txtbCurrentEncoderPosition.Text = d.locations[0].encoder.ToString();
+                }
+                    
 
-            }
 
-            if (activeImageMode == 0)
-                txtbCurrentStepperPosition.Text = d.locations[0].stepper.ToString();
-            if (activeImageMode == 1)
-                txtbCurrentEncoderPosition.Text = d.locations[0].encoder.ToString();
+                //--------------------------------------------------
+                //Updates Voltage Values in GUI 
+                NumericUpDown[] nudHeadVoltages = { nudVoltageHead1, nudVoltageHead2, nudVoltageHead3, nudVoltageHead4 };
+                for (int i = 0; i <= 3; i++)
+                {
+                    nudHeadVoltages[i].Value = d.heads[i].voltage;
+                }
+                //--------------------------------------------------
+                actFreq = d.printingParameters[0].internalPrintPeriod;
 
+                if (actFreq > 0)
+                {
+                    //Check Frequency for each Head
+                    nudFrequency.Value = (1000000 / actFreq);
+                    nudFrequency.Value = (1000000 / actFreq);
+                    txtbFrequencyDuplicate.Text = nudFrequency.Value.ToString();
+                }
+                ChbxPower.Checked = d.board[0].power == 1 ? true : false;
+                int newTime = d.board[0].timeOn;
 
-            //--------------------------------------------------
-            //Updates Voltage Values in GUI 
-            NumericUpDown[] nudHeadVoltages = { nudVoltageHead1, nudVoltageHead2, nudVoltageHead3, nudVoltageHead4 };
-            for (int i = 0; i <= 3; i++)
-            {
-                nudHeadVoltages[i].Value = d.heads[i].voltage;
-            }
-            //--------------------------------------------------
-            actFreq = d.printingParameters[0].internalPrintPeriod;
-
-            if (actFreq > 0)
-            {
-                //Check Frequency for each Head
-                nudFrequency.Value = (1000000 / actFreq);
-                nudFrequency.Value = (1000000 / actFreq);
-                txtbFrequencyDuplicate.Text = nudFrequency.Value.ToString();
-            }
-            ChbxPower.Checked = d.board[0].power == 1 ? true : false;
-            int newTime = d.board[0].timeOn;
-            
-            //Determines Board Up and Running Time 
-            timeBoardOn = newTime;
-            txtbBoardUpTime.Text = timeBoardOn.ToString(); // Displays Clock Time in GUI
+                //Determines Board Up and Running Time 
+                timeBoardOn = newTime;
+                txtbBoardUpTime.Text = timeBoardOn.ToString(); // Displays Clock Time in GUI
+            }));
+            return true;
         }
 
         /**
@@ -1119,7 +1144,7 @@ namespace DriverBoardDropwatcher
             {
                 if (chkbxMultiImage.Checked)
                 {
-                    Action printing = () => { runMulti(sender, e); };
+                    Action printing = () => { runMulti(); };
                     Task.Run(printing);
                 }
                 else
@@ -2029,9 +2054,9 @@ namespace DriverBoardDropwatcher
             SetPosition(sender, e);
         }
 
-            private void runMulti(object sender, EventArgs e)
+            private void runMulti()
             {
-                //btnPrintImage_Click(sender, e);
+            //btnPrintImage_Click(sender, e);
 
             int counter = 0;
             int state = 0; //0 preloaded, 1 loaded/printing, 2 returned/notloaded
@@ -2040,10 +2065,10 @@ namespace DriverBoardDropwatcher
             bool flagged = true;
             while(counter < repeatCounts)
             {
-                int cur_loc = int.Parse(txtbCurrentStepperPosition.Text);
+                int cur_loc = positions[0];
                 if (state == 0)
                 {
-                    btnPrintImage_Click(sender, e);
+                    btnPrintImage_Click(new object(), new EventArgs());
                     state = 1;
                     flagged = true;
                     counter++;
@@ -2055,15 +2080,18 @@ namespace DriverBoardDropwatcher
                     {
                         state = 2;
                         flagged = true;
-                        for (int indexHead = 0; indexHead < 4; indexHead++)
+                        if (chkbxStack.Checked)
                         {
-                            if (ImageHead[indexHead] == true)
+                            for (int indexHead = 0; indexHead < 4; indexHead++)
                             {
-                                string CurrentFileName = (datafolder + (indexHead + 1).ToString() + ".png");
-                                string fileExtension = imageRaw[indexHead].Substring(imageRaw[indexHead].Length - 4);
-                                Bitmap Picture = (Bitmap)new Bitmap(imageRaw[indexHead].Substring(0, imageRaw[indexHead].Length - 8) + counter.ToString("0000") + fileExtension); // Clones uploaded image
-                                Picture.Save(datafolder + (indexHead+ 1).ToString() + ".png");  //Saves uploaded folder to project folder 
-                                convertImageToData(CurrentFileName);
+                                if (ImageHead[indexHead] == true)
+                                {
+                                    string CurrentFileName = (datafolder + (indexHead + 1).ToString() + ".png");
+                                    string fileExtension = imageRaw[indexHead].Substring(imageRaw[indexHead].Length - 4);
+                                    Bitmap Picture = (Bitmap)new Bitmap(imageRaw[indexHead].Substring(0, imageRaw[indexHead].Length - 8) + counter.ToString("0000") + fileExtension); // Clones uploaded image
+                                    Picture.Save(datafolder + (indexHead + 1).ToString() + ".png");  //Saves uploaded folder to project folder 
+                                    convertImageToData(CurrentFileName);
+                                }
                             }
                         }
                     }
@@ -2080,12 +2108,12 @@ namespace DriverBoardDropwatcher
 
                 if (flagged)
                 {
-                    txtbPrintStatus.Text = String.Format("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
+                    //txtbPrintStatus.Text = String.Format("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
                     Console.WriteLine("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
                     flagged = false;
                 }
             }
-            txtbPrintStatus.Text = String.Format("Multiprint complete, {2} images printed.", repeatCounts);
+            //txtbPrintStatus.Text = String.Format("Multiprint complete, {0} images printed.", repeatCounts);
         }
     }
 }
