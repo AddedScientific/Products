@@ -46,8 +46,6 @@ C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDro
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Debug\DriverBoardDropwatcher.pdb
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.csproj.AssemblyReference.cache
-C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.csproj.SuggestedBindingRedirects.cache
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.Form1.resources
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.Properties.Resources.resources
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.csproj.GenerateResource.cache
@@ -55,3 +53,4 @@ C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDro
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.csproj.CopyComplete
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.exe
 C:\Users\Craig\Documents\Github\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.pdb
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Debug\DriverBoardDropwatcher.csprojAssemblyReference.cache

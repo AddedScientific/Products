@@ -51,10 +51,7 @@ namespace DriverBoardDropwatcher
         int activeEncoderPosition;
         int activePDdirection;
         int activeImageHeadIndex;
-        bool ImageHead1 = false;
-        bool ImageHead2 = false;
-        bool ImageHead3 = false;
-        bool ImageHead4 = false;
+        bool[] ImageHead = { false, false, false, false };
         bool Head1ImageSend = false;
         bool Head2ImageSend = false;
         bool Head3ImageSend = false;
@@ -64,6 +61,7 @@ namespace DriverBoardDropwatcher
         //String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
         String datafolder = System.IO.Path.Combine(Application.StartupPath, "Output Images\\File");
         String outputFolderPath = System.IO.Path.Combine(Application.StartupPath, "Output Images");
+        String[] imageRaw = new string[4];
         int[] HeadPrintCountersStoredAsInt = new int[4];
         int[] PreviousHeadPrintCounters = new int[4];
         int[] HeadStatus = new int[4];
@@ -913,6 +911,7 @@ namespace DriverBoardDropwatcher
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         Bitmap Picture1 = (Bitmap)new Bitmap(ofd.FileName); // Clones uploaded image
+                        imageRaw[0] = ofd.FileName;
                         Picture1.Save(datafolder + 1 + ".png");  //Saves uploaded folder to project folder 
                         pictureBox1.Image = MakeGrayscale3(Picture1); //Grey Scales Image in GUI
                         txtbFileNameHead1.Text = ofd.SafeFileName; //Stores File Name removing Path of File
@@ -927,7 +926,7 @@ namespace DriverBoardDropwatcher
                         }
 
                         convertImageToData(CurrentFileName); //Calls function to convert image to data
-                        ImageHead1 = true;
+                        ImageHead[0] = true;
 
                     }
                     break;
@@ -950,7 +949,7 @@ namespace DriverBoardDropwatcher
                         }
 
                         convertImageToData(CurrentFileName); //Calls function to convert image to data
-                        ImageHead2 = true;
+                        ImageHead[1] = true;
                     }
                     break;
 
@@ -972,7 +971,7 @@ namespace DriverBoardDropwatcher
                         }
 
                         convertImageToData(CurrentFileName); //Calls function to convert image to data
-                        ImageHead3 = true;
+                        ImageHead[2] = true;
                     }
                     break;
 
@@ -994,7 +993,7 @@ namespace DriverBoardDropwatcher
                         }
 
                         convertImageToData(CurrentFileName); //Calls function to convert image to data
-                        ImageHead4 = true;
+                        ImageHead[3] = true;
                     }
                     break;
             }
@@ -1118,34 +1117,42 @@ namespace DriverBoardDropwatcher
         {
             if ((ChbxIsConnected.Checked) && (ChbxPower.Checked))
             {
-                isRunning = false;
-                //If Images are uploaded to any of the print heads, send the relevent image to the board to print
-                if (ImageHead1 == true)
+                if (chkbxMultiImage.Checked)
                 {
-                    Head1ImageSend = true;
-                    PrintingImage(1);
-                    txtbPrintStatus.Text = "Print Successful";
+                    Action printing = () => { runMulti(sender, e); };
+                    Task.Run(printing);
                 }
-                if (ImageHead2 == true)
+                else
                 {
-                    Head2ImageSend = true;
-                    PrintingImage(2);
-                    txtbPrintStatus.Text = "Print Successful";
+                    isRunning = false;
+                    //If Images are uploaded to any of the print heads, send the relevent image to the board to print
+                    if (ImageHead[0] == true)
+                    {
+                        Head1ImageSend = true;
+                        PrintingImage(1);
+                        txtbPrintStatus.Text = "Print Successful";
+                    }
+                    if (ImageHead[1] == true)
+                    {
+                        Head2ImageSend = true;
+                        PrintingImage(2);
+                        txtbPrintStatus.Text = "Print Successful";
+                    }
+                    if (ImageHead[2] == true)
+                    {
+                        Head3ImageSend = true;
+                        PrintingImage(3);
+                        txtbPrintStatus.Text = "Print Successful";
+                    }
+                    if (ImageHead[3] == true)
+                    {
+                        Head4ImageSend = true;
+                        PrintingImage(4);
+                        txtbPrintStatus.Text = "Print Successful";
+                    }
+
+                    isRunning = true;
                 }
-                if (ImageHead3 == true)
-                {
-                    Head3ImageSend = true;
-                    PrintingImage(3);
-                    txtbPrintStatus.Text = "Print Successful";
-                }
-                if (ImageHead4 == true)
-                {
-                    Head4ImageSend = true;
-                    PrintingImage(4);
-                    txtbPrintStatus.Text = "Print Successful";
-                }
- 
-                isRunning = true;
             }
 
             else
@@ -2022,20 +2029,16 @@ namespace DriverBoardDropwatcher
             SetPosition(sender, e);
         }
 
-        private void btnPrintImageMulti_Click(object sender, EventArgs e)
-        {
-            Action printing = () => { runMulti(sender, e); };
-            Task.Run(printing);
-        }
             private void runMulti(object sender, EventArgs e)
             {
                 //btnPrintImage_Click(sender, e);
 
             int counter = 0;
             int state = 0; //0 preloaded, 1 loaded/printing, 2 returned/notloaded
-            int starting_stepper = 100;
+            int starting_stepper = (int)nudSetLoadPosition.Value;
+            int repeatCounts = (int)nudImageCount.Value;
             bool flagged = true;
-            while(counter < 10)
+            while(counter < repeatCounts)
             {
                 int cur_loc = int.Parse(txtbCurrentStepperPosition.Text);
                 if (state == 0)
@@ -2052,6 +2055,17 @@ namespace DriverBoardDropwatcher
                     {
                         state = 2;
                         flagged = true;
+                        for (int indexHead = 0; indexHead < 4; indexHead++)
+                        {
+                            if (ImageHead[indexHead] == true)
+                            {
+                                string CurrentFileName = (datafolder + (indexHead + 1).ToString() + ".png");
+                                string fileExtension = imageRaw[indexHead].Substring(imageRaw[indexHead].Length - 4);
+                                Bitmap Picture = (Bitmap)new Bitmap(imageRaw[indexHead].Substring(0, imageRaw[indexHead].Length - 8) + counter.ToString("0000") + fileExtension); // Clones uploaded image
+                                Picture.Save(datafolder + (indexHead+ 1).ToString() + ".png");  //Saves uploaded folder to project folder 
+                                convertImageToData(CurrentFileName);
+                            }
+                        }
                     }
                 }
 
@@ -2066,10 +2080,12 @@ namespace DriverBoardDropwatcher
 
                 if (flagged)
                 {
-                    Console.WriteLine("Currently in state: {0}, counter at {1}", state, counter);
+                    txtbPrintStatus.Text = String.Format("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
+                    Console.WriteLine("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
                     flagged = false;
                 }
             }
+            txtbPrintStatus.Text = String.Format("Multiprint complete, {2} images printed.", repeatCounts);
         }
     }
 }
