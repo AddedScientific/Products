@@ -131,7 +131,7 @@ namespace DriverBoardDropwatcher
 
                     }
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(150);
             }
         }
 
@@ -323,7 +323,7 @@ namespace DriverBoardDropwatcher
                         {
                             parseJsonData(input);
                             failCounter = 0;
-                            txtbJSONview.Text += input;
+                            txtbJSONview.Text = input;
                         }
                         catch
                         {
@@ -1245,7 +1245,7 @@ namespace DriverBoardDropwatcher
             }
             else
             {
-                Console.WriteLine("Not recieved the correct data format");
+                Console.WriteLine("Not recieved the correct data format - serial garble?");
                 MessageBox.Show(("Not received the correct data format for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -2020,6 +2020,56 @@ namespace DriverBoardDropwatcher
         private void nudSetPosition_ValueChanged(object sender, EventArgs e)
         {
             SetPosition(sender, e);
+        }
+
+        private void btnPrintImageMulti_Click(object sender, EventArgs e)
+        {
+            Action printing = () => { runMulti(sender, e); };
+            Task.Run(printing);
+        }
+            private void runMulti(object sender, EventArgs e)
+            {
+                //btnPrintImage_Click(sender, e);
+
+            int counter = 0;
+            int state = 0; //0 preloaded, 1 loaded/printing, 2 returned/notloaded
+            int starting_stepper = 100;
+            bool flagged = true;
+            while(counter < 10)
+            {
+                int cur_loc = int.Parse(txtbCurrentStepperPosition.Text);
+                if (state == 0)
+                {
+                    btnPrintImage_Click(sender, e);
+                    state = 1;
+                    flagged = true;
+                    counter++;
+                }
+
+                if (state == 1)
+                {
+                    if (cur_loc > starting_stepper)
+                    {
+                        state = 2;
+                        flagged = true;
+                    }
+                }
+
+                if (state == 2)
+                {
+                    if (cur_loc < starting_stepper)
+                    {
+                        state = 0;
+                        flagged = true;
+                    }
+                }
+
+                if (flagged)
+                {
+                    Console.WriteLine("Currently in state: {0}, counter at {1}", state, counter);
+                    flagged = false;
+                }
+            }
         }
     }
 }
