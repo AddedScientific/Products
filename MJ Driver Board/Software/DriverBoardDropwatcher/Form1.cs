@@ -56,8 +56,8 @@ namespace DriverBoardDropwatcher
         bool Head1ImageSend = false;
         bool Head2ImageSend = false;
         bool Head3ImageSend = false;
-        bool Head4ImageSend = false;    
-        bool isRunning = true;
+        bool Head4ImageSend = false;
+        bool runBackgroundThread = true;
         String CurrentFileName;
         //String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
         String datafolder = System.IO.Path.Combine(Application.StartupPath, "Output Images\\File");
@@ -104,13 +104,13 @@ namespace DriverBoardDropwatcher
          * It sends the command 'b' to receive relevent information such as voltage, temperature etc 
          * If this fails to run, then Error Message Box pops up signalling an error.
          */
-        
+
         private void ThreadTask()
         {
             // Repeatedly checks if board is connected
             while (true)
             {
-                if (ChbxIsConnected.Checked && isRunning)
+                if (ChbxIsConnected.Checked && runBackgroundThread)
                 {
                     try
                     {
@@ -275,7 +275,7 @@ namespace DriverBoardDropwatcher
                     lbTimeOn.ForeColor = Color.Black;
                     Console.WriteLine("Connected");
                     txtbStatusBox.Text = "Connected";
-                    
+
                 }
                 catch
                 {
@@ -287,7 +287,7 @@ namespace DriverBoardDropwatcher
                     {
                         Application.Restart();
                         Environment.Exit(0);
-                    }                    
+                    }
                 }
             }
             else if (ChbxIsConnected.Checked)
@@ -312,15 +312,15 @@ namespace DriverBoardDropwatcher
         {
             while (driver_board.BytesToRead > 0)
             {
-                string input = driver_board.ReadExisting();
+                string input = driver_board.ReadExisting().Trim();
                 Console.WriteLine(input);
-                if (input.Substring(0, 1) == "{")
+                if (input.StartsWith("{") & input.EndsWith("}"))
                 {
                     if (!input.Substring(10).Contains("board"))
                     {
 
                         txtbJSONview.Text = input;
-                        if(parseJsonData(input))
+                        if (parseJsonData(input))
                         {
                             failCounter = 0;
                         }
@@ -395,7 +395,7 @@ namespace DriverBoardDropwatcher
             System.Windows.Forms.TextBox[] HeadPrintCounters = { txtbPrintCounter1, txtbPrintCounter2, txtbPrintCounter3, txtbPrintCounter4 };
 
             if (ChbxPower.Checked)
-            { 
+            {
                 //FOR loop for 4 Heads, to determine it status and update the UI accordingly
                 for (int i = 0; i <= 3; i++)
                 {
@@ -521,20 +521,20 @@ namespace DriverBoardDropwatcher
             {
                 Invoke(new MethodInvoker(delegate () {
                     HeadPrintCounters[i].Text = d.heads[i].printCounts.ToString();
-                    HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts; 
+                    HeadPrintCountersStoredAsInt[i] = d.heads[i].printCounts;
                 }));
-                
+
             }
 
-            Invoke(new MethodInvoker(delegate () {determineStatus();}));
+            Invoke(new MethodInvoker(delegate () { determineStatus(); }));
 
             if (!ChbxPower.Checked)
             {
-                Invoke(new MethodInvoker(delegate () { 
-                txtbHeadStatus.Text = "Powered Off";
-                txtbHeadStatus.BackColor = Color.Red;
-                txtbImageHeadStatus.Text = "Powered Off";
-                txtbImageHeadStatus.BackColor = Color.Red;
+                Invoke(new MethodInvoker(delegate () {
+                    txtbHeadStatus.Text = "Powered Off";
+                    txtbHeadStatus.BackColor = Color.Red;
+                    txtbImageHeadStatus.Text = "Powered Off";
+                    txtbImageHeadStatus.BackColor = Color.Red;
                 }));
             }
 
@@ -577,7 +577,7 @@ namespace DriverBoardDropwatcher
                     positions[1] = (int)d.locations[0].encoder;
                     txtbCurrentEncoderPosition.Text = d.locations[0].encoder.ToString();
                 }
-                    
+
 
 
                 //--------------------------------------------------
@@ -861,7 +861,7 @@ namespace DriverBoardDropwatcher
 
             //Checks IF internal Mode is Selected AND Board is Connected
             else if ((activeDropWatch == 0) && (ChbxIsConnected.Checked))
-                {
+            {
                 nudFrequency.ReadOnly = false;
                 lbFrequency.ForeColor = Color.Black;
                 nudFrequency.ForeColor = Color.Black;
@@ -940,7 +940,7 @@ namespace DriverBoardDropwatcher
                         Picture1.Save(datafolder + 1 + ".png");  //Saves uploaded folder to project folder 
                         pictureBox1.Image = MakeGrayscale3(Picture1); //Grey Scales Image in GUI
                         txtbFileNameHead1.Text = ofd.SafeFileName; //Stores File Name removing Path of File
-                        CurrentFileName =  (datafolder + 1 + ".png");
+                        CurrentFileName = (datafolder + 1 + ".png");
                         txtbDimensionsHead1.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         // If File Size has a width of more that
@@ -986,7 +986,7 @@ namespace DriverBoardDropwatcher
                         Picture3.Save(datafolder + 3 + ".png");  //Saves uploaded folder to project folder 
                         pictureBox3.Image = MakeGrayscale3(Picture3); //Grey Scales Image in GUI
                         txtbFileNameHead3.Text = ofd.SafeFileName; //Stores File Name removing Path of File
-                        CurrentFileName = (datafolder + 3 + ".png"); 
+                        CurrentFileName = (datafolder + 3 + ".png");
                         txtbDimensionsHead3.Text = ((Image.FromFile(ofd.FileName).Width) + " x " + (Image.FromFile(ofd.FileName).Height));
 
                         if ((Image.FromFile(ofd.FileName).Width) > 128) //If image width exceed 128, warning message shows
@@ -1092,7 +1092,7 @@ namespace DriverBoardDropwatcher
             using (Bitmap inputImage = new Bitmap(file_name))
             {
                 Color pixel;
-                List <byte> imageData = new List <byte>();
+                List<byte> imageData = new List<byte>();
 
                 for (int y = (inputImage.Height - 1); y > -1; y--)
                 {
@@ -1149,42 +1149,48 @@ namespace DriverBoardDropwatcher
                 }
                 else
                 {
-                    isRunning = false;
-                    //If Images are uploaded to any of the print heads, send the relevent image to the board to print
-                    if (ImageHead[0] == true)
-                    {
-                        Head1ImageSend = true;
-                        PrintingImage(1);
-                        txtbPrintStatus.Text = "Print Successful";
-                    }
-                    if (ImageHead[1] == true)
-                    {
-                        Head2ImageSend = true;
-                        PrintingImage(2);
-                        txtbPrintStatus.Text = "Print Successful";
-                    }
-                    if (ImageHead[2] == true)
-                    {
-                        Head3ImageSend = true;
-                        PrintingImage(3);
-                        txtbPrintStatus.Text = "Print Successful";
-                    }
-                    if (ImageHead[3] == true)
-                    {
-                        Head4ImageSend = true;
-                        PrintingImage(4);
-                        txtbPrintStatus.Text = "Print Successful";
-                    }
-
-                    isRunning = true;
+                    fnPrintImage();
                 }
             }
-
             else
             {
-                MessageBox.Show("Not Connected!", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Board not connected or on.");
             }
         }
+
+        void fnPrintImage() {
+            
+                runBackgroundThread = false;
+                //If Images are uploaded to any of the print heads, send the relevent image to the board to print
+                if (ImageHead[0] == true)
+                {
+                    Head1ImageSend = true;
+                    PrintingImage(1);
+                    txtbPrintStatus.Text = "Print Successful";
+                }
+                if (ImageHead[1] == true)
+                {
+                    Head2ImageSend = true;
+                    PrintingImage(2);
+                    txtbPrintStatus.Text = "Print Successful";
+                }
+                if (ImageHead[2] == true)
+                {
+                    Head3ImageSend = true;
+                    PrintingImage(3);
+                    txtbPrintStatus.Text = "Print Successful";
+                }
+                if (ImageHead[3] == true)
+                {
+                    Head4ImageSend = true;
+                    PrintingImage(4);
+                    txtbPrintStatus.Text = "Print Successful";
+                }
+
+                runBackgroundThread = true;
+            }
+
+
 
         /**
         * @brief Printing Image Function
@@ -2068,7 +2074,7 @@ namespace DriverBoardDropwatcher
                 int cur_loc = positions[0];
                 if (state == 0)
                 {
-                    btnPrintImage_Click(new object(), new EventArgs());
+                    fnPrintImage();
                     state = 1;
                     flagged = true;
                     counter++;
