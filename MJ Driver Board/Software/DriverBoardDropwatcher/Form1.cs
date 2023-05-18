@@ -296,6 +296,23 @@ namespace DriverBoardDropwatcher
         }
 
         /**
+        * @brief Makes the raw json string readable.
+        * 
+        * This function reads removes string characters that make it harder to read.
+        * 
+        * @param inputString The string to be cleaned
+        */
+        private string jsonPretty(string inputString)
+        {
+            string outputString;
+            outputString = inputString.Replace('{', '\n');
+            outputString = outputString.Replace('}', '\n');
+            outputString = outputString.Replace('[', ' ');
+            outputString = outputString.Replace(']', ' ');
+            return outputString.Trim();
+
+        }
+        /**
         * @brief Processes data received from driver board.
         * 
         * This function reads the data received from the driver board. If the substring matches to the expected character, then the data is sent to parse.
@@ -304,16 +321,6 @@ namespace DriverBoardDropwatcher
         * @param sender The object that contains the reference to the object that raised the event
         * @param e The event data
         */
-        private string jsonPretty(string inputString)
-        {
-            string outputString;
-            outputString=inputString.Replace('{', '\n');
-            outputString = outputString.Replace('}', '\n');
-            outputString = outputString.Replace('[', ' ');
-            outputString = outputString.Replace(']', ' ');
-            return outputString.Trim();
-
-        }
         private void DataRecievedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(10);
