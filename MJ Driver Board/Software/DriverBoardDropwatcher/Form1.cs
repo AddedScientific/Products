@@ -53,10 +53,7 @@ namespace DriverBoardDropwatcher
         int activeImageHeadIndex;
         bool[] ImageHead = { false, false, false, false };
         int[] positions = new int[2];
-        bool Head1ImageSend = false;
-        bool Head2ImageSend = false;
-        bool Head3ImageSend = false;
-        bool Head4ImageSend = false;
+        bool[] HeadImageSend = { false, false, false, false };  
         bool runBackgroundThread = true;
         String CurrentFileName;
         //String datafolder = Application.StartupPath.Replace("bin\\Debug", "Output Images\\File");
@@ -310,8 +307,7 @@ namespace DriverBoardDropwatcher
 
         private void DataRecievedHandler(object sender, SerialDataReceivedEventArgs e)
         {
-            while (driver_board.BytesToRead > 0)
-            {
+            Thread.Sleep(10);
                 string input = driver_board.ReadExisting().Trim();
                 Console.WriteLine(input);
                 if (input.StartsWith("{") & input.EndsWith("}"))
@@ -346,38 +342,17 @@ namespace DriverBoardDropwatcher
 
                 if (input.Substring(0, 3).Contains("LV:"))
                 {
-                    if (Head1ImageSend == true)
+                    for(int indexes = 0; indexes < 4; indexes++)
                     {
-                        VerifyImageData(1, input);
-                        Head1ImageSend = false;
+                        if (HeadImageSend[indexes] == true)
+                        {
+                            VerifyImageData(indexes, input);
+                            HeadImageSend[indexes] = false;
+                        }
                     }
-                    else if (Head2ImageSend == true)
-                    {
-                        VerifyImageData(2, input);
-                        Head2ImageSend = false;
-                    }
-                    else if (Head3ImageSend == true)
-                    {
-                        VerifyImageData(3, input);
-                        Head3ImageSend = false;
-
-                    }
-                    else if (Head4ImageSend == true)
-                    {
-                        VerifyImageData(4, input);
-                        Head4ImageSend = false;
-                    }
-
-                    txtbJSONview.Text += "\n";
-                    txtbJSONview.Text += input;
-                    txtbJSONview.Text += "\n";
                 }
 
-                else
-                {
-                    //Console.WriteLine(input);
-                }
-            }
+            
         }
 
         /**
@@ -1160,34 +1135,22 @@ namespace DriverBoardDropwatcher
 
         void fnPrintImage() {
             
-                runBackgroundThread = false;
-                //If Images are uploaded to any of the print heads, send the relevent image to the board to print
-                if (ImageHead[0] == true)
+            runBackgroundThread = false;
+            //If Images are uploaded to any of the print heads, send the relevent image to the board to print
+            for (int indexes = 0; indexes < 4; indexes++)
+            {
+                if (ImageHead[indexes] == true)
                 {
-                    Head1ImageSend = true;
-                    PrintingImage(1);
-                    txtbPrintStatus.Text = "Print Successful";
+                    HeadImageSend[indexes] = true;
+                    PrintingImage(indexes); 
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        txtbPrintStatus.Text = "Send Successful";
+                    }));
                 }
-                if (ImageHead[1] == true)
-                {
-                    Head2ImageSend = true;
-                    PrintingImage(2);
-                    txtbPrintStatus.Text = "Print Successful";
-                }
-                if (ImageHead[2] == true)
-                {
-                    Head3ImageSend = true;
-                    PrintingImage(3);
-                    txtbPrintStatus.Text = "Print Successful";
-                }
-                if (ImageHead[3] == true)
-                {
-                    Head4ImageSend = true;
-                    PrintingImage(4);
-                    txtbPrintStatus.Text = "Print Successful";
-                }
+            }
 
-                runBackgroundThread = true;
+            runBackgroundThread = true;
             }
 
 
@@ -1203,6 +1166,7 @@ namespace DriverBoardDropwatcher
         */
         private void PrintingImage(int head)
         {
+            head++;
             String CurrentFile = datafolder + head + ".png.printDat";
             byte[] readText = File.ReadAllBytes(CurrentFile);
 
@@ -1231,7 +1195,8 @@ namespace DriverBoardDropwatcher
         */
         private void VerifyImageData(int head, string existing_lines)
         {
-            String CurrentFile = datafolder + head + ".png.printDat";
+            head++;
+            String CurrentFile = datafolder + (head) + ".png.printDat";
             byte[] readText = File.ReadAllBytes(CurrentFile);
 
             long lastValue = 0;
@@ -1283,6 +1248,7 @@ namespace DriverBoardDropwatcher
             }
             else
             {
+                MessageBox.Show(existing_lines);
                 Console.WriteLine("Not recieved the correct data format - serial garble?");
                 MessageBox.Show(("Not received the correct data format for Head: " + head), "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -2114,12 +2080,20 @@ namespace DriverBoardDropwatcher
 
                 if (flagged)
                 {
-                    //txtbPrintStatus.Text = String.Format("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
-                    Console.WriteLine("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
+
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        txtbPrintStatus.Text = String.Format("State: {0}, counter at {1} of {2} ", state, counter, repeatCounts);
+                    }));
+                        Console.WriteLine("State: {0}, counter at {1} of {2}", state, counter, repeatCounts);
                     flagged = false;
                 }
             }
-            //txtbPrintStatus.Text = String.Format("Multiprint complete, {0} images printed.", repeatCounts);
-        }
+
+            Invoke(new MethodInvoker(delegate ()
+            {
+                txtbPrintStatus.Text = String.Format("Multiprint complete, {0} images printed.", repeatCounts);
+            }));
+            }
     }
 }
