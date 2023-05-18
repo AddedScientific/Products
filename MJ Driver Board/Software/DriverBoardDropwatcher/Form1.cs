@@ -304,7 +304,16 @@ namespace DriverBoardDropwatcher
         * @param sender The object that contains the reference to the object that raised the event
         * @param e The event data
         */
+        private string jsonPretty(string inputString)
+        {
+            string outputString;
+            outputString=inputString.Replace('{', '\n');
+            outputString = outputString.Replace('}', '\n');
+            outputString = outputString.Replace('[', ' ');
+            outputString = outputString.Replace(']', ' ');
+            return outputString.Trim();
 
+        }
         private void DataRecievedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(10);
@@ -315,7 +324,11 @@ namespace DriverBoardDropwatcher
                     if (!input.Substring(10).Contains("board"))
                     {
 
-                        txtbJSONview.Text = input;
+                    
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        txtbJSONview.Text = jsonPretty(input);
+                    }));
                         if (parseJsonData(input))
                         {
                             failCounter = 0;
