@@ -9,20 +9,21 @@ import sys
  
 def command_lamp(cmnd):
     cmnd = cmnd + "\r"
-    print("Command: " + cmnd)
     ser_uvlamp.write((cmnd).encode())
     time.sleep(0.25)
     retrun="Reply: "
     while ser_uvlamp.in_waiting:
         retrun = retrun + ser_uvlamp.read().decode("utf-8")
-    print(retrun)
+    #print(retrun)
+    print("Command: " + cmnd+ ", Reply: " + retrun)
 
 def lamp_on():
-    command_lamp("CNTQ") #sets to commands
+    command_lamp("CNT1") #sets to commands
+    command_lamp("ERRCLR") #sets to commands
     command_lamp("ON1")
 
 def lamp_off():
-    command_lamp("CNTQ") #sets to commands
+    command_lamp("CNT1") #sets to commands
     command_lamp("OFF1")
 
 def lamp_power(power):
@@ -133,7 +134,7 @@ def printer_command(command):
 
   while True:
     line = ser_printer.readline()
-    print(line)
+    #print(line)
 
     if line[0:2] == b'ok':
       break
@@ -144,13 +145,13 @@ def printer_command(command):
 def board_command(command):
     #wrapper for printhead board commands
     command = command + "\n"
-    print("Sending %s"%command)
+    #print("Sending %s"%command)
     ser_board.write(str.encode(command))
     time.sleep(0.3)
     retrun=""
     while ser_board.in_waiting:
         retrun = retrun + ser_board.read().decode("utf-8")
-    print(retrun)
+    #print(retrun)
     return retrun
 
 def check_board():
@@ -162,7 +163,7 @@ def check_board():
     retrun=""
     while ser_board.in_waiting:
         retrun = retrun + ser_board.read().decode("utf-8")
-    print(retrun)
+    #print(retrun)
     val = retrun.find("-3")
     if val > 0:
         print("Boards need reseting")
@@ -177,7 +178,7 @@ def printer_poll_position():
     command = "M114\n"
     ser_printer.write(str.encode(command))
     time.sleep(0.01)
-    print(ser_printer.readline())
+    #print(ser_printer.readline())
 
 def setStartPoint(loc):
     #sending this command zeros the current stepper tracker and sets an absolute start position
@@ -213,28 +214,45 @@ board_command("C")
 print("Board on")
 
 #power of lamp to 50
-lamp_power(50)
 lamp_off()
+lamp_power(100)
 
-PrintSpeed = 100 ##100mm/s is 3khz
-pSpacing = 722 #dpi
-pSpacing = 25.4/722 #to mm
+runUp = 15
+PrintSpeed = 75 ##100mm/s is 3khz
+#images were generated from an stl file, then the support material was inverted using irfanview
+
+Zindex = 0.008
+
+pSpacing = 185 #dpi
+pSpacing = 25.4/pSpacing #to mm
+pSpacing = 0.03
+fname1 = "Lines_30_microns.bmp"
 pFrequency = PrintSpeed / pSpacing #300 mm/s divide by drop spacing is Hz
-secondHeadOffset = int(30 / pSpacing) #mount designed with 30 mm space
+print("Printing freq: %f"%pFrequency)
+if(pFrequency > 8000):
+    quit()
+
+UVLamp = 60
+
 board_command("p %d"%pFrequency) #set printing frequency, internal clock used
-board_command("D 1")
-Xlocation = 175
-Ystart = 80
-Yend = 250
-Zindex = 0.018
-Zcurr = 3.5
-total_layers = 5
+board_command("D 0")
+Xlocation = 120
+Ystart = 250
+
+pixLen = round(50 / pSpacing)
+imgLen = pixLen * pSpacing
+imgLen = imgLen + runUp + UVLamp
+
+
+
+Yend = Ystart - imgLen
+print("Print length: %f"%imgLen)
+
+Zcurr = 3.0
+total_layers = 250
 PrintSpeed = PrintSpeed * 60 #set to mm/min
 
 root = "\\Python Ender S1"
-
-#images were generated from an stl file, then the support material was inverted using irfanview
-fname1 = "verylowdense.bmp"
 
 printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Ystart,Zcurr))
 printer_command("M400") #wait for move complete
@@ -246,16 +264,28 @@ if(val == "n"):
 
 
 board_command("T 1 50") #set temps - this doesnt wait so head heating time should be allowed
-    
+star_full = time.time()
+avg_time = 0
 for layers in range(total_layers):
-    
+    delf = star_full
+    star_full = time.time()
+    delf = (star_full - delf)
+    avg_time = delf*0.25 + avg_time*0.75
+    if(layers > 10):
+        print(avg_time)
+        remaining_time = (star_full + avg_time*(total_layers - layers))
+        print(time.asctime(time.localtime(remaining_time)))
+    else:
+        print(delf)
+        remaining_time = (star_full + delf*(total_layers - layers))
+        print(time.asctime(time.localtime(remaining_time)))
     print("--------------")
     print("Layer %d of %d"%(layers+1, total_layers))
     print("Height %f"%(Zcurr))
     check_board()
     im1 = Image.open(fname1, 'r')
     sendImage(1, im1, 0)
-    setStartPoint(8*30/0.1)
+    setStartPoint(8*runUp/0.1)
     #board_sendData(layers)
 
 
@@ -278,5 +308,6 @@ board_command("p 1")
 board_command("I 1")
 ser_printer.close()
 ser_board.close()
+
 #board_command("F") #turn off board
 

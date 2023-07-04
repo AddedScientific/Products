@@ -2,13 +2,18 @@ import numpy as np
 from PIL import Image
 
 
-dpiy = 4
+npi = 185
 
-spacx = 30
-spacy = spacx * dpiy
+dist = 25.4 / npi
+square = 1 / dist
+
+ratio = (40 / 1)**(1/3)
+
+spacx = 1+round(square*ratio)
+spacy = spacx
 
 
-lengt = 128*dpiy*3
+lengt = 128*3
 
 array = np.ones([128, lengt], dtype=np.uint8)*255
 
@@ -20,5 +25,11 @@ for y in range(lengt):
     if y % spacy == 0:
         array[:,y] = 0
 
+
+array[:,0] = 0
+array[:,-1] = 0
+array[0,:] = 0
+array[-1,:] = 0
+
 img = Image.fromarray(array)
-img.save('verylowdense.bmp')
+img.save('Square_185_Scaled.bmp')

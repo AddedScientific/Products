@@ -167,8 +167,8 @@ def setStartPoint(loc):
     
 
 
-ser_printer = serial.Serial("COM13", 115200)
-ser_board = serial.Serial("COM12", 1000000)
+ser_printer = serial.Serial("COM7", 115200)
+ser_board = serial.Serial("COM5", 1000000)
 print("Serials connected")
 
 printer_command("G28 0") #homes all untrusted axis
@@ -180,25 +180,25 @@ print("Machine homed and ready")
 board_command("O") #turn board on
 print("Board on")
 
-PrintSpeed = 100 ##100mm/s is 3khz
+PrintSpeed = 200 ##100mm/s is 3khz
 pSpacing = 722 #dpi
 pSpacing = 25.4/722 #to mm
 pFrequency = PrintSpeed / pSpacing #300 mm/s divide by drop spacing is Hz
 secondHeadOffset = int(30 / pSpacing) #mount designed with 30 mm space
 board_command("p %d"%pFrequency) #set printing frequency, internal clock used
 board_command("D 0")
-Xlocation = 150
+Xlocation = 130
 Ystart = 250
 Yend = 20
-Zindex = 0.018
-Zcurr = 3.5
-total_layers = 50
+Zindex = 0.0086
+Zcurr = 4.0
+total_layers = 99999
 PrintSpeed = PrintSpeed * 60 #set to mm/min
 
 root = "\\Python Ender S1"
 
 #images were generated from an stl file, then the support material was inverted using irfanview
-fname1 = "verylowdense.bmp"
+fname1 = "InterestingPattern.bmp"
 
 printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Ystart,Zcurr))
 printer_command("M400") #wait for move complete
