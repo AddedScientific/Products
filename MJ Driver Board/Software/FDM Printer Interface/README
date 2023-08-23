@@ -1,1 +1,7 @@
-Basic python code that was used to print on the Ender S1 FDM printer with custom firmware. Custom firmware was requried to use Z limit switch over touch probe that was replaced.
+Basic python code that was originally used to print on the Ender S1 FDM printer with custom firmware. Custom firmware was requried to use Z limit switch over touch probe that was replaced.
+
+Code has been slightly modified so that it can be defined to print in the X or Y direction. There is a flag at the start of the code.
+
+This code requires that the Stepper interface (as detailed in the manual) is connected. 
+
+Also included is a script that can poll the board and check the mode, position, and image load status. If there are issues with printing this script may be useful in identifying them. If the hardware is setup correctly and the motion mode is STEPPER then the stepper position should change as the printer moves.

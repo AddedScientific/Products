@@ -6,7 +6,7 @@ import random
 import time
 
 
-def sendImage(headIdx, imageToSend, whiteSpace):
+def sendImageCompressed(headIdx, imageToSend, whiteSpace):
     
     #get image properties
     width, height = imageToSend.size
@@ -15,7 +15,7 @@ def sendImage(headIdx, imageToSend, whiteSpace):
     #create empty byte array to store image data
     sum_line = 0
     imageData = bytearray()
-    imageData.append(87) #87 = W
+    imageData.append(74) #87 = W
     imageData.append(100+headIdx) #head index 1-4 so 101 - 104
 
     #sum the bytes
@@ -51,15 +51,60 @@ def sendImage(headIdx, imageToSend, whiteSpace):
         sum_line = 0
 
 
+    curIdx = 2
+    newArray = bytearray()
+    newArray.append(imageData[0])
+    newArray.append(imageData[1])
+    byteCount = 1
+    while curIdx <= (len(imageData)-32):
+        
+        if(imageData[curIdx:curIdx+16] == imageData[curIdx+16:curIdx+32]):
+            byteCount+=1
+        else:
+            newArray.append(byteCount)
+            for index in range(curIdx, curIdx+16):
+                newArray.append(imageData[index])
+            byteCount = 1
+
+        ##if full byte or at the end        
+        if(byteCount == 256):
+            ##append count
+            newArray.append(255)
+            byteCount = 1
+            ##append current row
+            for index in range(curIdx, curIdx+16):
+                newArray.append(imageData[index])
+
+        if(curIdx == (len(imageData)-32)):
+            ##append count this runs when EOF
+            ##if byteCount > 1 then its not a new line
+            ##if bteCount==1 then it is 
+            newArray.append(byteCount)
+            ##append current row
+
+            if(byteCount == 1):
+                for index in range(curIdx+16, curIdx+32):
+                    newArray.append(imageData[index])
+            else:
+                for index in range(curIdx, curIdx+16):
+                    newArray.append(imageData[index])
+
+        curIdx+=16
 
     #time the data send
     t = time.time()
-
-    #send the image data
-    ser.write(imageData)
     
-    newFile = open("filename.txt", "wb")
-    newFile.write(imageData[2:])
+    raw_length = (len(imageData))/1024
+    compressed_length = (len(newArray))/1024
+
+    print(raw_length)
+    print(compressed_length)
+    print(raw_length/compressed_length)
+    #send the image data
+    ser.write(newArray)
+    
+    newFile = open("filenameR.txt", "wb")
+    newFile.write(newArray[2:])
 
     retrun = ""
     #recieve the "checksum from the head"
@@ -71,6 +116,8 @@ def sendImage(headIdx, imageToSend, whiteSpace):
 
     while ser.in_waiting:
         retrun = retrun + ser.read().decode("utf-8")
+
+
 
     #print(retrun)
     midw = retrun.split(":")
@@ -135,10 +182,10 @@ while ser.in_waiting:
 print(retrun)
 retrun = ""
 
-result  = sendImage(1, im,0) #compressed send
-result += sendImage(2, im,0)  #standard send
-result += sendImage(3, im,0)
-result += sendImage(4, im,0)
+result  = sendImageCompressed(1, im,0) #compressed send
+result += sendImageCompressed(2, im,0)  #standard send
+result += sendImageCompressed(3, im,0)
+result += sendImageCompressed(4, im,0)
 
 if(result == 1):
     print("All sent successfully")
