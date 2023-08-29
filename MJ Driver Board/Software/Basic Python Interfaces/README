@@ -1,1 +1,5 @@
-Collection of different python scripts for interface with the board.
+Collection of different python scripts for interface with the board. There are examples for the compressed and non-compressed image sending.
+
+The compression used is a simple repeat count structure with 17 bytes per row (128 nozzles). The first byte is the number of row repeats, the next 16 bytes decribe the row.
+
+Useful for images with high white/black space.

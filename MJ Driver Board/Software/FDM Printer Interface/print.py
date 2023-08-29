@@ -7,6 +7,25 @@ import time
 import sys
 
 
+
+comportboard = "COM10" #the comport of the printhead driver board
+comportprinter = "COM11" #the com port of the fdm printer (tested on ender)
+
+print_in_x = 1 #someprinters will print in X some in Y, 0 for Y, 1 for X
+
+#start locations for S1 and Creality S5 printers.
+
+if(print_in_x == 1):
+    Xstart = 20
+    Xend = 220
+    Ystart = 125
+    Yend = 125
+else:
+    Xstart = 125
+    Xend = 125
+    Ystart = 20
+    Yend = 220
+
 def sendImage(headIdx, imageToSend, whiteSpace):
     #this function sends image to a already connected board and has the option to pad white space (useful for ph alignment)
     #get image properties - this section only compatible with certain colour spaces
@@ -165,10 +184,10 @@ def setStartPoint(loc):
     
 
 
-ser_printer = serial.Serial("COM9", 115200)
-ser_board = serial.Serial("COM12", 1000000)
+ser_printer = serial.Serial(comportprinter, 115200)
+ser_board = serial.Serial(comportboard, 1000000)
 
-printer_command("G28 0") #homes all untrusted axis
+#printer_command("G28 0") #homes all untrusted axis 
 printer_command("G90")
 printer_command("G1 X 125 Y 30 Z 10 F18000")
 
@@ -183,9 +202,7 @@ pFrequency = PrintSpeed / pSpacing #300 mm/s divide by drop spacing is Hz
 secondHeadOffset = int(30 / pSpacing) #mount designed with 30 mm space
 board_command("p %d"%pFrequency) #set printing frequency, internal clock used
 
-Xlocation = 125
-Ystart = 20
-Yend = 220
+
 Zindex = 0.018
 Zcurr = 3.5
 total_layers = 1000
@@ -194,10 +211,10 @@ PrintSpeed = PrintSpeed * 60 #set to mm/min
 root = "\\Python Ender S1"
 
 #images were generated from an stl file, then the support material was inverted using irfanview
-fname1 = root+"\\STL\\Gyroid_80x80x80\\support\\images%d.bmp"
-fname2 = root+"\\STL\\Gyroid_80x80x80\\build\\images%d.bmp"
+fname1 = "mono_logo.bmp"
+fname2 = "mono_logo_inv.bmp"
 
-printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Yend,Zcurr))
+printer_command("G1 X %f Y %f Z %f F18000"%(Xstart,Ystart,Zcurr))
 printer_command("M400") #wait for move complete
 time.sleep(2)
 
@@ -210,19 +227,21 @@ for layers in range(total_layers):
     print("Layer %d of %d"%(layers+1, total_layers))
     print("Height %f"%(Zcurr))
     check_board()
-    im1 = Image.open(fname1%layers, 'r')
-    im2 = Image.open(fname2%layers, 'r')
+    
+    im1 = Image.open(fname1, 'r')
+    im2 = Image.open(fname2, 'r')
+    #im1 = Image.open(fname1%layers, 'r') #Not used as we are doing a single image
+    #im2 = Image.open(fname2%layers, 'r')
     sendImage(1, im1, 0)
     sendImage(2, im2, secondHeadOffset)
     setStartPoint(3600)
-    board_sendData(layers)
 
-    printer_command("G1 X %f Y %f Z %f F%d"%(Xlocation,Ystart,Zcurr,PrintSpeed))
+    printer_command("G1 X %f Y %f Z %f F%d"%(Xstart,Ystart,Zcurr,PrintSpeed))
     printer_clear_buffer() #clear serial buffer
     printer_command("M400") #wait for "OK"
 
     Zcurr += Zindex
-    printer_command("G1 X %f Y %f Z %f F18000"%(Xlocation,Yend,Zcurr))
+    printer_command("G1 X %f Y %f Z %f F18000"%(Xend,Yend,Zcurr))
     printer_clear_buffer()
     printer_command("M400")
 
