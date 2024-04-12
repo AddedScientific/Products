@@ -29,6 +29,7 @@ using System.Security.Cryptography;
 using System.Linq.Expressions;
 using System.IO.Compression;
 using Newtonsoft.Json.Converters;
+using System.Management;
 
 namespace DriverBoardDropwatcher
 {
@@ -190,20 +191,58 @@ namespace DriverBoardDropwatcher
         */
 
         private void cbSerialPort_DropDown(object sender, EventArgs e)
-        {
-            cbSerialPort.Items.Clear(); //Clears all items from serial port drop down
-            string[] ports = SerialPort.GetPortNames();
+        {        // List to hold all matching COM port names
+            List<string> comPorts = new List<string>();
+
+            // Query WMI for devices with a specific VID and PID
+            string vid = "16C0";
+            string pid = "0483";
+            string query = $"SELECT * FROM Win32_PnPEntity WHERE PNPDeviceID LIKE '%VID_{vid}&PID_{pid}%'";
+
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            {
+                foreach (ManagementObject queryObj in searcher.Get())
+                {
+                    string caption = queryObj["Caption"].ToString();
+                    Console.WriteLine("Found Device: " + caption);
+
+                    // Extract COM port name from the caption
+                    int startIndex = caption.IndexOf("(COM");
+                    if (startIndex != -1)
+                    {
+                        int endIndex = caption.IndexOf(')', startIndex);
+                        if (endIndex != -1)
+                        {
+                            string comPort = caption.Substring(startIndex + 1, endIndex - (startIndex+1));
+                            comPorts.Add(comPort);
+                            Console.WriteLine("COM Port: " + comPort);
+                        }
+                    }
+                }
+            }
+
+            // Optional: Convert List to Array
+            string[] comPortArray = comPorts.ToArray();
+            Console.WriteLine("Array of COM Ports:");
+            foreach (var port in comPortArray)
+            {
+                Console.WriteLine(port);
+            }
+
+            cbSerialPort.Items.Clear();
             // Display each port name to the console.
-            if (ports.Length < 1)
-                cbSerialPort.Items.Add("No ports found");
+            if (comPortArray.Length < 1)
+                cbSerialPort.Items.Add("No X128 ports found");
             else
             {
-                foreach (string port in ports)
+                foreach (string port in comPortArray)
                 {
                     Console.WriteLine(port);
                     cbSerialPort.Items.Add(port); //Adds all available ports to drop down
                 }
             }
+
+
         }
 
         /**
