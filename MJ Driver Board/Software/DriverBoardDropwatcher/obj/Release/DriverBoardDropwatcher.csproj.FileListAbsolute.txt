@@ -1,0 +1,13 @@
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Release\DriverBoardDropwatcher.exe.config
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Release\DriverBoardDropwatcher.exe
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Release\DriverBoardDropwatcher.pdb
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Release\Newtonsoft.Json.dll
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\bin\Release\Newtonsoft.Json.xml
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.csproj.AssemblyReference.cache
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.Form1.resources
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.Properties.Resources.resources
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.csproj.GenerateResource.cache
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.csproj.CoreCompileInputs.cache
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.csproj.CopyComplete
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.exe
+C:\Users\Craig\Documents\GitHub\Products\MJ Driver Board\Software\DriverBoardDropwatcher\obj\Release\DriverBoardDropwatcher.pdb
