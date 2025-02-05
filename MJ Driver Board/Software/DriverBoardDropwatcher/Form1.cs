@@ -383,10 +383,10 @@ namespace DriverBoardDropwatcher
                         else
                             AppendTextToRichTextBox(new string(' ', indent * 0) + $"\"{key}\": ", false);
                     }
+                    else if (currentDepth == 0)
+                        AppendTextToRichTextBox(new string(' ', indent * 0) + $"\n\"{key}\": ", false); //space line after main key
                     else
-                    {
-                        AppendTextToRichTextBox(new string(' ', indent * 0) + $"\"{key}\": ", false);
-                    }
+                        AppendTextToRichTextBox(new string(' ', indent * 0) + $"\"{key}\": ", false); //no space line in 2nd gen children
 
                     CompareAndDisplayInRichTextBox(valueA, valueB, indent + 1, currentDepth + 1);
 
@@ -408,9 +408,9 @@ namespace DriverBoardDropwatcher
                     CompareAndDisplayInRichTextBox(arrayA[i], valB, indent + 1, currentDepth);
 
                     if (i < arrayA.Count - 1)
-                        AppendTextToRichTextBox(",", false);
+                        AppendTextToRichTextBox(",\n", false); ///space line between "head 1； xxxx and head 2: xxxx"
                 }
-                AppendTextToRichTextBox(new string(' ', (indent - 1) * 0) + "]\n", false);
+                AppendTextToRichTextBox(new string(' ', (indent - 1) * 0) + "]", false); //space line here is moved after ,
             }
             else
             {
