@@ -30,12 +30,18 @@ using System.Linq.Expressions;
 using System.IO.Compression;
 using Newtonsoft.Json.Converters;
 using System.Management;
+using Newtonsoft.Json;
+using System.Drawing.Text;
 
 namespace DriverBoardDropwatcher
 {
     public partial class Form1 : Form
     {
         private OpenFileDialog ofd; /*!< Creates an OpenFileDialog variable called ofd */
+        private StringBuilder rtfBuilder; // RTF txt storage latest
+        private string ContentOld = ""; // string storage old text
+        //initilize a fake oldput for the first comparision
+        string oldInput = "{\n\"board\":[{\"power\":1, \"timeOn\":384074, \"currentMode\":\"None\"}],\"heads\":[{\"head\": 1, \"voltage\":35.00, \"status\":10, \"curTemperature\":25.55, \"printCounts\":0, \"setTemperature\":21.00, \"isHeating\":1, \"isActive\":0},{\"head\": 2, \"voltage\":35.00, \"status\":-2, \"curTemperature\":-273.15, \"printCounts\":0, \"setTemperature\":20.00, \"isHeating\":0, \"isActive\":0},{\"head\": 3, \"voltage\":35.00, \"status\":-2, \"curTemperature\":-273.15, \"printCounts\":0, \"setTemperature\":20.00, \"isHeating\":0, \"isActive\":0},{\"head\": 4, \"voltage\":35.00, \"status\":-2, \"curTemperature\":-273.15, \"printCounts\":0, \"setTemperature\":20.00, \"isHeating\":0, \"isActive\":0}],\"images\":[{\"image\": 1, \"length\":0, \"hasData\":0, \"dataWaiting\":0, \"progress\":0, \"remaining_images\":0, \"image_stored_lv\":0, \"image_stored_dl\":0, \"image_stored_rc\":0},{\"image\": 2, \"length\":0, \"hasData\":0, \"dataWaiting\":0, \"progress\":0, \"remaining_images\":0, \"image_stored_lv\":0, \"image_stored_dl\":0, \"image_stored_rc\":0},{\"image\": 3, \"length\":0, \"hasData\":0, \"dataWaiting\":0, \"progress\":0, \"remaining_images\":0, \"image_stored_lv\":0, \"image_stored_dl\":0, \"image_stored_rc\":0},{\"image\": 4, \"length\":0, \"hasData\":0, \"dataWaiting\":0, \"progress\":0, \"remaining_images\":0, \"image_stored_lv\":0, \"image_stored_dl\":0, \"image_stored_rc\":0}],\"locations\":[{\"encoder\":0, \"stepper\":0}],\"printingParameters\":[{\"encoderDivider\":0, \"internalPrintPeriod\":1000, \"pdThreshold\":500, \"pdContinuous\":0, \"forcedPD\":0, \"startPosition\":-99999, \"patternRepeats\":0}],\"versions\":[{\"date\":\"Feb 22 2024\",\"software\":\"2.005\",\"hardware\":[{\"serialNumber\": \"00-16-BE-1A\",\"macAddress\": \"04:E9:E5:16:BE:1A\",\"uid\": \"61-5D-18-A1-12-35-19-D7\"}]}]\n}";
         bool valid_port_selected = false;
         string port_name;
         int failCounter = 0;
@@ -77,6 +83,10 @@ namespace DriverBoardDropwatcher
         public Form1()
         {
             InitializeComponent();
+            rtfBuilder = new StringBuilder();
+            rtfBuilder.Append(@"{\rtf1\ansi\deff0{\fonttbl{\f0 Consolas;}}"); // RTF head
+            rtfBuilder.Append(@"\viewkind4\uc1\pard\f0\fs20 "); // set default font
+            rtfBuilder.Append("{");
             // Upload Placeholer Image for 4 Picture Boxes
             pictureBox1.Image = Properties.Resources.upload;
             pictureBox2.Image = Properties.Resources.upload;
@@ -347,9 +357,117 @@ namespace DriverBoardDropwatcher
         * @param sender The object that contains the reference to the object that raised the event
         * @param e The event data
         */
+        private void CompareAndDisplayInRichTextBox(JToken tokenA, JToken tokenB, int indent, int currentDepth = 0)
+        {
 
+            if (tokenA == null || tokenB == null)
+                return;
+
+            if (tokenA.Type == JTokenType.Object)//if is object, further peel it because inside it is array
+            {
+                JObject objA = (JObject)tokenA;
+                JObject objB = (JObject)tokenB;
+
+                int count = objA.Properties().Count();
+                int index = 0;
+
+                foreach (var property in objA.Properties())
+                {
+                    string key = property.Name;
+                    JToken valueA = property.Value;
+                    JToken valueB = objB.ContainsKey(key) ? objB[key] : null; //value B may be blank initially
+                    if (currentDepth == 1) //bold only at 2nd layer, if future JSON structure change, revise here
+                    {
+                        if (valueA.ToString() != valueB?.ToString())
+                            AppendTextToRichTextBox(new string(' ', indent * 0) + $"\"{key}\": ", true); // Key in bold
+                        else
+                            AppendTextToRichTextBox(new string(' ', indent * 0) + $"\"{key}\": ", false);
+                    }
+                    else if (currentDepth == 0)
+                        AppendTextToRichTextBox(new string(' ', indent * 0) + $"\n\"{key}\": ", false); //space line after main key
+                    else
+                        AppendTextToRichTextBox(new string(' ', indent * 0) + $"\"{key}\": ", false); //no space line in 2nd gen children
+
+                    CompareAndDisplayInRichTextBox(valueA, valueB, indent + 1, currentDepth + 1);
+
+                    index++;
+                    if (index < count)
+                        AppendTextToRichTextBox(",", false);
+                }
+            }
+            else if (tokenA.Type == JTokenType.Array) //if is array, for example "timeon :114514"
+            {
+                JArray arrayA = (JArray)tokenA;
+                JArray arrayB = (JArray)tokenB;
+
+                AppendTextToRichTextBox("[", false);
+                for (int i = 0; i < arrayA.Count; i++)
+                {
+                    AppendTextToRichTextBox(new string(' ', indent * 0), false);
+                    JToken valB = i < arrayB.Count ? arrayB[i] : null;
+                    CompareAndDisplayInRichTextBox(arrayA[i], valB, indent + 1, currentDepth);
+
+                    if (i < arrayA.Count - 1)
+                        AppendTextToRichTextBox(",\n", false); ///space line between "head 1； xxxx and head 2: xxxx"
+                }
+                AppendTextToRichTextBox(new string(' ', (indent - 1) * 0) + "]", false); //space line here is moved after ,
+            }
+            else
+            {
+                string valueA = tokenA.ToString();
+                string valueB = tokenB?.ToString();
+
+                bool isDifferent = valueA != valueB;
+
+                AppendTextToRichTextBox(valueA, isDifferent); //bold the difference
+            }
+        }
+
+        // Add text in RTF format to RichTextBox (assistance function: enter every line)
+        private void AppendTextToRichTextBox(string rtftext, bool bold)
+        {
+
+            if (bold)
+                rtfBuilder.Append(@"\b " + rtftext.Replace("\n", @"\par ") + @"\b0 ");
+            else
+                rtfBuilder.Append(rtftext.Replace("\n", @"\par "));
+        }
+
+        private void ProcessAndDisplayJsonComparison(JToken tokenA, JToken tokenB)
+        {
+            rtfBuilder.Clear();
+            rtfBuilder.Append(@"{\rtf1\ansi\deff0{\fonttbl{\f0 Consolas;}}\viewkind4\uc1\pard\f0\fs20 ");
+            rtfBuilder.Append("{");
+            CompareAndDisplayInRichTextBox(tokenA, tokenB, 1, 0);
+            rtfBuilder.Append("}");
+
+            string newRtfContent = rtfBuilder.ToString();
+
+            if (string.IsNullOrEmpty(ContentOld)) ContentOld = @"{\rtf1\ansi\deff0{\fonttbl{\f0 Consolas;}}\viewkind4\uc1\pard\f0\fs20 }";
+            if (string.IsNullOrEmpty(newRtfContent)) newRtfContent = @"{\rtf1\ansi\deff0{\fonttbl{\f0 Consolas;}}\viewkind4\uc1\pard\f0\fs20 }";
+
+            int startIndex1 = ContentOld.IndexOf("\\par");
+            int startIndex2 = newRtfContent.IndexOf("\\par");
+
+            string content1 = (startIndex1 == -1) ? ContentOld : ContentOld.Substring(startIndex1);
+            string content2 = (startIndex2 == -1) ? newRtfContent : newRtfContent.Substring(startIndex2);
+
+            StringBuilder newRtf = new StringBuilder();
+            newRtf.Append(@"{\rtf1\ansi\deff0{\fonttbl{\f0 Consolas;}}\viewkind4\uc1\pard\f0\fs20 ");
+            newRtf.Append(content2); // add the latest content
+            newRtf.Append(content1); // add previous content
+            newRtf.Append("}");
+
+            ContentOld = newRtf.ToString();
+
+            // refresh UI RichTextBox at invoke node
+            this.Invoke(new Action(() => txtbJSONview.Rtf = ContentOld));
+        }
         private void DataRecievedHandler(object sender, SerialDataReceivedEventArgs e)
         {
+            JObject obj1 = new JObject(); //string should be read as json object for comparision children
+            JObject obj2 = new JObject();
+            
             while (driver_board.BytesToRead > 0)
             {
                 string input = driver_board.ReadExisting();
@@ -362,7 +480,6 @@ namespace DriverBoardDropwatcher
                         {
                             parseJsonData(input);
                             failCounter = 0;
-                            txtbJSONview.Text += input;
                         }
                         catch
                         {
@@ -380,6 +497,14 @@ namespace DriverBoardDropwatcher
                                     Environment.Exit(0);
                                 }
                             }
+                        }
+                        if (failCounter == 0)
+                        {
+                            obj1 = JsonConvert.DeserializeObject<JObject>(input);
+                            obj2 = JsonConvert.DeserializeObject<JObject>(oldInput);
+                            ProcessAndDisplayJsonComparison(obj1, obj2);
+                            oldInput = input;
+
                         }
                     }
                 }
@@ -408,11 +533,12 @@ namespace DriverBoardDropwatcher
                         Head4ImageSend = false;
                     }
 
-                    txtbJSONview.Text += "\n";
-                    txtbJSONview.Text += input;
-                    txtbJSONview.Text += "\n";
-                }
+                    obj1 = JsonConvert.DeserializeObject<JObject>(input); //string to Jobject
+                    obj2 = JsonConvert.DeserializeObject<JObject>(oldInput);
+                    ProcessAndDisplayJsonComparison(obj1, obj2); //compare old and new, highlight difference, assemble text in rtfbuilder, show on UI
+                    oldInput = input; //put the new to old
 
+                }
                 else
                 {
                     //Console.WriteLine(input);
